@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractController : MonoBehaviour
 {
     public bool isInteracted;
+    public string sceneName;
 
     public virtual void Interact()
     {
@@ -13,6 +15,7 @@ public class InteractController : MonoBehaviour
         if (!isInteracted)
         {
             isInteracted = true;
+            SceneManager.LoadScene(sceneName);
         }
     }
 }
