@@ -48,4 +48,4 @@ MonoBehaviour:
   height: 10
   size: 2
   tile: {fileID: 7781749854421273583, guid: 30790b390422c23b88ea56dd1a8ce65d, type: 3}
-  readFile: 0
+  readFile: 1
