@@ -24,6 +24,7 @@ public class InteractivityController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")){
             isInRange = true;
+            collision.gameObject.GetComponent<PlayerManager>().NotifyPlayer();
             Debug.Log("Player in range");
         }
     }
@@ -32,6 +33,7 @@ public class InteractivityController : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player")){
             isInRange = false;
+            collision.gameObject.GetComponent<PlayerManager>().DeNotifyPlayer();
             Debug.Log("Player out of range");
         }
     }
