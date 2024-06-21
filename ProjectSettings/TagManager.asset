@@ -43,11 +43,11 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 4204011249
+    uniqueID: 3451849897
     locked: 0
-  - name: Foreground
-    uniqueID: 1323717113
+  - name: Building
+    uniqueID: 393607723
     locked: 0
-  - name: UI
-    uniqueID: 2248481073
+  - name: Player
+    uniqueID: 1365500047
     locked: 0
