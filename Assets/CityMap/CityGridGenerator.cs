@@ -16,6 +16,11 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] private bool readFile = false;
 
+    //Make it so all the tiles are generated as doors based on the DoorPrefab variable
+    [SerializeField] public GameObject NPC_Character;
+
+    [SerializeField] public GameObject Door;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +59,18 @@ public class CityGridGenerator : MonoBehaviour
         var xPos = x * size;
         var yPos = y * size;
         var t = Instantiate(tile, new Vector3(xPos, yPos), Quaternion.identity);
+        
 
         t.transform.localScale = new Vector3(size, size, size);
 
         var sprite = t.GetComponent<SpriteRenderer>();
         sprite.sortingLayerID = SortingLayer.NameToID("Tile");
         sprite.color = color ?? Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
+
+        //Make each tile have a interactable prefab as a child; For testing its a door
+        var door = Instantiate(NPC_Character, t.transform);
+        door.transform.localPosition = new Vector3(0, 0, 0);
+        door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
         return t;
     }
