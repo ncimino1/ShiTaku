@@ -49,17 +49,17 @@ public class CityGridGenerator : MonoBehaviour
         {
             for (int y = 0; y < tiles.Height; y++)
             {
-                GenerateTile(x, y, tiles.Types[x + y * tiles.Width].GetColor());
+                GenerateTile(x, y, tiles.Types[x + y * tiles.Width].GetColor(), tiles.doors[x + y * tiles.Width]);
             }
         }
     }
 
-    Tile GenerateTile(int x, int y, Color? color = null)
+    Tile GenerateTile(int x, int y, Color? color = null, String tp = null)
     {
         var xPos = x * size;
         var yPos = y * size;
         var t = Instantiate(tile, new Vector3(xPos, yPos), Quaternion.identity);
-        
+
 
         t.transform.localScale = new Vector3(size, size, size);
 
@@ -68,9 +68,13 @@ public class CityGridGenerator : MonoBehaviour
         sprite.color = color ?? Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
 
         //Make each tile have a interactable prefab as a child; For testing its a door
-        var door = Instantiate(NPC_Character, t.transform);
-        door.transform.localPosition = new Vector3(0, 0, 0);
-        door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        if (tp != null)
+        {
+            Debug.Log(tp);
+            var door = Instantiate(NPC_Character, t.transform);
+            door.transform.localPosition = new Vector3(0, 0, 0);
+            door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        }
 
         return t;
     }

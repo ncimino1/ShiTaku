@@ -5,3 +5,5 @@ width 5 height 5
 1 1 1 1 1
 1 1 1 1 1
 1 1 1 1 1
+//door row col scene
+door 1 1 test
