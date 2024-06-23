@@ -130,6 +130,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: Door
+      value: 
+      objectReference: {fileID: 2961588839302316541, guid: be4a2622255c44b4fa11f9244abe634d, type: 3}
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: DoorPrefab
+      value: 
+      objectReference: {fileID: 963428325737977618, guid: 8872943114b3bd74aaeb915de5928858, type: 3}
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: NPC_Character
+      value: 
+      objectReference: {fileID: 3655744650402645862, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
     - target: {fileID: 5892005785548161605, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

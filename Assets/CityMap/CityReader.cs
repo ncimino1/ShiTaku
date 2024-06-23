@@ -11,6 +11,7 @@ public class CityReader
         public int Width { get; set; }
         public int Height { get; set; }
         public TileTypes[] Types;
+        public String[] doors;
     }
 
     private const String FileName = "City.txt";
@@ -76,19 +77,27 @@ public class CityReader
         var count = 0;
 
         parsed.Types = new TileTypes[parsed.Width * parsed.Height];
+        parsed.doors = new String[parsed.Width * parsed.Height];
+        var i = start;
 
-        foreach (var line in iterator.Skip(start))
+        for(; i < iterator.Length; i++)
         {
+            var line = iterator[i];
             if (line.StartsWith("//"))
             {
                 continue;
+            }
+
+            if (line.StartsWith("door"))
+            {
+                break;
             }
 
             if (count == parsed.Height)
             {
                 return null;
             }
-
+            
             var split = line.Split(" ");
             if (split.Length != parsed.Width)
             {
@@ -101,7 +110,7 @@ public class CityReader
             {
                 if (TileTypes.TryParse(num, out TileTypes result))
                 {
-                    parsed.Types[index + (parsed.Height - count - 1) * parsed.Height] = result;
+                    parsed.Types[index + (parsed.Height - count - 1) * parsed.Width] = result;
                     index++;
                 }
                 else
@@ -111,6 +120,29 @@ public class CityReader
             }
 
             count++;
+        }
+
+        start = start + count;
+
+        for (; i < iterator.Length; i++)
+        {
+            var data = iterator[i].Split(" ");
+            if (data.Length != 4)
+            {
+                break;
+            }
+
+            if (!int.TryParse(data[1], out int row))
+            {
+                break;
+            }
+
+            if (!int.TryParse(data[2], out int col))
+            {
+                break;
+            }
+
+            parsed.doors[col + (parsed.Height - row - 1) * parsed.Width] = data[3];
         }
 
         return parsed;
