@@ -110,7 +110,7 @@ public class CityReader
             {
                 if (TileTypes.TryParse(num, out TileTypes result))
                 {
-                    parsed.Types[index + (parsed.Height - count - 1) * parsed.Height] = result;
+                    parsed.Types[index + (parsed.Height - count - 1) * parsed.Width] = result;
                     index++;
                 }
                 else
