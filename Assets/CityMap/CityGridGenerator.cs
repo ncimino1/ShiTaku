@@ -71,9 +71,10 @@ public class CityGridGenerator : MonoBehaviour
         if (tp != null)
         {
             Debug.Log(tp);
-            var door = Instantiate(NPC_Character, t.transform);
+            var door = Instantiate(Door, t.transform);
             door.transform.localPosition = new Vector3(0, 0, 0);
             door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            door.GetComponent<InteractController>().sceneName = tp;
         }
 
         return t;
