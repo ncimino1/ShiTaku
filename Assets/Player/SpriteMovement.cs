@@ -14,6 +14,7 @@ public class SpriteMovement : MonoBehaviour
 
     private float _coeff;
     private readonly float _accelTime = 0.5f;
+    
 
     private float Interp(float time)
     {
