@@ -42,6 +42,7 @@ public class NpcManager : MonoBehaviour
 
     //Function to generate a random direction for the NPC to move in for a max of 3 second
     public void RandomDirection(){
+        //Wait for 3 seconds before generating a new direction
         int randomDirection = Random.Range(0, 4);
         switch(randomDirection){
             case 0:
@@ -57,6 +58,7 @@ public class NpcManager : MonoBehaviour
                 anim.SetBool("right", true);
                 break;
         }
+
         StartCoroutine(StopMovement());
     }
 
