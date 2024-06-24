@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Menu
+  - StartGame
+  - Quit
   layers:
   - Default
   - TransparentFX
