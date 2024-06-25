@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Gamer.unity
     guid: c5c6e9d31b4d09c49b30bf46aac4be0e
+  - enabled: 1
+    path: Assets/Scenes/Interior.unity
+    guid: 1ad2cac4b8ffbec3898d91ec31230e78
+  - enabled: 1
+    path: Assets/Scenes/Cityscape.unity
+    guid: 796ef0166de84e012a3ae60bdaca4796
   m_configObjects: {}
