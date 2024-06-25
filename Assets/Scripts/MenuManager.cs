@@ -6,17 +6,23 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    public int finalDay = 4;
     public NPCMenu npcMenu;
     public PauseMenu pauseMenu;
+
+    public GameOverMenu gameOverMenu;
+
+    public ActionManagerScript actionManager;
+
+
     // Start is called before the first frame update
 
     
     void Start()
     {
-        //npcMenu.SetAPText();
-        //pauseMenu.SetAPText();
         npcMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
+        gameOverMenu.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -30,6 +36,12 @@ public class MenuManager : MonoBehaviour
         } else if (Input.GetKeyDown(KeyCode.Z)) {
             pauseMenu.gameObject.SetActive(true);
             pauseMenu.SetAPText();
+        } else if (actionManager.ReturnDays() == finalDay) {
+            npcMenu.gameObject.SetActive(false);
+            pauseMenu.gameObject.SetActive(false);
+            gameOverMenu.gameObject.SetActive(true);
         }
+
+        
     }
 }

@@ -116,4 +116,8 @@ public class ActionManagerScript : MonoBehaviour
     public int ReturnActionPoints() {
         return actionCounter;
     }
+
+    public int ReturnDays() {
+        return dayCounter;
+    }
 }
