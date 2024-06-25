@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SpriteMovement : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class SpriteMovement : MonoBehaviour
     private Vector2 _dir;
     public float velocity = 5;
 
+    public Scene mainScene;
+
     private bool _keyHeld;
     private float _startTime;
 
     private float _coeff;
     private readonly float _accelTime = 0.5f;
+
+    private static Dictionary<string, Vector3> _savedLocs = new Dictionary<string, Vector3>();
     
 
     private float Interp(float time)
@@ -34,6 +39,11 @@ public class SpriteMovement : MonoBehaviour
         _keyHeld = false;
 
         _coeff = (velocity - 2) / (_accelTime);
+
+        if (_savedLocs.TryGetValue(SceneManager.GetActiveScene().name, out Vector3 pos))
+        {
+            transform.position = pos;
+        }
     }
 
     // Update is called once per frame
@@ -63,5 +73,10 @@ public class SpriteMovement : MonoBehaviour
         }
         
         _phys.velocity = _dir * interpVel;
+    }
+
+    private void OnDestroy()
+    {
+        _savedLocs[SceneManager.GetActiveScene().name] = transform.position;
     }
 }
