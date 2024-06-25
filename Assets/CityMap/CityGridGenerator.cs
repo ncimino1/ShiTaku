@@ -21,6 +21,10 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] public GameObject Door;
 
+    [SerializeField] public GameObject TavernInterior;
+
+    [SerializeField] public GameObject Player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,8 +85,21 @@ public class CityGridGenerator : MonoBehaviour
             offset /= parentRenderer.transform.localScale.y;
             
             door.transform.localPosition = new Vector3(0, -offset, 0);
-            Debug.Log(door.transform.position);
-            door.GetComponent<InteractController>().sceneName = tp;
+
+
+            var interior = Instantiate(TavernInterior,
+                new Vector3(door.transform.position.x, door.transform.position.y), Quaternion.identity);
+            
+            interior.SetActive(false);
+            
+            var exteriorDoor = door.GetComponent<InteractController>();
+            exteriorDoor.exterior = gameObject;
+            exteriorDoor.interior = interior;
+            exteriorDoor.player = Player;
+            
+            var interactController = interior.GetComponent<InteractController>();
+            interactController.exterior = gameObject;
+            interactController.interior = interior;
         }
 
         return t;
