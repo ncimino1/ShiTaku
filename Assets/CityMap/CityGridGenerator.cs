@@ -58,7 +58,8 @@ public class CityGridGenerator : MonoBehaviour
     {
         var xPos = x * size;
         var yPos = y * size;
-        var t = Instantiate(tile, new Vector3(xPos, yPos), Quaternion.identity);
+        var t = Instantiate(tile, transform);
+        t.transform.localPosition = new Vector3(xPos, yPos);
 
 
         t.transform.localScale = new Vector3(size, size, size);

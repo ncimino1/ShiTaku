@@ -19,7 +19,7 @@ public class SpriteMovement : MonoBehaviour
     private readonly float _accelTime = 0.5f;
 
     private static Dictionary<string, Vector3> _savedLocs = new Dictionary<string, Vector3>();
-    
+
 
     private float Interp(float time)
     {
@@ -28,9 +28,18 @@ public class SpriteMovement : MonoBehaviour
 
     private bool KeyPressed()
     {
-        return Input.GetAxisRaw("Horizontal") != 0.0 || Input.GetAxisRaw("Vertical") != 0.0;
+        return Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) ||
+               Input.GetKey(KeyCode.DownArrow);
     }
-    
+
+    private Vector2 MovementDirection()
+    {
+        Vector2 dir = new Vector2();
+        dir.x = Input.GetKey(KeyCode.RightArrow) ? 1 : Input.GetKey(KeyCode.LeftArrow) ? -1 : 0;
+        dir.y = Input.GetKey(KeyCode.UpArrow) ? 1 : Input.GetKey(KeyCode.DownArrow) ? -1 : 0;
+        return dir;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +58,7 @@ public class SpriteMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _dir.x = Input.GetAxisRaw("Horizontal");
-        _dir.y = Input.GetAxisRaw("Vertical");
-        _dir.Normalize();
+        _dir = MovementDirection().normalized;
     }
 
     private void FixedUpdate()
@@ -62,7 +69,8 @@ public class SpriteMovement : MonoBehaviour
             _keyHeld = true;
             _startTime = Time.time;
             interpVel = 0;
-        } else if (_keyHeld && !KeyPressed())
+        }
+        else if (_keyHeld && !KeyPressed())
         {
             interpVel = 0;
             _keyHeld = false;
@@ -71,7 +79,7 @@ public class SpriteMovement : MonoBehaviour
         {
             interpVel = Time.time - _startTime > 0.2 ? velocity : Interp(Time.time - _startTime);
         }
-        
+
         _phys.velocity = _dir * interpVel;
     }
 
