@@ -338,12 +338,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 449910800963146688, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 449910800963146688, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 449910800963146688, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.9468265
+      value: 4.48
       objectReference: {fileID: 0}
     - target: {fileID: 449910800963146688, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.0718713
+      value: 7.52
       objectReference: {fileID: 0}
     - target: {fileID: 449910800963146688, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -378,6 +386,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 581784950423440076, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
+      propertyPath: dialouge.name
+      value: Mr. FireFighter
+      objectReference: {fileID: 0}
+    - target: {fileID: 581784950423440076, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: dialouge.sentences.Array.data[0]
       value: Welcome to City Hall Engineer, we are in desperate need of your help!
       objectReference: {fileID: 0}
@@ -402,7 +414,15 @@ PrefabInstance:
     - target: {fileID: 923782642344196704, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6f3e080e4ab12f8098ec99a428135bdc, type: 3}
+      objectReference: {fileID: 21300000, guid: 3939d539c80bf94dd9393fb2186c386f, type: 3}
+    - target: {fileID: 923782642344196704, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 923782642344196704, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1365500047
+      objectReference: {fileID: 0}
     - target: {fileID: 923782642344196704, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
