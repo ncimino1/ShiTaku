@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ActionManagerScript : MonoBehaviour
 {
@@ -45,8 +46,6 @@ public class ActionManagerScript : MonoBehaviour
             Debug.Log("New Transition.");
         }
 
-        
-        
     }
 
     // Two Test Functions to test the functionality of UseAction
@@ -112,5 +111,9 @@ public class ActionManagerScript : MonoBehaviour
         actionList.Add("0000");
         actionList.Add("0001");
         Debug.Log("New Actions Generated.");
+    }
+
+    public int ReturnActionPoints() {
+        return actionCounter;
     }
 }

@@ -7,6 +7,14 @@ TagManager:
   - Menu
   - StartGame
   - Quit
+  - Investigate
+  - Interact
+  - Decide
+  - Leave
+  - NPCMenu
+  - ActionPoints
+  - ExitPause
+  - GoToMainMenu
   layers:
   - Default
   - TransparentFX

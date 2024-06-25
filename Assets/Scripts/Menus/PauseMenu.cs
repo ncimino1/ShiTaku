@@ -6,28 +6,28 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class NPCMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour
 {
-
-    public NPCMenu thisNpcMenu;
+    public PauseMenu thisPauseMenu;
+    public int activeOption = 0;
+    public int numOptions = 2;
 
     public ActionManagerScript actionManager;
 
     public TextMeshProUGUI apText;
-    public int activeOption = 0;
-    public int numOptions = 4;
-
 
     public Image[] optionPanels;
 
+    // Trigger options within the game
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
     }
+
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
     public void ExitMenu() {
         activeOption = 0;
         Debug.Log("Menu is closed.");
-        thisNpcMenu.gameObject.SetActive(false);
+        thisPauseMenu.gameObject.SetActive(false);
     }
 
     public void HandleScroll(bool IsDown) {
@@ -40,16 +40,10 @@ public class NPCMenu : MonoBehaviour
     public void HandleSelection() {
         switch (activeOption) {
             case 0: 
-                // For NPC, Investigate
+                ExitMenu();
                 break;
             case 1:
-                // For NPC, Interact
-                break;
-            case 2:
-                // For NPC, Decide
-                break;
-            case 3: 
-                ExitMenu();
+                GoToScene("MainMenuScene");
                 break;
             default:
                 break;
@@ -60,10 +54,8 @@ public class NPCMenu : MonoBehaviour
         optionPanels = new Image[numOptions];
         List<string> availableOptions = new List<string>();
         // Put in available option strings here
-        availableOptions.Add("Investigate");
-        availableOptions.Add("Interact");
-        availableOptions.Add("Decide");
-        availableOptions.Add("Leave");
+        availableOptions.Add("ExitPause");
+        availableOptions.Add("GoToMainMenu");
 
         for (int i = 0; i < numOptions; i++) {
             GameObject currentObject = GameObject.FindWithTag(availableOptions[i]);
@@ -101,10 +93,10 @@ public class NPCMenu : MonoBehaviour
             optionPanels[i].color = new Color32(255, 255, 255, aValue);
         }
 
-
         int actionPoints = actionManager.ReturnActionPoints();
         
         apText.text = "Action Points: " + actionPoints.ToString();
         
     }
 }
+

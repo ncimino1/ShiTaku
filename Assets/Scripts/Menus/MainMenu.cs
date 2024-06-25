@@ -32,7 +32,7 @@ public class MainMenu : MonoBehaviour
                 GoToScene("GameScene");
                 break;
             case 1:
-                QuitApp();
+                GoToScene("MainMenuScene");
                 break;
             default:
                 break;
