@@ -72,8 +72,15 @@ public class CityGridGenerator : MonoBehaviour
         {
             Debug.Log(tp);
             var door = Instantiate(Door, t.transform);
-            door.transform.localPosition = new Vector3(0, 0, 0);
             door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            var parentRenderer = t.GetComponent<SpriteRenderer>();
+            var childRenderer = door.GetComponent<SpriteRenderer>();
+
+            var offset = (parentRenderer.bounds.size.y / 2) - (childRenderer.bounds.size.y / 2);
+            offset /= parentRenderer.transform.localScale.y;
+            
+            door.transform.localPosition = new Vector3(0, -offset, 0);
+            Debug.Log(door.transform.position);
             door.GetComponent<InteractController>().sceneName = tp;
         }
 
