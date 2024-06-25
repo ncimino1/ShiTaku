@@ -15,6 +15,7 @@ TagManager:
   - ActionPoints
   - ExitPause
   - GoToMainMenu
+  - Days
   layers:
   - Default
   - TransparentFX
