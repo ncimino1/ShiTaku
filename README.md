@@ -3,12 +3,12 @@ Shitaku - Prototype Game README
 
 Team: Gabrielle Berman, Nicholas Cimino, Andrew Knee, Melissa Requeny, Javier Lopez, and Nishimi Yuki
 
-##Project Description:
+## Project Description:
 
-###Summary
+### Summary
 The game will revolve around a player character who acts as an engineer being tasked with preparing a city to combat a terrible disaster that will come in a few days. The disaster will be chosen upon the game's start (tsunami will be the default) and the player would have to go around the map to adequately prepare for the oncoming disaster. They will do this by interacting with buildings and people in order to build, reinforce, and evacuate any assets that would ensure the safety and sustainability of the city. The player will have a set amount of money and actions per day before the disaster that the player must wisely use to maximize utility. Once the time is up, the disaster will happen and the score is determined based on how many lives and infrastructure were saved.
 
-###Details
+### Details
 Genre: 2D Top-down, Pixel Art, City Building Game
 Educational Category: Simulation and Decision Making.
 Scenario: You’re the engineer assigned to prepare a city for a future natural disaster.
@@ -19,7 +19,7 @@ Trivia: The name ShiTaku is a play on words using the Japanese words for city (S
 Characters: Player - Engineer, NPCs - residents throughout the city (May include workers, civilians, engineers, and politicians)
 Environments: Urban city overworld (with both day and night time settings), Interior urban building maps with a menu design for interaction (Streets, alleys, interiors, transit lines, parking lots)
 
-###Game Logic
+### Game Logic
 The game is being built in Unity with assets made independently by our team alongside premade assets found within the game engine. The project leverages game objects and scenes as its main focus. We have created objects such as the player, interactables (npcs, doors, and items) that each have their own prefabs. These are pre-established assets that act as containers for information. Each game piece has a sprite render, a 2D collider, and script that give the assets some function such as a method that changes some aspect of the game object (ie direction, design, or behavior) when a function of it is called. Game controls and event listeners are handled by underlying scripts we call the managers. The managers are bound to the objects they manage (an interactivity manager handles the behavior of interactable elements). These controllers track assets of the game in runtime and call functions of independent objects when specified events happen. 
 
 Of the major game assets, we have:
@@ -34,7 +34,7 @@ Of the major game assets, we have:
 
 These come together to form the key components of our game that this prototypes aims to exemplify.
 
-##One-Line Build Command
+## One-Line Build Command
 
 From the project root directory type
 
@@ -42,12 +42,12 @@ Unity -quit -batchmode -nographics -executeMethod Builder.Build -projectPath ./
 
 Where Unity is the path to your Unity editor executable on Windows. After this it will produce a folder called cli-build which contains all the executable information.
 
-##Link to GitHub Repository
+## Link to GitHub Repository
 
 Link: https://github.com/ncimino1/ShiTaku
 
-##Link to installation package executable
+## Link to installation package executable
 https://github.com/ncimino1/ShiTaku/releases/download/Main/ShiTakuInstaller.exe
 
-##Run executable command
+## Run executable command
 From the install or build location, type ShiTaku.exe in terminal.
