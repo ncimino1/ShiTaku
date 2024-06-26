@@ -15,7 +15,7 @@ public class CityReader
         public string[] Dialogue;
     }
 
-    private const string FileName = "City.txt";
+    private const string FileName = "City";
 
     private ParsedData ParseHeader(string[] iterator, out int lineEnd)
     {
@@ -66,7 +66,8 @@ public class CityReader
 
     public ParsedData ReadCity()
     {
-        var iterator = File.ReadAllLines(Application.dataPath + "/" + FileName);
+        var textFile = Resources.Load<TextAsset>(FileName);
+        var iterator = textFile.text.Split('\n');
 
         var parsed = ParseHeader(iterator, out int start);
 

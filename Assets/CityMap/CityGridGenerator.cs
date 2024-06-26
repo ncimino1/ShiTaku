@@ -73,7 +73,8 @@ public class CityGridGenerator : MonoBehaviour
 
     void LoadNpcs(string fileName, Transform parent)
     {
-        var iterator = File.ReadAllLines(Application.dataPath + "/" + fileName + ".txt");
+        var readText = Resources.Load<TextAsset>(fileName);
+        var iterator = readText.text.Split('\n');
         for (int i = 0; i < iterator.Length; i++)
         {
             var quoteLoc = iterator[i].IndexOf('"', 1);
