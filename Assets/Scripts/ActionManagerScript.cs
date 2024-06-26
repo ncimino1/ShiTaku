@@ -120,4 +120,8 @@ public class ActionManagerScript : MonoBehaviour
     public int ReturnDays() {
         return dayCounter;
     }
+
+    public void DecrementAP() {
+        actionCounter -= 1;
+    }
 }

@@ -47,6 +47,7 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 2:
                 // For NPC, Decide
+                actionManager.DecrementAP();
                 break;
             case 3: 
                 ExitMenu();

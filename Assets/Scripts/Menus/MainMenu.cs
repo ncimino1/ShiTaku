@@ -27,12 +27,14 @@ public class MainMenu : MonoBehaviour
     }
 
     public void HandleSelection() {
+        // Case 0 should go to Cityscape and Case 1 should quit the application 
         switch (activeOption) {
             case 0: 
                 GoToScene("Cityscape");
                 break;
             case 1:
-                GoToScene("MainMenuScene");
+                // GoToScene("MainMenuScene");
+                QuitApp();
                 break;
             default:
                 break;
