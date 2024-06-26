@@ -11,10 +11,11 @@ public class CityReader
         public int Width { get; set; }
         public int Height { get; set; }
         public TileTypes[] Types;
-        public String[] doors;
+        public string[] Doors;
+        public string[] Dialogue;
     }
 
-    private const String FileName = "City.txt";
+    private const string FileName = "City.txt";
 
     private ParsedData ParseHeader(string[] iterator, out int lineEnd)
     {
@@ -68,7 +69,7 @@ public class CityReader
         var iterator = File.ReadAllLines(Application.dataPath + "/" + FileName);
 
         var parsed = ParseHeader(iterator, out int start);
-        
+
         if (parsed is null)
         {
             return null;
@@ -77,10 +78,11 @@ public class CityReader
         var count = 0;
 
         parsed.Types = new TileTypes[parsed.Width * parsed.Height];
-        parsed.doors = new String[parsed.Width * parsed.Height];
+        parsed.Doors = new String[parsed.Width * parsed.Height];
+        parsed.Dialogue = new String[parsed.Width * parsed.Height];
         var i = start;
 
-        for(; i < iterator.Length; i++)
+        for (; i < iterator.Length; i++)
         {
             var line = iterator[i];
             if (line.StartsWith("//"))
@@ -97,7 +99,7 @@ public class CityReader
             {
                 return null;
             }
-            
+
             var split = line.Split(" ");
             if (split.Length != parsed.Width)
             {
@@ -127,10 +129,6 @@ public class CityReader
         for (; i < iterator.Length; i++)
         {
             var data = iterator[i].Split(" ");
-            if (data.Length != 4)
-            {
-                break;
-            }
 
             if (!int.TryParse(data[1], out int row))
             {
@@ -142,7 +140,11 @@ public class CityReader
                 break;
             }
 
-            parsed.doors[col + (parsed.Height - row - 1) * parsed.Width] = data[3];
+            parsed.Doors[col + (parsed.Height - row - 1) * parsed.Width] = data[3];
+            if (data.Length == 5)
+            {
+                parsed.Dialogue[col + (parsed.Height - row - 1) * parsed.Width] = data[4];
+            }
         }
 
         return parsed;
