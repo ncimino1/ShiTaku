@@ -31,7 +31,7 @@ public class MenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "GameScene") {
+        if (SceneManager.GetActiveScene().name == "Cityscape") {
             daysDisplayer.gameObject.SetActive(true);
             daysDisplayer.SetDayText();
 

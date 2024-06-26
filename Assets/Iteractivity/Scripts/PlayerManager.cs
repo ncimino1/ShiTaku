@@ -20,25 +20,25 @@ public class PlayerManager : MonoBehaviour
     //Update is called once per frame to check for key presses and trigger animations
     public void Update()
     {
-        if (Input.GetKey(KeyCode.UpArrow)){
+        if (Input.GetKey(KeyCode.W)){
             anim.SetBool("up", true);
             anim.SetBool("down", false);
             anim.SetBool("left", false);
             anim.SetBool("right", false);
         }
-        else if (Input.GetKey(KeyCode.DownArrow)){
+        else if (Input.GetKey(KeyCode.S)){
             anim.SetBool("down", true);
             anim.SetBool("up", false);
             anim.SetBool("left", false);
             anim.SetBool("right", false);
         }
-        else if (Input.GetKey(KeyCode.LeftArrow)){
+        else if (Input.GetKey(KeyCode.A)){
             anim.SetBool("left", true);
             anim.SetBool("down", false);
             anim.SetBool("up", false);
             anim.SetBool("right", false);
         }
-        else if (Input.GetKey(KeyCode.RightArrow)){
+        else if (Input.GetKey(KeyCode.D)){
             anim.SetBool("right", true);
             anim.SetBool("down", false);
             anim.SetBool("left", false);

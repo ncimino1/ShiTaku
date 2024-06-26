@@ -29,7 +29,7 @@ public class MainMenu : MonoBehaviour
     public void HandleSelection() {
         switch (activeOption) {
             case 0: 
-                GoToScene("GameScene");
+                GoToScene("Cityscape");
                 break;
             case 1:
                 GoToScene("MainMenuScene");

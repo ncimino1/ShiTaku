@@ -28,15 +28,15 @@ public class SpriteMovement : MonoBehaviour
 
     private bool KeyPressed()
     {
-        return Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.UpArrow) ||
-               Input.GetKey(KeyCode.DownArrow);
+        return Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) ||
+               Input.GetKey(KeyCode.S);
     }
 
     private Vector2 MovementDirection()
     {
         Vector2 dir = new Vector2();
-        dir.x = Input.GetKey(KeyCode.RightArrow) ? 1 : Input.GetKey(KeyCode.LeftArrow) ? -1 : 0;
-        dir.y = Input.GetKey(KeyCode.UpArrow) ? 1 : Input.GetKey(KeyCode.DownArrow) ? -1 : 0;
+        dir.x = Input.GetKey(KeyCode.D) ? 1 : Input.GetKey(KeyCode.A) ? -1 : 0;
+        dir.y = Input.GetKey(KeyCode.W) ? 1 : Input.GetKey(KeyCode.S) ? -1 : 0;
         return dir;
     }
 
