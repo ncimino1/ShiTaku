@@ -6,4 +6,5 @@ width 6 height 5
 9 1 5 8 1 9
 9 1 5 5 1 9
 //door row col scene
-door 1 1 Interior
+door 1 1 Interior Room1Dialogue
+door 2 2 Interior Room1Dialogue
