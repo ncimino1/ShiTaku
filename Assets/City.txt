@@ -1,0 +1,9 @@
+//Start file with width height as int32
+width 6 height 5
+9 1 4 5 1 9
+7 1 4 6 1 9
+4 2 1 1 2 4
+9 1 5 8 1 9
+9 1 5 5 1 9
+//door row col scene
+door 1 1 Interior
