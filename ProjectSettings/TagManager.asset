@@ -4,6 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Menu
+  - StartGame
+  - Quit
+  - Investigate
+  - Interact
+  - Decide
+  - Leave
+  - NPCMenu
+  - ActionPoints
+  - ExitPause
+  - GoToMainMenu
+  - Days
   - Interactable Item
   layers:
   - Default
