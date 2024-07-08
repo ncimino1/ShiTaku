@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace CityMap.WaveFunctionCollapse
@@ -36,10 +38,10 @@ namespace CityMap.WaveFunctionCollapse
         {
             Tile[] tileGridCopy = TileGrid.Cast<Tile>().Select(i => i).Where(i => i.GetEntropy() > 1)
                 .OrderBy(i => i.GetEntropy()).ToArray();
-
+            
             if (tileGridCopy.Length == 0)
                 return null;
-
+            
             var initial = tileGridCopy[0];
             tileGridCopy = tileGridCopy.Where(i => i.GetEntropy() == initial.GetEntropy()).ToArray();
 
@@ -49,12 +51,14 @@ namespace CityMap.WaveFunctionCollapse
             return tileGridCopy[Random.Range(0, tileGridCopy.Length)];
         }
 
-        public void Collapse()
+        public bool Collapse()
         {
             var pick = HeuristicPickTile();
-
+            
             if (pick == null)
-                return;
+            {
+                return true;
+            }
 
             pick.ObserveTile();
 
@@ -128,6 +132,8 @@ namespace CityMap.WaveFunctionCollapse
                             cumulative_options = cumulative_options.Where(t => valid.Contains(t.Type)).ToArray();
                         }
 
+                        Debug.Log(cumulative_options.Length);
+
                         shallowCopy[i, j].TileOptions = cumulative_options;
                         shallowCopy[i, j].Update();
                     }
@@ -135,6 +141,8 @@ namespace CityMap.WaveFunctionCollapse
             }
 
             TileGrid = shallowCopy;
+
+            return false;
         }
     }
 }

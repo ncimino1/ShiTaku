@@ -1,9 +1,12 @@
 using System;
+using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using CityMap.WaveFunctionCollapse;
 using Unity.VisualScripting;
 using UnityEngine;
+using Grid = CityMap.WaveFunctionCollapse.Grid;
 using Random = UnityEngine.Random;
 
 public class CityGridGenerator : MonoBehaviour
@@ -25,6 +28,8 @@ public class CityGridGenerator : MonoBehaviour
     [SerializeField] public GameObject TavernInterior;
 
     [SerializeField] public GameObject Player;
+    
+    private Thread _thread;
 
     private class TileParameters
     {
@@ -42,6 +47,8 @@ public class CityGridGenerator : MonoBehaviour
         }
         else
         {
+            //_thread = new Thread(GenerateTiles);
+            //_thread.Start();
             GenerateTiles();
         }
     }
@@ -122,7 +129,7 @@ public class CityGridGenerator : MonoBehaviour
         var manager = npc.GetComponent<NpcManager>();
         manager.dialouge.sentences = dialogue;
         manager.dialouge.name = npcName;
-        
+
         return npc;
     }
 
@@ -187,11 +194,23 @@ public class CityGridGenerator : MonoBehaviour
 
     void GenerateTiles()
     {
+        var config = TileConfiguration.Generate();
+        
+
+        Grid grid = new Grid(width, height, config);
+        while (!grid.Collapse())
+        {
+        }
+        
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
-                var t = GenerateTile(x, y, null);
+                var color = grid.TileGrid[x, y].TileOptions[0].Type.GetColor();
+                TileParameters parameters = new TileParameters();
+                parameters.Color = color;
+                // Debug.Log(grid.TileGrid[x,y].TileOptions[0].Type);
+                GenerateTile(width - x - 1, y, parameters).name = grid.TileGrid[x,y].TileOptions[0].Type.ToString();
             }
         }
     }

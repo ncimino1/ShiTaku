@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 namespace CityMap.WaveFunctionCollapse
@@ -24,8 +25,34 @@ namespace CityMap.WaveFunctionCollapse
         {
             if (TileOptions.Length == 0)
                 return;
-            
-            TileOptions = new[] { TileOptions[Random.Range(0, GetEntropy())] };
+
+            int roads = 0;
+            foreach (var option in TileOptions)
+            {
+                if (option.Type >= TileTypes.RoadVertical && option.Type <= TileTypes.Road3WayLTR)
+                    roads++;
+            }
+
+            var sorted = TileOptions.OrderBy(t => t.Type).ToArray();
+
+            var nonRoads = TileOptions.Length - roads;
+
+            if (nonRoads == 0)
+            {
+                TileOptions = new[] { TileOptions[Random.Range(0, GetEntropy())] };
+            }
+            else
+            {
+                if (Random.Range(0, 4) == 3)
+                {
+                    TileOptions = new[] { sorted[Random.Range(0, roads)] };
+                }
+                else
+                {
+                    TileOptions = new[] { sorted[Random.Range(roads, sorted.Length)] };
+                }
+            }
+
             Collapsed = true;
         }
     }
