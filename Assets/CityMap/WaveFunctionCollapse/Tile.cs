@@ -1,40 +1,32 @@
+using UnityEngine;
+
 namespace CityMap.WaveFunctionCollapse
 {
     public class Tile
     {
-        public string Texture { get; }
+        public TileConfiguration[] TileOptions { get; set; }
 
-        public TileTypes Type { get; }
+        public bool Collapsed { get; private set; }
 
-        //[x][] where x is number of edges each with an array
-        //storing the tile types that can be adjacent to that edge
-        private readonly TileTypes[][] _edges;
-
-        public Tile(string texture, TileTypes type, TileTypes[][] edges)
+        public Tile(TileConfiguration[] options)
         {
-            Texture = texture;
-            Type = type;
-            _edges = edges;
+            TileOptions = options;
         }
 
-        public TileTypes[] GetUp()
+        public int GetEntropy() => TileOptions.Length;
+
+        public void Update()
         {
-            return _edges[0];
+            Collapsed = GetEntropy() == 1;
         }
 
-        public TileTypes[] GetRight()
+        public void ObserveTile()
         {
-            return _edges[1];
-        }
-
-        public TileTypes[] GetDown()
-        {
-            return _edges[2];
-        }
-
-        public TileTypes[] GetLeft()
-        {
-            return _edges[3];
+            if (TileOptions.Length == 0)
+                return;
+            
+            TileOptions = new[] { TileOptions[Random.Range(0, GetEntropy())] };
+            Collapsed = true;
         }
     }
 }
