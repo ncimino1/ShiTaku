@@ -99,7 +99,7 @@ public class NPCMenu : MonoBehaviour
             if (i == activeOption) {
                 aValue = 255;
             } 
-            optionPanels[i].color = new Color32(255, 255, 255, aValue);
+            optionPanels[i].color = new Color32(195, 118, 55, aValue);
         }
 
 
