@@ -16,9 +16,37 @@ namespace CityMap.WaveFunctionCollapse
 
         private TileConfiguration[] _options;
 
+        private static HashSet<TileTypes> _rightEdgeForbidden = new HashSet<TileTypes>()
+        {
+            TileTypes.RoadHorizontal, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBR,
+            TileTypes.RoadCornerTR, TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+            TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerTL,
+        };
+
+        private static HashSet<TileTypes> _leftEdgeForbidden = new HashSet<TileTypes>()
+        {
+            TileTypes.RoadHorizontal, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBL,
+            TileTypes.RoadCornerTL, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+            TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerTR,
+        };
+
+        private static HashSet<TileTypes> _topEdgeForbidden = new HashSet<TileTypes>()
+        {
+            TileTypes.RoadVertical, TileTypes.Road4WayIntersection, TileTypes.RoadCornerTL, TileTypes.RoadCornerTR,
+            TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLTR, TileTypes.SkyscraperCornerBL,
+            TileTypes.SkyscraperCornerBR
+        };
+
+        private static HashSet<TileTypes> _bottomEdgeForbidden = new HashSet<TileTypes>()
+        {
+            TileTypes.RoadHorizontal, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL,
+            TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.SkyscraperCornerTL,
+            TileTypes.SkyscraperCornerTR,
+        };
+
         public Grid(int width, int height, TileConfiguration[] tiles)
         {
-            TileGrid = new Tile[width, height];
+            TileGrid = new Tile[height, width];
 
             _width = width;
             _height = height;
@@ -51,6 +79,26 @@ namespace CityMap.WaveFunctionCollapse
             return tileGridCopy[Random.Range(0, tileGridCopy.Length)];
         }
 
+        private TileConfiguration[] FixEdgeTile(Tile tile, int x, int y, TileConfiguration[] configuration)
+        {
+            var newConfig = new List<TileConfiguration>();
+            foreach (var config in configuration)
+            {
+                if (x == 0 && _leftEdgeForbidden.Contains(config.Type))
+                    continue;
+                if (x == _width - 1 && _rightEdgeForbidden.Contains(config.Type))
+                    continue;
+                if (y == 0 && _topEdgeForbidden.Contains(config.Type))
+                    continue;
+                if(y == _height - 1 && _bottomEdgeForbidden.Contains(config.Type))
+                    continue;
+                
+                newConfig.Add(config);
+            }
+
+            return newConfig.ToArray();
+        }
+
         public bool Collapse()
         {
             var pick = HeuristicPickTile();
@@ -64,9 +112,9 @@ namespace CityMap.WaveFunctionCollapse
 
             Tile[,] shallowCopy = (Tile[,])TileGrid.Clone();
 
-            for (int i = 0; i < shallowCopy.GetLength(0); i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < shallowCopy.GetLength(1); j++)
+                for (int j = 0; j < _width; j++)
                 {
                     if (TileGrid[i, j].Collapsed)
                     {
@@ -133,6 +181,9 @@ namespace CityMap.WaveFunctionCollapse
                         }
 
                         Debug.Log(cumulative_options.Length);
+                        
+                        if(i == 0 || i == _height - 1 || j == 0 || j == _width - 1)
+                            cumulative_options = FixEdgeTile(shallowCopy[i,j], j, i, cumulative_options);
 
                         shallowCopy[i, j].TileOptions = cumulative_options;
                         shallowCopy[i, j].Update();

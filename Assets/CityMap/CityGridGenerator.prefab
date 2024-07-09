@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 10
-  height: 10
+  height: 15
   size: 6
   tile: {fileID: 7781749854421273583, guid: 30790b390422c23b88ea56dd1a8ce65d, type: 3}
   readFile: 0
