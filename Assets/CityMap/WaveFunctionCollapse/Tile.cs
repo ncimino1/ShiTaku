@@ -39,6 +39,7 @@ namespace CityMap.WaveFunctionCollapse
 
             if (nonRoads == 0)
             {
+                Debug.Log("only roads :(");
                 TileOptions = new[] { TileOptions[Random.Range(0, GetEntropy())] };
             }
             else
@@ -51,6 +52,14 @@ namespace CityMap.WaveFunctionCollapse
                 {
                     TileOptions = new[] { sorted[Random.Range(roads, sorted.Length)] };
                 }
+            }
+
+            if (TileOptions.Length == 0)
+            {
+                TileOptions = new[]
+                {
+                    new TileConfiguration(TileTypes.House, TileTypes.House.GetPossibleAdjacentTiles())
+                };
             }
 
             Collapsed = true;

@@ -71,7 +71,6 @@ public static class TileTypesMethods
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadCornerBR, TileTypes.RoadCornerTR, TileTypes.Road3WayBRT,
                     TileTypes.Park, TileTypes.SkyscraperCornerTL, TileTypes.SkyscraperCornerBL, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -84,7 +83,6 @@ public static class TileTypesMethods
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadCornerBL, TileTypes.RoadCornerTL, TileTypes.Road3WayBLT,
                     TileTypes.Park, TileTypes.SkyscraperCornerTR, TileTypes.SkyscraperCornerBR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -92,7 +90,6 @@ public static class TileTypesMethods
             case TileTypes.RoadHorizontal:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
                     TileTypes.Park, TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerBR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -106,7 +103,6 @@ public static class TileTypesMethods
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadCornerBR, TileTypes.RoadCornerBL, TileTypes.Road3WayLBR,
                     TileTypes.Park, TileTypes.SkyscraperCornerTL, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -151,7 +147,6 @@ public static class TileTypesMethods
             case TileTypes.RoadCornerBR:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
                     TileTypes.Park, TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerBL, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -172,7 +167,6 @@ public static class TileTypesMethods
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerTL, TileTypes.RoadCornerBL, TileTypes.Road3WayBLT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerTR, TileTypes.Park,
                     TileTypes.PoliceStation, TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -181,14 +175,12 @@ public static class TileTypesMethods
             case TileTypes.RoadCornerBL:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
                     TileTypes.Park, TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerBR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR, TileTypes.RoadCornerTR, TileTypes.Road3WayBRT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerTL, TileTypes.Park,
                     TileTypes.PoliceStation, TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -225,14 +217,12 @@ public static class TileTypesMethods
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL, TileTypes.Road3WayLBR,
                     TileTypes.Park, TileTypes.SkyscraperCornerTL, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBL, TileTypes.RoadCornerTL, TileTypes.Road3WayBLT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -248,14 +238,12 @@ public static class TileTypesMethods
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR, TileTypes.RoadCornerTR, TileTypes.Road3WayBRT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerTL, TileTypes.Park,
                     TileTypes.PoliceStation, TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL, TileTypes.Road3WayLBR,
                     TileTypes.Park, TileTypes.SkyscraperCornerTL, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -292,7 +280,6 @@ public static class TileTypesMethods
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBL, TileTypes.RoadCornerTL, TileTypes.Road3WayBLT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -308,7 +295,6 @@ public static class TileTypesMethods
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR, TileTypes.RoadCornerTR, TileTypes.Road3WayBRT,
                     TileTypes.Park, TileTypes.SkyscraperCornerBL, TileTypes.SkyscraperCornerTL, TileTypes.Park,
                     TileTypes.PoliceStation, TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -331,7 +317,6 @@ public static class TileTypesMethods
             case TileTypes.Road3WayLBR:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
                     TileTypes.Park, TileTypes.SkyscraperCornerBR, TileTypes.SkyscraperCornerBL, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };
@@ -375,7 +360,6 @@ public static class TileTypesMethods
                 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL, TileTypes.Road3WayLBR,
                     TileTypes.Park, TileTypes.SkyscraperCornerTL, TileTypes.SkyscraperCornerTR, TileTypes.PoliceStation,
                     TileTypes.FireStation, TileTypes.CityHall, TileTypes.House,
                 };

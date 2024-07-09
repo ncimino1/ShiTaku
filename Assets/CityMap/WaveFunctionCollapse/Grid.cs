@@ -66,10 +66,10 @@ namespace CityMap.WaveFunctionCollapse
         {
             Tile[] tileGridCopy = TileGrid.Cast<Tile>().Select(i => i).Where(i => i.GetEntropy() > 1)
                 .OrderBy(i => i.GetEntropy()).ToArray();
-            
+
             if (tileGridCopy.Length == 0)
                 return null;
-            
+
             var initial = tileGridCopy[0];
             tileGridCopy = tileGridCopy.Where(i => i.GetEntropy() == initial.GetEntropy()).ToArray();
 
@@ -90,9 +90,9 @@ namespace CityMap.WaveFunctionCollapse
                     continue;
                 if (y == 0 && _topEdgeForbidden.Contains(config.Type))
                     continue;
-                if(y == _height - 1 && _bottomEdgeForbidden.Contains(config.Type))
+                if (y == _height - 1 && _bottomEdgeForbidden.Contains(config.Type))
                     continue;
-                
+
                 newConfig.Add(config);
             }
 
@@ -102,7 +102,7 @@ namespace CityMap.WaveFunctionCollapse
         public bool Collapse()
         {
             var pick = HeuristicPickTile();
-            
+
             if (pick == null)
             {
                 return true;
@@ -180,10 +180,12 @@ namespace CityMap.WaveFunctionCollapse
                             cumulative_options = cumulative_options.Where(t => valid.Contains(t.Type)).ToArray();
                         }
 
-                        Debug.Log(cumulative_options.Length);
-                        
-                        if(i == 0 || i == _height - 1 || j == 0 || j == _width - 1)
-                            cumulative_options = FixEdgeTile(shallowCopy[i,j], j, i, cumulative_options);
+                        if (i == 0 || i == _height - 1 || j == 0 || j == _width - 1)
+                            cumulative_options = FixEdgeTile(shallowCopy[i, j], j, i, cumulative_options);
+
+                        if (cumulative_options.Length == 0)
+                            cumulative_options = new[] { _options.First(t => t.Type == TileTypes.House) };
+
 
                         shallowCopy[i, j].TileOptions = cumulative_options;
                         shallowCopy[i, j].Update();
