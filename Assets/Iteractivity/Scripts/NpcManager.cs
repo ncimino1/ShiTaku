@@ -12,6 +12,12 @@ public class NpcManager : MonoBehaviour
     public Dialouge dialouge;
     Animator anim; // Reference to the Animator component
 
+    //Timer values to calulate the last time the NPC moved
+    public float lastTimeMoved;
+    public float currentTime;
+
+    public bool shouldMove = true; //If the NPC should move or not
+
     public virtual void Interact()
     {
         Debug.Log("Interacting with NPC");
@@ -36,34 +42,44 @@ public class NpcManager : MonoBehaviour
 
     //Function to generate a random direction for the NPC to move in for a max of 3 second
     public void RandomDirection(){
-        //10% chance to move in a random direction
-        int randomDirection = Random.Range(0, 5);
+        if(currentTime - lastTimeMoved > 5){
+            lastTimeMoved = currentTime;
+            int randomDirection = Random.Range(0, 4);
 
-        switch(randomDirection){
-            case 0:
-                anim.SetBool("up", true);
-                Move();
-                break;
-            case 1:
-                anim.SetBool("down", true);
-                Move();
-                break;
-            case 2:
-                anim.SetBool("left", true);
-                Move();
-                break;
-            case 3:
-                anim.SetBool("right", true);
-                Move();
-                break;
-            default:
-                break;
+            switch(randomDirection){
+                case 0:
+                    anim.SetBool("up", true);
+                    anim.SetBool("down", false);
+                    anim.SetBool("left", false);
+                    anim.SetBool("right", false);
+                    break;
+                case 1:
+                    anim.SetBool("down", true);
+                    anim.SetBool("up", false);
+                    anim.SetBool("left", false);
+                    anim.SetBool("right", false);
+                    break;
+                case 2:
+                    anim.SetBool("left", true);
+                    anim.SetBool("up", false);
+                    anim.SetBool("down", false);
+                    anim.SetBool("right", false);
+                    break;
+                case 3:
+                    anim.SetBool("right", true);
+                    anim.SetBool("up", false);
+                    anim.SetBool("down", false);
+                    anim.SetBool("left", false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
     //Function to stop the movement of the NPC
-    IEnumerator StopMovement(){
-        yield return new WaitForSeconds(3);
+    void StopMovement(){
+        Debug.Log("Stopping NPC");
         anim.SetBool("up", false);
         anim.SetBool("down", false);
         anim.SetBool("left", false);
@@ -72,6 +88,8 @@ public class NpcManager : MonoBehaviour
 
     //Function that actually moves the NPC based on the bool's set in the RandomDirection function
     public void Move(){
+        Debug.Log("Moving NPC");
+
         if(anim.GetBool("up")){
             transform.Translate(Vector3.up * Time.deltaTime);
         }
@@ -84,22 +102,37 @@ public class NpcManager : MonoBehaviour
         else if(anim.GetBool("right")){
             transform.Translate(Vector3.right * Time.deltaTime);
         }
+    
+       
     }
     
 
     public void Start()
     {
+        //Get the Animator component
         anim = GetComponent<Animator>();
+
+        //Set the last time the NPC moved to the current time
+        lastTimeMoved = Time.time;
     }
 
     //Set the bool's for movement
     void Update()
     {
-        //Call the RandomDirection function to generate a random direction for the NPC to move in
-        RandomDirection();
+        //If the NPC should move, call the Move function
+        if(shouldMove){
+            //Set the current time to the current time
+            currentTime = Time.time;
 
-        //Have the NPC move idle and stand still for a few seconds
-        StartCoroutine(StopMovement());
+            //Call the RandomDirection function to generate a random direction for the NPC to move in
+            RandomDirection();
 
+            Move();
+
+            //Stop moving after a second
+            if(currentTime - lastTimeMoved > 1){
+                StopMovement();
+            }
+        }
     }
 }
