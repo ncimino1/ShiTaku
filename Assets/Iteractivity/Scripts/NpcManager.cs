@@ -9,9 +9,7 @@ public class NpcManager : MonoBehaviour
     public string itemName;
     public bool hasInteracted;
     public bool isImportant;
-
     public Dialouge dialouge;
-
     Animator anim; // Reference to the Animator component
 
     public virtual void Interact()
@@ -33,33 +31,34 @@ public class NpcManager : MonoBehaviour
             else{
                 FindAnyObjectByType<DialougeManager>().DisplayNextSentence();
             }
-
         }
-
-
-        
     }
 
     //Function to generate a random direction for the NPC to move in for a max of 3 second
     public void RandomDirection(){
-        //Wait for 3 seconds before generating a new direction
-        int randomDirection = Random.Range(0, 4);
+        //10% chance to move in a random direction
+        int randomDirection = Random.Range(0, 5);
+
         switch(randomDirection){
             case 0:
                 anim.SetBool("up", true);
+                Move();
                 break;
             case 1:
                 anim.SetBool("down", true);
+                Move();
                 break;
             case 2:
                 anim.SetBool("left", true);
+                Move();
                 break;
             case 3:
                 anim.SetBool("right", true);
+                Move();
+                break;
+            default:
                 break;
         }
-
-        StartCoroutine(StopMovement());
     }
 
     //Function to stop the movement of the NPC
@@ -74,16 +73,16 @@ public class NpcManager : MonoBehaviour
     //Function that actually moves the NPC based on the bool's set in the RandomDirection function
     public void Move(){
         if(anim.GetBool("up")){
-            transform.position += Vector3.up * Time.deltaTime;
+            transform.Translate(Vector3.up * Time.deltaTime);
         }
         else if(anim.GetBool("down")){
-            transform.position += Vector3.down * Time.deltaTime;
+            transform.Translate(Vector3.down * Time.deltaTime);
         }
         else if(anim.GetBool("left")){
-            transform.position += Vector3.left * Time.deltaTime;
+            transform.Translate(Vector3.left * Time.deltaTime);
         }
         else if(anim.GetBool("right")){
-            transform.position += Vector3.right * Time.deltaTime;
+            transform.Translate(Vector3.right * Time.deltaTime);
         }
     }
     
@@ -98,6 +97,9 @@ public class NpcManager : MonoBehaviour
     {
         //Call the RandomDirection function to generate a random direction for the NPC to move in
         RandomDirection();
+
+        //Have the NPC move idle and stand still for a few seconds
+        StartCoroutine(StopMovement());
 
     }
 }
