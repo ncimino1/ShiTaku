@@ -206,11 +206,11 @@ public class CityGridGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                var color = grid.TileGrid[x, y].TileOptions[0].Type.GetColor();
+                var color = grid.TileGrid[y,x].TileOptions[0].Type.GetColor();
                 TileParameters parameters = new TileParameters();
                 parameters.Color = color;
                 // Debug.Log(grid.TileGrid[x,y].TileOptions[0].Type);
-                GenerateTile(width - x - 1, y, parameters).name = grid.TileGrid[x,y].TileOptions[0].Type.ToString();
+                GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y,x].TileOptions[0].Type.ToString();
             }
         }
     }
