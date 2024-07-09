@@ -16,6 +16,8 @@ public class MenuManager : MonoBehaviour
 
     public ActionManagerScript actionManager;
 
+    public PlayerManager playerManager;
+
 
     // Start is called before the first frame update
 
@@ -37,7 +39,10 @@ public class MenuManager : MonoBehaviour
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
         // For Javi and Andrew, this is where you write your condition for the npcMenu to appear after interaction
-            if (Input.GetKeyDown(KeyCode.Q)) {
+
+            // first condition now checks if the interaction notification is active before allowing the player to 
+            // open the menu.
+            if (Input.GetKeyDown(KeyCode.Q) && playerManager.InteractionNotification.activeInHierarchy) {
                 npcMenu.gameObject.SetActive(true);
                 npcMenu.SetAPText();
             } else if (Input.GetKeyDown(KeyCode.Z)) {
