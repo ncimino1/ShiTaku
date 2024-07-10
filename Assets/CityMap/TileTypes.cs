@@ -145,16 +145,14 @@ public static class TileTypesMethods
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBL,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
+                    TileTypes.Road3WayBLT, TileTypes.Road3WayLTR,
                 };
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerTL,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayBRT, TileTypes.Road3WayLTR,
+                    TileTypes.RoadVertical,
+                    TileTypes.Road3WayBLT,
                 };
 
                 adjacent[3] = new[]
@@ -179,32 +177,28 @@ public static class TileTypesMethods
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerTL,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayBRT, TileTypes.Road3WayLTR,
+                    TileTypes.RoadVertical,
+                    TileTypes.Road3WayBRT,
                 };
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
+                    TileTypes.Road3WayLTR,
                 };
 
                 break;
             case TileTypes.RoadCornerTR:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerBL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayBRT, TileTypes.Road3WayLBR,
+                    TileTypes.RoadVertical,
+                    TileTypes.Road3WayBLT,
                 };
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBL,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
+                    TileTypes.Road3WayLBR,
                 };
 
                 adjacent[2] = new[]
@@ -223,9 +217,8 @@ public static class TileTypesMethods
             case TileTypes.RoadCornerTL:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerBL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayBRT, TileTypes.Road3WayLBR,
+                    TileTypes.RoadVertical,
+                    TileTypes.Road3WayBRT,
                 };
 
                 adjacent[1] = new[]
@@ -242,32 +235,27 @@ public static class TileTypesMethods
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
+                    TileTypes.Road3WayLBR,
                 };
 
                 break;
             case TileTypes.Road3WayBRT:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR,
+                    TileTypes.RoadVertical,
                     TileTypes.RoadCornerBL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR,
                 };
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBL,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
                 };
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerTR,
+                    TileTypes.RoadVertical,
                     TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLTR,
                 };
 
                 adjacent[3] = new[]
@@ -281,8 +269,6 @@ public static class TileTypesMethods
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadVertical, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerBL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR,
                 };
 
                 adjacent[1] = new[]
@@ -294,15 +280,11 @@ public static class TileTypesMethods
                 adjacent[2] = new[]
                 {
                     TileTypes.RoadVertical, TileTypes.RoadCornerTR,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLTR,
                 };
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
+                    TileTypes.RoadHorizontal,
                 };
 
                 break;
@@ -315,39 +297,31 @@ public static class TileTypesMethods
 
                 adjacent[1] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBL,
+                    TileTypes.RoadHorizontal,
                     TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
                 };
 
                 adjacent[2] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerTR,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLTR,
+                    TileTypes.RoadVertical,
                 };
 
                 adjacent[3] = new[]
                 {
-                    TileTypes.RoadHorizontal, TileTypes.RoadCornerBR,
+                    TileTypes.RoadHorizontal,
                     TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
                 };
 
                 break;
             case TileTypes.Road3WayLTR:
                 adjacent[0] = new[]
                 {
-                    TileTypes.RoadVertical, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerBL,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR,
+                    TileTypes.RoadVertical,
                 };
 
                 adjacent[1] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerBL,
-                    TileTypes.RoadCornerTL,
-                    TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
                 };
 
                 adjacent[2] = new[]
@@ -359,8 +333,6 @@ public static class TileTypesMethods
                 adjacent[3] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerBR,
-                    TileTypes.RoadCornerTR,
-                    TileTypes.Road3WayBRT, TileTypes.Road3WayLBR, TileTypes.Road3WayLTR,
                 };
 
                 break;
