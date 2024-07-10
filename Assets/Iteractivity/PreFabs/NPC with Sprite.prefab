@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6821464355235347900}
   - component: {fileID: 6836886967038906651}
   - component: {fileID: 1465394350079428622}
+  - component: {fileID: -2233871519808687058}
   m_Layer: 0
   m_Name: NPC with Sprite
   m_TagString: Untagged
@@ -156,6 +157,9 @@ MonoBehaviour:
     - I like eggs!
     - I like Men!
     - I like T-Shirts!
+  lastTimeMoved: 0
+  currentTime: 0
+  shouldMove: 0
 --- !u!95 &1465394350079428622
 Animator:
   serializedVersion: 5
@@ -177,6 +181,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2233871519808687058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5077184194043833383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f054d3e13143017429741ba205461820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 0}
+  fadein: 0
+  fadeout: 0
+  TimeToFade: 1
 --- !u!1001 &8720831165721236298
 PrefabInstance:
   m_ObjectHideFlags: 0
