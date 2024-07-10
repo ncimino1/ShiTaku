@@ -39,7 +39,7 @@ namespace CityMap.WaveFunctionCollapse
 
         private static HashSet<TileTypes> _bottomEdgeForbidden = new HashSet<TileTypes>()
         {
-            TileTypes.RoadHorizontal, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL,
+            TileTypes.RoadVertical, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBR, TileTypes.RoadCornerBL,
             TileTypes.Road3WayBRT, TileTypes.Road3WayBLT, TileTypes.Road3WayLBR, TileTypes.SkyscraperCornerTL,
             TileTypes.SkyscraperCornerTR,
         };

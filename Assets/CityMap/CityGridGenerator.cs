@@ -3,6 +3,7 @@ using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using CityMap.WaveFunctionCollapse;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -28,12 +29,15 @@ public class CityGridGenerator : MonoBehaviour
     [SerializeField] public GameObject TavernInterior;
 
     [SerializeField] public GameObject Player;
+
+    private Dictionary<TileTypes, Sprite> _spriteAtlas;
     
     private Thread _thread;
 
     private class TileParameters
     {
         public Color? Color;
+        public TileTypes? Type;
         public String Interior;
         public String DialogueFile;
     }
@@ -41,6 +45,7 @@ public class CityGridGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadSprites();
         if (readFile)
         {
             LoadTiles();
@@ -51,6 +56,22 @@ public class CityGridGenerator : MonoBehaviour
             //_thread.Start();
             GenerateTiles();
         }
+    }
+
+    void LoadSprites()
+    {
+        _spriteAtlas = new Dictionary<TileTypes, Sprite>();
+        var sprites = Resources.LoadAll<Sprite>("Tiles/Roads");
+
+        Debug.Log(sprites.Length);
+        foreach (var sprite in sprites)
+        {
+            TileTypes.TryParse(sprite.name, out TileTypes val);
+            _spriteAtlas[val] = sprite;
+        }
+
+        var house = Resources.Load<Sprite>("Tiles/HouseAsset");
+        _spriteAtlas[TileTypes.House] = house;
     }
 
     void LoadTiles()
@@ -150,9 +171,19 @@ public class CityGridGenerator : MonoBehaviour
             sprite.color = Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
             return t;
         }
+
+        if(!parameters.Color.HasValue)
+        {
+            // sprite.color = Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
+        }
         else
         {
-            sprite.color = parameters.Color ?? Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
+            sprite.color = parameters.Color.Value;
+        }
+
+        if (parameters.Type.HasValue && _spriteAtlas.TryGetValue(parameters.Type.Value, out var value))
+        {
+            sprite.sprite = value;
         }
 
         //Make each tile have a interactable prefab as a child; For testing its a door
@@ -208,9 +239,16 @@ public class CityGridGenerator : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
-                var color = grid.TileGrid[y,x].TileOptions[0].Type.GetColor();
                 TileParameters parameters = new TileParameters();
-                parameters.Color = color;
+                var type = grid.TileGrid[y, x].TileOptions[0].Type;
+                if (_spriteAtlas.TryGetValue(type, out var value))
+                {
+                    parameters.Type = type;
+                }
+                else
+                {
+                    parameters.Color = type.GetColor();
+                }
                 // Debug.Log(grid.TileGrid[x,y].TileOptions[0].Type);
                 GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y,x].TileOptions[0].Type.ToString();
             }
