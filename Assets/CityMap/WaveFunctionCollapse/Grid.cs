@@ -200,29 +200,38 @@ namespace CityMap.WaveFunctionCollapse
 
         public void FixDuplicates()
         {
-            var cityHallCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.CityHall);
-            var fireStationCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.FireStation);
-            var policeStationCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.PoliceStation);
+            var cityHall= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.CityHall).ToArray();
+            var fireStation= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.FireStation).ToArray();
+            var policeStation= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.PoliceStation).ToArray();
 
             var house = _options.First(t => t.Type == TileTypes.House);
 
-            foreach (var tile in TileGrid)
+            var cityHallRandom = Random.Range(0, cityHall.Length);
+            var fireStationRandom = Random.Range(0, fireStation.Length);
+            var policeStationRandom = Random.Range(0, policeStation.Length);
+
+            for (int i = 0; i < cityHall.Length; i++)
             {
-                var type = tile.TileOptions[0].Type;
-                
-                if (type == TileTypes.CityHall && cityHallCount > 1)
-                {
-                    tile.TileOptions[0] = house;
-                    cityHallCount--;
-                } else if (type == TileTypes.FireStation && fireStationCount > 1)
-                {
-                    tile.TileOptions[0] = house;
-                    fireStationCount--;
-                } else if (type == TileTypes.PoliceStation && policeStationCount > 1)
-                {
-                    tile.TileOptions[0] = house;
-                    policeStationCount--;
-                }
+                if(i == cityHallRandom)
+                    continue;
+
+                cityHall[i].TileOptions[0] = house;
+            }
+
+            for (int i = 0; i < fireStation.Length; i++)
+            {
+                if(i == fireStationRandom)
+                    continue;
+
+                fireStation[i].TileOptions[0] = house;
+            }
+
+            for (int i = 0; i < policeStation.Length; i++)
+            {
+                if(i == policeStationRandom)
+                    continue;
+
+                policeStation[i].TileOptions[0] = house;
             }
         }
     }
