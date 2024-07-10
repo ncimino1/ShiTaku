@@ -20,8 +20,10 @@ public class NpcManager : MonoBehaviour
     public bool shouldMove = true; //If the NPC should move or not
 
     //This will make the screen go dark, despawn the NPC, and then make the screen go back to normal
-    public void Despawn(){
+     IEnumerator LoadDespawn(){
         fade.Despawn();
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
     }
 
     public virtual void Interact()
@@ -41,7 +43,7 @@ public class NpcManager : MonoBehaviour
 
                 //If the NPC is important, despawn it after the dialouge is over
                 if(isImportant){
-                    Despawn();
+                    StartCoroutine(LoadDespawn());
                 }
 
                 return;
@@ -55,7 +57,10 @@ public class NpcManager : MonoBehaviour
 
     //Function to generate a random direction for the NPC to move in for a max of 3 second
     public void RandomDirection(){
-        if(currentTime - lastTimeMoved > 5){
+        //Generate a random number from 5-10
+        int randomTime = Random.Range(5, 10);
+
+        if(currentTime - lastTimeMoved > randomTime){
             lastTimeMoved = currentTime;
             int randomDirection = Random.Range(0, 4);
 

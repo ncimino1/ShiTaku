@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6582055111742896744}
   - component: {fileID: 5152673836135911541}
   - component: {fileID: 6112717129471222495}
+  - component: {fileID: 753493805831676264}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Black Screen Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +89,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!114 &753493805831676264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5604275232364698520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f054d3e13143017429741ba205461820, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasGroup: {fileID: 6112717129471222495}
+  fadein: 0
+  fadeout: 0
+  TimeToFade: 1
 --- !u!1 &8969573840026224290
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +117,6 @@ GameObject:
   - component: {fileID: 71553327496048820}
   - component: {fileID: 3253994490564597108}
   - component: {fileID: 6812777468849693174}
-  - component: {fileID: 4127946272080675231}
   m_Layer: 5
   m_Name: Fading Effect Canvas
   m_TagString: Untagged
@@ -191,20 +207,3 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4127946272080675231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8969573840026224290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f054d3e13143017429741ba205461820, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  npcManager: {fileID: 0}
-  canvasGroup: {fileID: 0}
-  fadein: 0
-  fadeout: 0
-  TimeToFade: 1

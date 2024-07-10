@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FadeInOut : MonoBehaviour
 {
-    public GameObject npc;
     public CanvasGroup canvasGroup;
     public bool fadein  = false;
     public bool fadeout = false;
@@ -14,7 +13,6 @@ public class FadeInOut : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        npc = GameObject.Find("NPC");
     }
 
     // Update is called once per frame
@@ -60,7 +58,6 @@ public class FadeInOut : MonoBehaviour
         FadeIn();
         Debug.Log("Despawning NPC");
         yield return new WaitForSeconds(1);
-        npc.SetActive(false);
         Debug.Log("NPC Despawned");
         FadeOut();
         Debug.Log("Fading back out");
