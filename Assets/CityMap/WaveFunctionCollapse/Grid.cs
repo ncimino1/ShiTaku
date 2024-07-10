@@ -197,5 +197,33 @@ namespace CityMap.WaveFunctionCollapse
 
             return false;
         }
+
+        public void FixDuplicates()
+        {
+            var cityHallCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.CityHall);
+            var fireStationCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.FireStation);
+            var policeStationCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.PoliceStation);
+
+            var house = _options.First(t => t.Type == TileTypes.House);
+
+            foreach (var tile in TileGrid)
+            {
+                var type = tile.TileOptions[0].Type;
+                
+                if (type == TileTypes.CityHall && cityHallCount > 1)
+                {
+                    tile.TileOptions[0] = house;
+                    cityHallCount--;
+                } else if (type == TileTypes.FireStation && fireStationCount > 1)
+                {
+                    tile.TileOptions[0] = house;
+                    fireStationCount--;
+                } else if (type == TileTypes.PoliceStation && policeStationCount > 1)
+                {
+                    tile.TileOptions[0] = house;
+                    policeStationCount--;
+                }
+            }
+        }
     }
 }
