@@ -145,7 +145,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInteracted: 0
-  sceneName: Room
+  interior: {fileID: 0}
+  exterior: {fileID: 0}
+  player: {fileID: 4291896189302112390, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
 --- !u!1 &4829971074940688954
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,20 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Menu
+  - StartGame
+  - Quit
+  - Investigate
+  - Interact
+  - Decide
+  - Leave
+  - NPCMenu
+  - ActionPoints
+  - ExitPause
+  - GoToMainMenu
+  - Days
   - Interactable Item
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -44,6 +57,9 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 3451849897
+    locked: 0
+  - name: NPC
+    uniqueID: 3334547831
     locked: 0
   - name: Building
     uniqueID: 393607723

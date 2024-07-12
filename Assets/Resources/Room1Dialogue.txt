@@ -1,0 +1,5 @@
+"Mr. FireFighter" fire_fighter 0.7766668 4.316667 0.6666667 0.6666667
+3
+Welcome to City Hall Engineer, we are in desperate need of your help!
+We are at high risk of an earthquake and tsunami soon and need your help preparing the city!
+Please guide us through this process and help us prevent as many casualties as possible!
