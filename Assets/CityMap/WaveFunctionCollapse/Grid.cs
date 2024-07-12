@@ -233,6 +233,8 @@ namespace CityMap.WaveFunctionCollapse
 
                 policeStation[i].TileOptions[0] = house;
             }
+
+            var houseCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.House);
         }
     }
 }
