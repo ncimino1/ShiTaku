@@ -18,6 +18,8 @@ public class MenuManager : MonoBehaviour
 
     public PlayerManager playerManager;
 
+    public DecisionMenu decisionMenu;
+
     // We will need a way to get a string ID from the NPC in question.
     // For now I'll have a default function.
     // May need to make use of the player manager.
@@ -47,8 +49,8 @@ public class MenuManager : MonoBehaviour
             daysDisplayer.SetDayText();
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
-        // For Javi and Andrew, this is where you write your condition for the npcMenu to appear after interaction
-            if (Input.GetKeyDown(KeyCode.Q) && playerManager.InteractionNotification.activeSelf) {
+        // add && playerManager.InteractionNotification.activeSelf to the first if statement when ready
+            if (Input.GetKeyDown(KeyCode.Q)) {
                 npcMenu.gameObject.SetActive(true);
                 npcMenu.SetAPText();
                 npcMenu.SetCurrentAction(GetNewAction());

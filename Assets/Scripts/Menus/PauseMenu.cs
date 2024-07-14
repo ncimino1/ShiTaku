@@ -86,11 +86,7 @@ public class PauseMenu : MonoBehaviour
         // Write code to update the outlines for the options in the options panel
 
         for (int i = 0; i < numOptions; i++) {
-            byte aValue = 0;
-            if (i == activeOption) {
-                aValue = 255;
-            } 
-            optionPanels[i].color = new Color32(255, 255, 255, aValue);
+           optionPanels[i].enabled = (i == activeOption);
         }
 
         int actionPoints = actionManager.ReturnActionPoints();

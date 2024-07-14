@@ -10,6 +10,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject InteractionNotification;
 
     public bool isInRoom = false;
+
+    public Stack<int> accumScore; // Holds score gained from previous actions performed 
     
     // Start is called before the first frame update to get the Animator component
     public void Start()

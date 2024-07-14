@@ -13,6 +13,8 @@ public class NPCMenu : MonoBehaviour
 
     public ActionManagerScript actionManager;
 
+    // public MenuManager menuManager;
+
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
@@ -109,16 +111,7 @@ public class NPCMenu : MonoBehaviour
         // Write code to update the outlines for the options in the options panel
 
         for (int i = 0; i < numOptions; i++) {
-            byte aValue = 0;
-            if (i == activeOption) {
-                aValue = 255;
-            } 
-            optionPanels[i].color = new Color32(195, 118, 55, aValue);
-
-            // Delete the if statement and just put
-            // optionPanels[i].enabled = (i == activeOption);
-            // Once Gabby's sprites are put into the menu panels
-
+            optionPanels[i].enabled = (i == activeOption);
         }
 
 

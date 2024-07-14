@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class DecisionMenu : MonoBehaviour
 {
+    public DecisionMenu thisDecisionMenu;
+    public int activeOption = 0;
+    public int numOptions = 2;
+
+    public ActionManagerScript actionManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
