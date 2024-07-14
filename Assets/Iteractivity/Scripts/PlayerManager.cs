@@ -72,4 +72,6 @@ public class PlayerManager : MonoBehaviour
         InteractionNotification.SetActive(false);
         Debug.Log("Player denotified");
     }
+
+    
 }

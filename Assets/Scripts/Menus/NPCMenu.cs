@@ -17,6 +17,13 @@ public class NPCMenu : MonoBehaviour
     public int activeOption = 0;
     public int numOptions = 4;
 
+    /* 
+       currentAction stores the string ID of the action that gets loaded into it
+       when interacting with an npc or object. With the ID, we can get the action
+       from ActionManager's actionList.
+    */
+    public string currentAction;
+
 
     public Image[] optionPanels;
 
@@ -44,12 +51,14 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 1:
                 // For NPC, Interact
+                
                 break;
             case 2:
                 // For NPC, Decide
                 actionManager.DecrementAP();
                 break;
             case 3: 
+                currentAction = "";
                 ExitMenu();
                 break;
             default:
@@ -76,8 +85,13 @@ public class NPCMenu : MonoBehaviour
         apText = GameObject.FindWithTag("ActionPoints").GetComponent<TextMeshProUGUI>();
     }
 
+    public void SetCurrentAction(string newAction) {
+        currentAction = newAction;
+    }
+
     void Start() {  
         GenerateOptions();
+        currentAction = "";
     }
 
     void Update() {
@@ -100,6 +114,11 @@ public class NPCMenu : MonoBehaviour
                 aValue = 255;
             } 
             optionPanels[i].color = new Color32(195, 118, 55, aValue);
+
+            // Delete the if statement and just put
+            // optionPanels[i].enabled = (i == activeOption);
+            // Once Gabby's sprites are put into the menu panels
+
         }
 
 

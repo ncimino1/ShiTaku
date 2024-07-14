@@ -16,6 +16,17 @@ public class MenuManager : MonoBehaviour
 
     public ActionManagerScript actionManager;
 
+    public PlayerManager playerManager;
+
+    // We will need a way to get a string ID from the NPC in question.
+    // For now I'll have a default function.
+    // May need to make use of the player manager.
+
+    public string GetNewAction() {
+        string newAction = "0000";
+        return newAction;
+    }
+
 
     // Start is called before the first frame update
 
@@ -37,9 +48,10 @@ public class MenuManager : MonoBehaviour
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
         // For Javi and Andrew, this is where you write your condition for the npcMenu to appear after interaction
-            if (Input.GetKeyDown(KeyCode.Q)) {
+            if (Input.GetKeyDown(KeyCode.Q) && playerManager.InteractionNotification.activeSelf) {
                 npcMenu.gameObject.SetActive(true);
                 npcMenu.SetAPText();
+                npcMenu.SetCurrentAction(GetNewAction());
             } else if (Input.GetKeyDown(KeyCode.Z)) {
                 pauseMenu.gameObject.SetActive(true);
                 pauseMenu.SetAPText();

@@ -25,6 +25,13 @@ public class ActionManagerScript : MonoBehaviour
         and int values for their respective costs. 
     */
     public List<string> actionList = new List<string>();
+
+    /* New actionList variable, has the ID as a string key. The value is an integer array
+       with 3 values: Cost, Benefit, and Detriment. Benefit is the points you get for 
+       choosing to do the action. Deteriment is the points you lose for choosing to not
+       do the action.
+    */
+    // public SortedDictionary<string, int[3]> actionList = new SortedDictionary<string, int[3]>;
     
     // Start is called before the first frame update
     void Start()
