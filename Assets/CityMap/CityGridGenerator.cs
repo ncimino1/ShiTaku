@@ -30,6 +30,12 @@ public class CityGridGenerator : MonoBehaviour
     [SerializeField] public GameObject TavernInterior;
 
     [SerializeField] public GameObject Player;
+    
+    [SerializeField] public GameObject GameMenuCanvas;
+
+    [SerializeField] public GameObject NPCMenu;
+    
+    [SerializeField] public CanvasGroup RoomCanvasGroup;
 
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
 
@@ -211,34 +217,43 @@ public class CityGridGenerator : MonoBehaviour
         if (parameters.Interior != null)
         {
             var door = Instantiate(Door, t.transform);
-            door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            
+
+            // var door = Instantiate(Door, t.transform);
+            // door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             var parentRenderer = t.GetComponent<SpriteRenderer>();
             var childRenderer = door.GetComponent<SpriteRenderer>();
-
+            
             var offset = (parentRenderer.bounds.size.y / 2) - (childRenderer.bounds.size.y / 2);
             offset /= parentRenderer.transform.localScale.y;
-
+            
             door.transform.localPosition = new Vector3(0, -offset, 0);
 
+            var interactController = door.GetComponent<InteractController>();
+            interactController.player = Player;
+            interactController.RoomCanvasGroup = RoomCanvasGroup;
+            interactController.GameMenuCanvas = GameMenuCanvas;
+            interactController.NPCMenu = NPCMenu;
+            //
+            //
+            // var interior = Instantiate(TavernInterior,
+            //     new Vector3(door.transform.position.x, door.transform.position.y), Quaternion.identity);
+            //
+            // interior.SetActive(false);
+            //
+            // var exteriorDoor = door.GetComponent<InteractController>();
+            // exteriorDoor.exterior = gameObject;
+            // exteriorDoor.interior = interior;
+            // exteriorDoor.player = Player;
 
-            var interior = Instantiate(TavernInterior,
-                new Vector3(door.transform.position.x, door.transform.position.y), Quaternion.identity);
+            // var interactController = interior.GetComponent<InteractController>();
+            // interactController.exterior = gameObject;
+            // interactController.interior = interior;
 
-            interior.SetActive(false);
-
-            var exteriorDoor = door.GetComponent<InteractController>();
-            exteriorDoor.exterior = gameObject;
-            exteriorDoor.interior = interior;
-            exteriorDoor.player = Player;
-
-            var interactController = interior.GetComponent<InteractController>();
-            interactController.exterior = gameObject;
-            interactController.interior = interior;
-
-            if (parameters.DialogueFile != null)
-            {
-                LoadNpcs(parameters.DialogueFile, interior.transform);
-            }
+            // if (parameters.DialogueFile != null)
+            // {
+            //     LoadNpcs(parameters.DialogueFile, interior.transform);
+            // }
         }
 
         return t;
@@ -276,6 +291,11 @@ public class CityGridGenerator : MonoBehaviour
                 if (_needsGrass.Contains(type))
                 {
                     parameters.Grass = true;
+                }
+
+                if (type == TileTypes.House)
+                {
+                    parameters.Interior = "";
                 }
 
                 GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y, x].TileOptions[0].Type.ToString();
