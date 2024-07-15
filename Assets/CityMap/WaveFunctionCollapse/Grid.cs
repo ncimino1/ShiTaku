@@ -264,5 +264,53 @@ namespace CityMap.WaveFunctionCollapse
                 }
             }
         }
+
+        public void FixRoads()
+        {
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    var type = TileGrid[y, x].TileOptions[0].Type;
+                    if (type >= TileTypes.RoadVertical && type <= TileTypes.Road3WayLTR)
+                    {
+                        var above = new HashSet<TileTypes>();
+                        if (y > 0)
+                        {
+                            above.AddRange(TileGrid[y - 1, x].TileOptions[0].Type.GetPossibleAdjacentTiles()[2]);
+                        }
+
+                        var right = new HashSet<TileTypes>();
+                        if (x < _width - 1)
+                        {
+                            right.AddRange(TileGrid[y, x + 1].TileOptions[0].Type.GetPossibleAdjacentTiles()[3]);
+                        }
+
+                        var down = new HashSet<TileTypes>();
+                        if (y < _height - 1)
+                        {
+                            down.AddRange(TileGrid[y + 1, x].TileOptions[0].Type.GetPossibleAdjacentTiles()[0]);
+                        }
+
+                        var left = new HashSet<TileTypes>();
+                        if (x > 0)
+                        {
+                            left.AddRange(TileGrid[y, x - 1].TileOptions[0].Type.GetPossibleAdjacentTiles()[1]);
+                        }
+                        
+                        above.IntersectWith(right);
+                        above.IntersectWith(down);
+                        above.IntersectWith(left);
+
+                        if (above.Count != 0 && !above.Contains(type))
+                        {
+                            var selection = _options.First(t => t.Type == above.First());
+                            TileGrid[y, x].TileOptions[0] = selection;
+                            Debug.Log("fixed");
+                        }
+                    }
+                }
+            }
+        }
     }
 }

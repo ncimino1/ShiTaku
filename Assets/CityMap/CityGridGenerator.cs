@@ -255,6 +255,7 @@ public class CityGridGenerator : MonoBehaviour
         }
 
         grid.FixDuplicates();
+        grid.FixRoads();
 
         for (int x = 0; x < width; x++)
         {
