@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 public class InteractController : MonoBehaviour
 {
     public bool isInteracted;
-    //public GameObject interior;
-    //public GameObject exterior;
+    public GameObject interior;
+    public GameObject exterior;
     public GameObject player;
     public CanvasGroup RoomCanvasGroup;
     public string roomName;
     public GameObject GameMenuCanvas;
     private MenuManager MenuManagerScript;
+    public GameObject NPCMenu;
+    private NPCMenu NPCManagerScript;
 
     public virtual void Interact()
     {
@@ -23,7 +25,7 @@ public class InteractController : MonoBehaviour
         // {
         //     exterior.SetActive(false);
         //     interior.SetActive(true);
-        //     player.transform.position = interior.transform.Find("Spawn").position;
+        //     // player.transform.position = interior.transform.Find("Spawn").position;
         // }
         // else
         // {
@@ -43,19 +45,19 @@ public class InteractController : MonoBehaviour
         }
 
         //When an NCPC is interacted with, fade in the room
-        if (RoomCanvasGroup.alpha == 0)
-        {
+        if (RoomCanvasGroup.alpha == 0){
+            isInteracted = true;
+            NPCManagerScript.exit = false;
             StartCoroutine(FadeIn());
         }
-        else
-        {
-            StartCoroutine(FadeOut());
-        }
+        
     }
 
     //Fade in the room
     public IEnumerator FadeIn()
     {
+        isInteracted = true;
+        
         MenuManagerScript.setNPCMenu(true);
 
         while (RoomCanvasGroup.alpha < 1)
@@ -68,6 +70,13 @@ public class InteractController : MonoBehaviour
     //Fade out the room
     public IEnumerator FadeOut()
     {
+
+        Debug.Log("Fading out");
+
+        isInteracted = false;
+
+        MenuManagerScript.setNPCMenu(false);
+
         while (RoomCanvasGroup.alpha > 0)
         {
             RoomCanvasGroup.alpha -= Time.deltaTime;
@@ -79,5 +88,15 @@ public class InteractController : MonoBehaviour
     void Start()
     {
         MenuManagerScript = GameMenuCanvas.GetComponent<MenuManager>();
+
+        NPCManagerScript = NPCMenu.GetComponent<NPCMenu>();
+    }
+
+    void Update()
+    {
+        //Check to see if the exit of the menu option was selected, if so, close the menu and fadeout 
+        if(NPCManagerScript.exit == true){
+            StartCoroutine(FadeOut());
+        }
     }
 }
