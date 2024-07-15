@@ -51,3 +51,8 @@ https://github.com/ncimino1/ShiTaku/releases/download/Main/ShiTakuInstaller.exe
 
 ## Run executable command
 From the install or build location, type ShiTaku.exe in terminal.
+
+## References
+Wave Function Collapse: The following github repository was used to for the basic version of Wave Function Collapse. https://github.com/kavinbharathii/wave-function-collapse/tree/main.
+Andrew converted the code from Python to C# and added additional features to make generation smoother. Additionally, he changed the algorithm to support more tile configurations than
+just the binary adjacency test provided by the version in the github repository.

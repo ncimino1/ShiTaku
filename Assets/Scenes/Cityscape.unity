@@ -353,11 +353,15 @@ PrefabInstance:
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: Door
       value: 
-      objectReference: {fileID: 963428325737977618, guid: 8872943114b3bd74aaeb915de5928858, type: 3}
+      objectReference: {fileID: 7609281437220540122, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: Player
       value: 
       objectReference: {fileID: 62032450}
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: NPCMenu
+      value: 
+      objectReference: {fileID: 1234108207}
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: DoorPrefab
       value: 
@@ -367,9 +371,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3655744650402645862, guid: 7c9ec8701f14af34796c3160db2715e1, type: 3}
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: GameMenuCanvas
+      value: 
+      objectReference: {fileID: 834446888}
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: TavernInterior
       value: 
       objectReference: {fileID: 872318281783543792, guid: e35443d9594e69f7e9a15c488e6663ac, type: 3}
+    - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
+      propertyPath: RoomCanvasGroup
+      value: 
+      objectReference: {fileID: 2052407554}
     - target: {fileID: 5892005785548161605, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1173,79 +1185,6 @@ CanvasGroup:
   m_CorrespondingSourceObject: {fileID: 8733918488088654562, guid: 16888053337327742a1509ba2b37d57d, type: 3}
   m_PrefabInstance: {fileID: 711758514}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4020134171077055276
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.48
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2430390610450898954, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4114303982541769324, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 62032450}
-    - target: {fileID: 4114303982541769324, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: NPCMenu
-      value: 
-      objectReference: {fileID: 1234108207}
-    - target: {fileID: 4114303982541769324, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: GameMenuCanvas
-      value: 
-      objectReference: {fileID: 834446888}
-    - target: {fileID: 4114303982541769324, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: RoomCanvasGroup
-      value: 
-      objectReference: {fileID: 2052407554}
-    - target: {fileID: 7609281437220540122, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
-      propertyPath: m_Name
-      value: DoorPrefab(New Room)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1257,5 +1196,4 @@ SceneRoots:
   - {fileID: 453783690}
   - {fileID: 915611348}
   - {fileID: 1188715804}
-  - {fileID: 4020134171077055276}
   - {fileID: 711758514}

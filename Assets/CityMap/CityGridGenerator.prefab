@@ -44,10 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd75b720440a6596b65e8dc03b1d6f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 10
-  height: 10
-  size: 6
+  width: 15
+  height: 15
+  size: 5
   tile: {fileID: 7781749854421273583, guid: 30790b390422c23b88ea56dd1a8ce65d, type: 3}
-  readFile: 1
+  readFile: 0
   NPC_Character: {fileID: 0}
   Door: {fileID: 0}
+  TavernInterior: {fileID: 0}
+  Player: {fileID: 0}
