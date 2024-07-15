@@ -20,6 +20,8 @@ public class SpriteMovement : MonoBehaviour
 
     private static Dictionary<string, Vector3> _savedLocs = new Dictionary<string, Vector3>();
 
+    public bool lockMovement;
+
 
     private float Interp(float time)
     {
@@ -43,6 +45,7 @@ public class SpriteMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lockMovement = false;
         _phys = GetComponent<Rigidbody2D>();
         _dir = new Vector2();
         _keyHeld = false;
@@ -58,7 +61,9 @@ public class SpriteMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _dir = MovementDirection().normalized;
+        if(lockMovement == false){
+            _dir = MovementDirection().normalized;
+        }
     }
 
     private void FixedUpdate()

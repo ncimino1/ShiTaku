@@ -10,6 +10,7 @@ public class InteractController : MonoBehaviour
     public GameObject interior;
     public GameObject exterior;
     public GameObject player;
+    private SpriteMovement spriteMovement;
     public CanvasGroup RoomCanvasGroup;
     public string roomName;
     public GameObject GameMenuCanvas;
@@ -56,7 +57,13 @@ public class InteractController : MonoBehaviour
     //Fade in the room
     public IEnumerator FadeIn()
     {
+        Debug.Log("Fading In");
+
         isInteracted = true;
+
+        //Lock the movement of the player
+        spriteMovement.lockMovement = true;
+        Debug.Log("Player movement locked");
         
         MenuManagerScript.setNPCMenu(true);
 
@@ -70,10 +77,13 @@ public class InteractController : MonoBehaviour
     //Fade out the room
     public IEnumerator FadeOut()
     {
-
         Debug.Log("Fading out");
 
         isInteracted = false;
+
+        //Unlock the movement of the player
+        spriteMovement.lockMovement = false;
+        Debug.Log("Player movement unlocked");
 
         MenuManagerScript.setNPCMenu(false);
 
@@ -90,6 +100,8 @@ public class InteractController : MonoBehaviour
         MenuManagerScript = GameMenuCanvas.GetComponent<MenuManager>();
 
         NPCManagerScript = NPCMenu.GetComponent<NPCMenu>();
+
+        spriteMovement = player.GetComponent<SpriteMovement>();
     }
 
     void Update()
@@ -97,6 +109,7 @@ public class InteractController : MonoBehaviour
         //Check to see if the exit of the menu option was selected, if so, close the menu and fadeout 
         if(NPCManagerScript.exit == true){
             StartCoroutine(FadeOut());
+            NPCManagerScript.exit = false;
         }
     }
 }
