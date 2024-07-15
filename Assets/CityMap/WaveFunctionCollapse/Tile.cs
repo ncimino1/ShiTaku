@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace CityMap.WaveFunctionCollapse
 {
+    //Tile class based on implementation in https://github.com/kavinbharathii/wave-function-collapse/tree/main
     public class Tile
     {
         public TileConfiguration[] TileOptions { get; set; }

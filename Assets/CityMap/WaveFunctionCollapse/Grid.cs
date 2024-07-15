@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace CityMap.WaveFunctionCollapse
 {
+    //Grid class based on implementation in https://github.com/kavinbharathii/wave-function-collapse/tree/main
     public class Grid
     {
         public Tile[,] TileGrid { get; private set; }
@@ -214,9 +215,9 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < cityHall.Length; i++)
             {
-                if (i == cityHallRandom)
-                    continue;
-
+                // if (i == cityHallRandom)
+                //     continue;
+                //
                 cityHall[i].TileOptions[0] = house;
             }
 
@@ -309,6 +310,8 @@ namespace CityMap.WaveFunctionCollapse
                             Debug.Log("fixed");
                         }
                     }
+                    
+                    
                 }
             }
         }
