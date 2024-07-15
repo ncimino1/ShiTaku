@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,21 +10,64 @@ public class InteractController : MonoBehaviour
     public GameObject interior;
     public GameObject exterior;
     public GameObject player;
+    public CanvasGroup RoomCanvasGroup;
+    public string roomName;
 
     public virtual void Interact()
     {
-        Debug.Log("Interacting with the object");
+        Debug.Log("Interacting with the object right now");
 
-        if (exterior.activeSelf)
+        // if (exterior.activeSelf)
+        // {
+        //     exterior.SetActive(false);
+        //     interior.SetActive(true);
+        //     player.transform.position = interior.transform.Find("Spawn").position;
+        // }
+        // else
+        // {
+        //     exterior.SetActive(true);
+        //     interior.SetActive(false);
+        // }
+
+        //Change the image of the room that is being displayed based on a passed in parameter
+        switch(roomName){
+            case "tavern":
+                RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("Tavern");
+                break;
+            //Default to a white image
+            default:
+                RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
+                break;
+        }
+
+        //When an NCPC is interacted with, fade in the room
+        if (RoomCanvasGroup.alpha == 0)
         {
-            exterior.SetActive(false);
-            interior.SetActive(true);
-            player.transform.position = interior.transform.Find("Spawn").position;
+            StartCoroutine(FadeIn());
         }
         else
         {
-            exterior.SetActive(true);
-            interior.SetActive(false);
+            StartCoroutine(FadeOut());
+        }
+    }
+
+    //Fade in the room
+    public IEnumerator FadeIn()
+    {
+        while (RoomCanvasGroup.alpha < 1)
+        {
+            RoomCanvasGroup.alpha += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    //Fade out the room
+    public IEnumerator FadeOut()
+    {
+        while (RoomCanvasGroup.alpha > 0)
+        {
+            RoomCanvasGroup.alpha -= Time.deltaTime;
+            yield return null;
         }
     }
 }
