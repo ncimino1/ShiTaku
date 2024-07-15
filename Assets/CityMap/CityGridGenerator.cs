@@ -7,6 +7,7 @@ using System.Linq;
 using CityMap.WaveFunctionCollapse;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.U2D;
 using Grid = CityMap.WaveFunctionCollapse.Grid;
 using Random = UnityEngine.Random;
 
@@ -32,7 +33,11 @@ public class CityGridGenerator : MonoBehaviour
 
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
 
+    private Sprite _grass;
+
     private Thread _thread;
+
+    private HashSet<TileTypes> _needsGrass;
 
     private class TileParameters
     {
@@ -40,6 +45,7 @@ public class CityGridGenerator : MonoBehaviour
         public TileTypes? Type;
         public String Interior;
         public String DialogueFile;
+        public bool Grass = false;
     }
 
     // Start is called before the first frame update
@@ -60,28 +66,25 @@ public class CityGridGenerator : MonoBehaviour
 
     void LoadSprites()
     {
+        var spritesArray = Resources.Load<SpriteAtlas>("Tiles/TileAtlas");
+        _grass = Resources.LoadAll<Sprite>("Tiles/grass")[0];
+        
         _spriteAtlas = new Dictionary<TileTypes, Sprite>();
-        var sprites = Resources.LoadAll<Sprite>("Tiles/Roads");
 
-        foreach (var sprite in sprites)
+        foreach (var type in Enum.GetValues(typeof(TileTypes)).Cast<TileTypes>())
         {
-            if (TileTypes.TryParse(sprite.name, out TileTypes val))
+            var sprite = spritesArray.GetSprite(type.ToString());
+            
+            if (sprite)
             {
-                _spriteAtlas[val] = sprite;
+                _spriteAtlas[type] = sprite;
             }
         }
 
-        var house = Resources.Load<Sprite>("Tiles/HouseAsset");
-        _spriteAtlas[TileTypes.House] = house;
-
-        var skyscaper = Resources.LoadAll<Sprite>("Tiles/BuildingAsset");
-        foreach (var sprite in skyscaper)
-        {
-            if (TileTypes.TryParse(sprite.name, out TileTypes val))
-            {
-                _spriteAtlas[val] = sprite;
-            }
-        }
+        _needsGrass = new HashSet<TileTypes>();
+        _needsGrass.Add(TileTypes.FireStation);
+        _needsGrass.Add(TileTypes.PoliceStation);
+        _needsGrass.Add(TileTypes.Park);
     }
 
     void LoadTiles()
@@ -175,7 +178,7 @@ public class CityGridGenerator : MonoBehaviour
         t.transform.localScale = new Vector3(size, size, size);
 
         var sprite = t.GetComponent<SpriteRenderer>();
-        sprite.sortingLayerID = SortingLayer.NameToID("Tile");
+        sprite.sortingLayerID = SortingLayer.NameToID("Building");
         if (parameters is null)
         {
             sprite.color = Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
@@ -194,6 +197,14 @@ public class CityGridGenerator : MonoBehaviour
         if (parameters.Type.HasValue && _spriteAtlas.TryGetValue(parameters.Type.Value, out var value))
         {
             sprite.sprite = value;
+        }
+
+        if (parameters.Grass)
+        {
+            var grass = Instantiate(tile, t.transform).GetComponent<SpriteRenderer>();
+            grass.sortingLayerID = SortingLayer.NameToID("Background");
+            grass.sprite = _grass;
+
         }
 
         //Make each tile have a interactable prefab as a child; For testing its a door
@@ -259,6 +270,11 @@ public class CityGridGenerator : MonoBehaviour
                 else
                 {
                     parameters.Color = type.GetColor();
+                }
+
+                if (_needsGrass.Contains(type))
+                {
+                    parameters.Grass = true;
                 }
 
                 GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y, x].TileOptions[0].Type.ToString();

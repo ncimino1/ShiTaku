@@ -58,9 +58,6 @@ TagManager:
   - name: Background
     uniqueID: 3451849897
     locked: 0
-  - name: Skyscraper
-    uniqueID: 665313311
-    locked: 0
   - name: NPC
     uniqueID: 3334547831
     locked: 0
@@ -69,4 +66,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1365500047
+    locked: 0
+  - name: Skyscraper
+    uniqueID: 665313311
     locked: 0
