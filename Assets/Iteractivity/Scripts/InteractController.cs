@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 public class InteractController : MonoBehaviour
 {
     public bool isInteracted;
-    public GameObject interior;
-    public GameObject exterior;
+    //public GameObject interior;
+    //public GameObject exterior;
     public GameObject player;
     public CanvasGroup RoomCanvasGroup;
     public string roomName;
+    public GameObject GameMenuCanvas;
+    private MenuManager MenuManagerScript;
 
     public virtual void Interact()
     {
@@ -54,6 +56,8 @@ public class InteractController : MonoBehaviour
     //Fade in the room
     public IEnumerator FadeIn()
     {
+        MenuManagerScript.setNPCMenu(true);
+
         while (RoomCanvasGroup.alpha < 1)
         {
             RoomCanvasGroup.alpha += Time.deltaTime;
@@ -69,5 +73,11 @@ public class InteractController : MonoBehaviour
             RoomCanvasGroup.alpha -= Time.deltaTime;
             yield return null;
         }
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        MenuManagerScript = GameMenuCanvas.GetComponent<MenuManager>();
     }
 }

@@ -18,7 +18,14 @@ public class MenuManager : MonoBehaviour
 
 
     // Start is called before the first frame update
+    
+    public void setNPCMenu(bool set) {
+        npcMenu.gameObject.SetActive(set);
+    }
 
+    public void setPauseMenu(bool set){
+        pauseMenu.gameObject.SetActive(set);
+    }
     
     void Start()
     {
