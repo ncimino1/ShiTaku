@@ -10,21 +10,20 @@ public class NPCMenu : MonoBehaviour
 {
 
     public NPCMenu thisNpcMenu;
-
     public ActionManagerScript actionManager;
-
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
-
-
+     public CanvasGroup RoomCanvasGroup;
     public Image[] optionPanels;
+    public bool exit;
 
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
     }
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
     public void ExitMenu() {
+        exit = true; 
         activeOption = 0;
         Debug.Log("Menu is closed.");
         thisNpcMenu.gameObject.SetActive(false);

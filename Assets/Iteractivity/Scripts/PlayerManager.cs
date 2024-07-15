@@ -9,12 +9,17 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject InteractionNotification;
 
+    SpriteMovement spriteMovement;
+
     public bool isInRoom = false;
     
     // Start is called before the first frame update to get the Animator component
     public void Start()
     {
         anim = GetComponent<Animator>();
+
+        spriteMovement = GetComponent<SpriteMovement>();
+
     }
 
     //Update is called once per frame to check for key presses and trigger animations
