@@ -200,9 +200,11 @@ namespace CityMap.WaveFunctionCollapse
 
         public void FixDuplicates()
         {
-            var cityHall= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.CityHall).ToArray();
-            var fireStation= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.FireStation).ToArray();
-            var policeStation= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.PoliceStation).ToArray();
+            var cityHall = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.CityHall).ToArray();
+            var fireStation = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.FireStation)
+                .ToArray();
+            var policeStation = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.PoliceStation)
+                .ToArray();
 
             var house = _options.First(t => t.Type == TileTypes.House);
 
@@ -212,7 +214,7 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < cityHall.Length; i++)
             {
-                if(i == cityHallRandom)
+                if (i == cityHallRandom)
                     continue;
 
                 cityHall[i].TileOptions[0] = house;
@@ -220,7 +222,7 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < fireStation.Length; i++)
             {
-                if(i == fireStationRandom)
+                if (i == fireStationRandom)
                     continue;
 
                 fireStation[i].TileOptions[0] = house;
@@ -228,13 +230,39 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < policeStation.Length; i++)
             {
-                if(i == policeStationRandom)
+                if (i == policeStationRandom)
                     continue;
 
                 policeStation[i].TileOptions[0] = house;
             }
 
             var houseCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.House);
+            var parkCount = TileGrid.Cast<Tile>().Count(t => t.TileOptions[0].Type == TileTypes.Park);
+
+            var newParks = 0;
+
+            if (parkCount > houseCount / 4)
+            {
+                newParks = parkCount - houseCount / 4;
+            }
+
+            var parks = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.Park).ToArray();
+
+            var randIndicies = new HashSet<int>();
+
+            while (randIndicies.Count != newParks)
+            {
+                var randGen = Random.Range(0, parkCount);
+                randIndicies.Add(randGen);
+            }
+
+            for (int i = 0; i < parkCount; i++)
+            {
+                if (randIndicies.Contains(i))
+                {
+                    parks[i].TileOptions[0] = house;
+                }
+            }
         }
     }
 }

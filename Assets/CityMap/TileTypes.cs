@@ -24,6 +24,10 @@ public enum TileTypes
     FireStation,
     CityHall,
     House,
+    SkyscraperUpperBL,
+    SkyscraperUpperBR,
+    SkyscraperUpperTL,
+    SkyscraperUpperTR,
 }
 
 public static class TileTypesMethods

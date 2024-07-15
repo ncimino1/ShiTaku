@@ -31,7 +31,7 @@ public class CityGridGenerator : MonoBehaviour
     [SerializeField] public GameObject Player;
 
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
-    
+
     private Thread _thread;
 
     private class TileParameters
@@ -63,15 +63,25 @@ public class CityGridGenerator : MonoBehaviour
         _spriteAtlas = new Dictionary<TileTypes, Sprite>();
         var sprites = Resources.LoadAll<Sprite>("Tiles/Roads");
 
-        Debug.Log(sprites.Length);
         foreach (var sprite in sprites)
         {
-            TileTypes.TryParse(sprite.name, out TileTypes val);
-            _spriteAtlas[val] = sprite;
+            if (TileTypes.TryParse(sprite.name, out TileTypes val))
+            {
+                _spriteAtlas[val] = sprite;
+            }
         }
 
         var house = Resources.Load<Sprite>("Tiles/HouseAsset");
         _spriteAtlas[TileTypes.House] = house;
+
+        var skyscaper = Resources.LoadAll<Sprite>("Tiles/BuildingAsset");
+        foreach (var sprite in skyscaper)
+        {
+            if (TileTypes.TryParse(sprite.name, out TileTypes val))
+            {
+                _spriteAtlas[val] = sprite;
+            }
+        }
     }
 
     void LoadTiles()
@@ -172,7 +182,7 @@ public class CityGridGenerator : MonoBehaviour
             return t;
         }
 
-        if(!parameters.Color.HasValue)
+        if (!parameters.Color.HasValue)
         {
             // sprite.color = Random.ColorHSV(0, 1, 0, 1, 0.5f, 1);
         }
@@ -226,21 +236,22 @@ public class CityGridGenerator : MonoBehaviour
     void GenerateTiles()
     {
         var config = TileConfiguration.Generate();
-        
+
 
         Grid grid = new Grid(width, height, config);
         while (!grid.Collapse())
         {
         }
-        
+
         grid.FixDuplicates();
-        
+
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 TileParameters parameters = new TileParameters();
                 var type = grid.TileGrid[y, x].TileOptions[0].Type;
+
                 if (_spriteAtlas.TryGetValue(type, out var value))
                 {
                     parameters.Type = type;
@@ -249,8 +260,39 @@ public class CityGridGenerator : MonoBehaviour
                 {
                     parameters.Color = type.GetColor();
                 }
-                // Debug.Log(grid.TileGrid[x,y].TileOptions[0].Type);
-                GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y,x].TileOptions[0].Type.ToString();
+
+                GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y, x].TileOptions[0].Type.ToString();
+
+                if (type == TileTypes.SkyscraperCornerTL)
+                {
+                    parameters.Color = null;
+                    parameters.Type = TileTypes.SkyscraperUpperBL;
+                    var bl = GenerateTile(x, height - y, parameters);
+                    bl.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
+
+                    parameters.Type = TileTypes.SkyscraperUpperBR;
+                    var br = GenerateTile(x + 1, height - y, parameters);
+                    br.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
+                    
+                    parameters.Type = TileTypes.SkyscraperUpperTL;
+                    var tl = GenerateTile(x, height - y + 1, parameters);
+                    tl.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
+                    
+                    parameters.Type = TileTypes.SkyscraperUpperTR;
+                    var tr = GenerateTile(x + 1, height - y + 1, parameters);
+                    tr.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
+                    
+                    var collider = bl.AddComponent<BoxCollider2D>();
+                    collider.isTrigger = true;
+                    collider.offset = new Vector2(0.5f, 0.5f);
+                    collider.size = new Vector2(2, 2);
+                    
+                    var transparency = bl.AddComponent<TransparencyController>();
+                    transparency.bl = bl.GetComponent<SpriteRenderer>();
+                    transparency.br = br.GetComponent<SpriteRenderer>();
+                    transparency.tl = tl.GetComponent<SpriteRenderer>();
+                    transparency.tr = tr.GetComponent<SpriteRenderer>();
+                }
             }
         }
     }
