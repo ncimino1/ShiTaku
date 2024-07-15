@@ -16,10 +16,19 @@ public class MenuManager : MonoBehaviour
 
     public ActionManagerScript actionManager;
 
+    public bool EnteredRoom = false;
 
-    // Start is called before the first frame update
-
+    public void setNPCMenu(bool set) {
+        npcMenu.gameObject.SetActive(set);
+        if(set == true){
+            EnteredRoom = true;
+        }
+        else{
+            EnteredRoom = false;
+        }
+    }
     
+    //Start is called before the first frame update
     void Start()
     {
         npcMenu.gameObject.SetActive(false);
