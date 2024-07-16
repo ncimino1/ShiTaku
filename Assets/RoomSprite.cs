@@ -75,6 +75,7 @@ public class RoomSprite : MonoBehaviour
 
                 //If the NPC is important, despawn it after the dialouge is over
                 if(isImportant){
+                    npcMenu.actionManager.DecrementAP();
                     StartCoroutine(LoadDespawn());
                 }
 

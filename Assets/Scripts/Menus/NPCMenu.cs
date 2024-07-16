@@ -44,7 +44,7 @@ public class NPCMenu : MonoBehaviour
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
-                
+
                 break;
             case 1:
                 // For NPC, Interact
@@ -62,7 +62,7 @@ public class NPCMenu : MonoBehaviour
                 }
                 else{
                     RoomNPC.GetComponent<RoomSprite>().DecideInteract();
-                    actionManager.DecrementAP();
+                    // actionManager.DecrementAP();
                 }
                 break;
             case 3: 
