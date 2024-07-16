@@ -14,7 +14,8 @@ public class NPCMenu : MonoBehaviour
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
-     public CanvasGroup RoomCanvasGroup;
+    public CanvasGroup RoomCanvasGroup;
+    public GameObject RoomNPC;
     public Image[] optionPanels;
     public bool exit;
 
@@ -40,12 +41,14 @@ public class NPCMenu : MonoBehaviour
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
+                
                 break;
             case 1:
                 // For NPC, Interact
                 break;
             case 2:
                 // For NPC, Decide
+
                 actionManager.DecrementAP();
                 break;
             case 3: 

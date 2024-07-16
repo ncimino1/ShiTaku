@@ -15,9 +15,45 @@ public class DialougeManager : MonoBehaviour
 
     public Queue<string> sentences; //Queue to store the dialouge sentences
 
+    public Queue<string> exitSentences; //Queue to store the dialouge sentences for evacuation
+
     void Start()
     {
         sentences = new Queue<string>();
+    }
+
+    public void StartEndDialouge(Dialouge dialouge)
+    {
+        Debug.Log("Starting dialouge with " + dialouge.name);
+
+        dialougeBox.SetActive(true);
+
+        nameText.text = dialouge.name;
+
+        exitSentences.Clear();
+
+        foreach (string sentence in dialouge.sentences)
+        {
+            exitSentences.Enqueue(sentence);
+
+        }
+
+        DisplayNextEndSentence();
+    }
+
+    public void DisplayNextEndSentence()
+    {
+        if (exitSentences.Count == 0)
+        {
+            Debug.Log("End of dialouge");
+            EndDialouge();
+            dialougeBox.SetActive(false);
+            return;
+        }
+
+        string sentence = exitSentences.Dequeue();
+        dialougeText.text = sentence;
+        Debug.Log(sentence);
     }
 
     public void StartDialouge(Dialouge dialouge)
