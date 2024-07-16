@@ -18,6 +18,7 @@ public class NPCMenu : MonoBehaviour
     public GameObject RoomNPC;
     public Image[] optionPanels;
     public bool exit;
+    public bool hasDecided;
 
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
@@ -49,7 +50,10 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 2:
                 // For NPC, Decide
-
+                if (hasDecided) {
+                    RoomNPC.GetComponent<RoomSprite>().EmptyInteract();
+                }
+                RoomNPC.GetComponent<RoomSprite>().DecideInteract();
                 actionManager.DecrementAP();
                 break;
             case 3: 
@@ -81,6 +85,7 @@ public class NPCMenu : MonoBehaviour
 
     void Start() {  
         GenerateOptions();
+        hasDecided = false;
     }
 
     void Update() {

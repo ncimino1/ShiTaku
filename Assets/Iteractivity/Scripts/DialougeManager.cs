@@ -17,14 +17,18 @@ public class DialougeManager : MonoBehaviour
 
     public Queue<string> exitSentences; //Queue to store the dialouge sentences for evacuation
 
+    public Queue<string> emptySentences; //Queue to store the dialouge sentences for emptying
+
     void Start()
     {
         sentences = new Queue<string>();
+        exitSentences = new Queue<string>();
+        emptySentences = new Queue<string>();
     }
 
     public void StartEndDialouge(Dialouge dialouge)
     {
-        Debug.Log("Starting dialouge with " + dialouge.name);
+        Debug.Log("Starting end dialouge with " + dialouge.name);
 
         dialougeBox.SetActive(true);
 
@@ -32,10 +36,9 @@ public class DialougeManager : MonoBehaviour
 
         exitSentences.Clear();
 
-        foreach (string sentence in dialouge.sentences)
+        foreach (string sentence in dialouge.exitSentences)
         {
             exitSentences.Enqueue(sentence);
-
         }
 
         DisplayNextEndSentence();
@@ -75,7 +78,6 @@ public class DialougeManager : MonoBehaviour
          DisplayNextSentence();
     }
 
-
     public void DisplayNextSentence()
     {
         if (sentences.Count == 0)
@@ -95,5 +97,42 @@ public class DialougeManager : MonoBehaviour
     {
         Debug.Log("End of dialouge");
         dialougeBox.SetActive(false);
+        sentences.Clear();
+        exitSentences.Clear();
     }
+
+    public void StartEmptyDialouge(Dialouge dialouge)
+    {
+        Debug.Log("Starting dialouge with " + dialouge.name);
+
+        dialougeBox.SetActive(true);
+
+        nameText.text = dialouge.name;
+
+        emptySentences.Clear();
+
+        foreach (string sentence in dialouge.emptySentences)
+        {
+            emptySentences.Enqueue(sentence);
+
+        }
+
+         DisplayNextEmptySentence();
+    }
+
+    public void DisplayNextEmptySentence()
+    {
+        if (emptySentences.Count == 0)
+        {
+            Debug.Log("End of dialouge");
+            EndDialouge();
+            dialougeBox.SetActive(false);
+            return;
+        }
+
+        string sentence = sentences.Dequeue();
+        dialougeText.text = sentence;
+        Debug.Log(sentence);
+    }
+
 }

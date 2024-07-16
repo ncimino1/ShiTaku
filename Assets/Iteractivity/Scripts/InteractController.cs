@@ -12,6 +12,7 @@ public class InteractController : MonoBehaviour
     public GameObject player;
     private SpriteMovement spriteMovement;
     public CanvasGroup RoomCanvasGroup;
+    public CanvasGroup NPCCanvasGroup;
     public string roomName;
     public GameObject GameMenuCanvas;
     private MenuManager MenuManagerScript;
@@ -38,10 +39,12 @@ public class InteractController : MonoBehaviour
         switch(roomName){
             case "tavern":
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("Tavern");
+                NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("shrineWorker");
                 break;
             //Default to a white image
             default:
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
+                NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
                 break;
         }
 
@@ -63,6 +66,7 @@ public class InteractController : MonoBehaviour
 
         //Lock the movement of the player
         spriteMovement.lockMovement = true;
+        spriteMovement.LockMovement();
         Debug.Log("Player movement locked");
         
         MenuManagerScript.setNPCMenu(true);
@@ -70,6 +74,7 @@ public class InteractController : MonoBehaviour
         while (RoomCanvasGroup.alpha < 1)
         {
             RoomCanvasGroup.alpha += Time.deltaTime;
+            NPCCanvasGroup.alpha += Time.deltaTime;
             yield return null;
         }
     }
@@ -90,6 +95,7 @@ public class InteractController : MonoBehaviour
         while (RoomCanvasGroup.alpha > 0)
         {
             RoomCanvasGroup.alpha -= Time.deltaTime;
+            NPCCanvasGroup.alpha -= Time.deltaTime;
             yield return null;
         }
     }

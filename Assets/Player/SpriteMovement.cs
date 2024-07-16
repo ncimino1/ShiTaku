@@ -22,6 +22,11 @@ public class SpriteMovement : MonoBehaviour
 
     public bool lockMovement;
 
+    //Function that stops all movement
+    public void LockMovement()
+    {
+        _phys.velocity = new Vector2(0, 0);
+    }
 
     private float Interp(float time)
     {
