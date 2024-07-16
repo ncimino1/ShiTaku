@@ -8,7 +8,8 @@ using TMPro;
 
 public class NPCMenu : MonoBehaviour
 {
-
+    public Dialouge emptyDialouge; // Reference to the Dialouge script
+    public bool hasInteracted;
     public NPCMenu thisNpcMenu;
     public ActionManagerScript actionManager;
     public TextMeshProUGUI apText;
@@ -19,6 +20,7 @@ public class NPCMenu : MonoBehaviour
     public Image[] optionPanels;
     public bool exit;
     public bool hasDecided;
+    
 
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
@@ -42,19 +44,26 @@ public class NPCMenu : MonoBehaviour
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
-
+                
                 break;
             case 1:
                 // For NPC, Interact
-                RoomNPC.GetComponent<RoomSprite>().Interact();
+                if(hasDecided){
+                    EmptyInteract();
+                }
+                else{
+                    RoomNPC.GetComponent<RoomSprite>().Interact();
+                }
                 break;
             case 2:
                 // For NPC, Decide
                 if (hasDecided) {
-                    RoomNPC.GetComponent<RoomSprite>().EmptyInteract();
+                    EmptyInteract();
                 }
-                RoomNPC.GetComponent<RoomSprite>().DecideInteract();
-                actionManager.DecrementAP();
+                else{
+                    RoomNPC.GetComponent<RoomSprite>().DecideInteract();
+                    actionManager.DecrementAP();
+                }
                 break;
             case 3: 
                 ExitMenu();
@@ -83,9 +92,32 @@ public class NPCMenu : MonoBehaviour
         apText = GameObject.FindWithTag("ActionPoints").GetComponent<TextMeshProUGUI>();
     }
 
+    public virtual void EmptyInteract()
+    {
+        Debug.Log("Empty Interacting with NPC");
+
+        if(!hasInteracted){
+            FindAnyObjectByType<DialougeManager>().StartEmptyDialouge(emptyDialouge);
+            hasInteracted = true;
+        }
+
+        else{
+            //Check to see if there is a next sentence, if there is display it. Else end the dialouge
+            if(FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0){
+                hasInteracted = false;
+                FindAnyObjectByType<DialougeManager>().EndDialouge();
+                return;
+            }
+            else{
+                FindAnyObjectByType<DialougeManager>().DisplayNextEmptySentence();
+            }
+        }
+    }
+
     void Start() {  
         GenerateOptions();
         hasDecided = false;
+        hasInteracted = false;
     }
 
     void Update() {

@@ -1053,6 +1053,54 @@ PrefabInstance:
       propertyPath: actionManager
       value: 
       objectReference: {fileID: 1669694434}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.name
+      value: You Whisper To Yourself
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: hasInteracted
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: emptyDialouge.name
+      value: You Whisper To Yourself
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.sentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.sentences.Array.data[0]
+      value: Nothing here but chickens...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.exitSentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.emptySentences.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.exitSentences.Array.data[0]
+      value: Nothing here but chickens...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: dialouge.emptySentences.Array.data[0]
+      value: Nothing here but chickens...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: emptyDialouge.emptySentences.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: emptyDialouge.emptySentences.Array.data[0]
+      value: Nothing here but chickens...
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: emptyDialouge.emptySentences.Array.data[1]
+      value: Maybe I should go somewhere else
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

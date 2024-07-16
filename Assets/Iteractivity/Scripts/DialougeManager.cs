@@ -102,7 +102,9 @@ public class DialougeManager : MonoBehaviour
     }
 
     public void StartEmptyDialouge(Dialouge dialouge)
-    {
+    {        
+        emptySentences = new Queue<string>();
+
         Debug.Log("Starting dialouge with " + dialouge.name);
 
         dialougeBox.SetActive(true);
@@ -113,10 +115,12 @@ public class DialougeManager : MonoBehaviour
 
         foreach (string sentence in dialouge.emptySentences)
         {
+            Debug.Log("Adding sentence to emptySentences");
             emptySentences.Enqueue(sentence);
 
         }
 
+        Debug.Log("Displaying next empty sentence");    
          DisplayNextEmptySentence();
     }
 
@@ -130,7 +134,7 @@ public class DialougeManager : MonoBehaviour
             return;
         }
 
-        string sentence = sentences.Dequeue();
+        string sentence = emptySentences.Dequeue();
         dialougeText.text = sentence;
         Debug.Log(sentence);
     }

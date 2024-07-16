@@ -12,6 +12,7 @@ public class RoomSprite : MonoBehaviour
     //Reference to the other scripts
     public Dialouge dialouge; // Reference to the Dialouge script
     FadeInOut fade; // Reference to the FadeInOut script
+    NPCMenu npcMenu; //Reference to the NPCMenu script
 
     public virtual void Interact()
     {
@@ -35,27 +36,27 @@ public class RoomSprite : MonoBehaviour
         }
     }
 
-    public virtual void EmptyInteract()
-    {
-        Debug.Log("Interacting with NPC");
+    // public virtual void EmptyInteract()
+    // {
+    //     Debug.Log("Empty Interacting with NPC");
 
-        if(!hasInteracted){
-            FindAnyObjectByType<DialougeManager>().StartEmptyDialouge(dialouge);
-            hasInteracted = true;
-        }
+    //     if(!hasInteracted){
+    //         FindAnyObjectByType<DialougeManager>().StartEmptyDialouge(dialouge);
+    //         hasInteracted = true;
+    //     }
 
-        else{
-            //Check to see if there is a next sentence, if there is display it. Else end the dialouge
-            if(FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0){
-                hasInteracted = false;
-                FindAnyObjectByType<DialougeManager>().EndDialouge();
-                return;
-            }
-            else{
-                FindAnyObjectByType<DialougeManager>().DisplayNextEmptySentence();
-            }
-        }
-    }
+    //     else{
+    //         //Check to see if there is a next sentence, if there is display it. Else end the dialouge
+    //         if(FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0){
+    //             hasInteracted = false;
+    //             FindAnyObjectByType<DialougeManager>().EndDialouge();
+    //             return;
+    //         }
+    //         else{
+    //             FindAnyObjectByType<DialougeManager>().DisplayNextEmptySentence();
+    //         }
+    //     }
+    // }
 
     public virtual void DecideInteract(){
         Debug.Log("Decide with NPC");
@@ -69,6 +70,7 @@ public class RoomSprite : MonoBehaviour
             //Check to see if there is a next sentence, if there is display it. Else end the dialouge
             if(FindAnyObjectByType<DialougeManager>().exitSentences.Count <= 0){
                 hasInteracted = false;
+                npcMenu.hasDecided = true;
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
 
                 //If the NPC is important, despawn it after the dialouge is over
@@ -96,12 +98,7 @@ public class RoomSprite : MonoBehaviour
     {
         //Get the FadeInOut script
         fade = FindAnyObjectByType<FadeInOut>();
+        npcMenu = FindAnyObjectByType<NPCMenu>();
         isImportant = true;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
