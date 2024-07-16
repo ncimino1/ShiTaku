@@ -41,10 +41,11 @@ public class NPCMenu : MonoBehaviour
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
-                
+
                 break;
             case 1:
                 // For NPC, Interact
+                RoomNPC.GetComponent<RoomSprite>().Interact();
                 break;
             case 2:
                 // For NPC, Decide

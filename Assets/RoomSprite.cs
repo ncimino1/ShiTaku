@@ -29,9 +29,9 @@ public class RoomSprite : MonoBehaviour
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
 
                 //If the NPC is important, despawn it after the dialouge is over
-                if(isImportant){
-                    StartCoroutine(LoadDespawn());
-                }
+                // if(isImportant){
+                //     StartCoroutine(LoadDespawn());
+                // }
 
                 return;
             }
