@@ -15,7 +15,6 @@ public class NPCMenu : MonoBehaviour
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
-    public CanvasGroup RoomCanvasGroup;
     public GameObject RoomNPC;
     public Image[] optionPanels;
     public bool exit;
