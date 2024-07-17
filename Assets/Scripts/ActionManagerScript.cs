@@ -70,7 +70,7 @@ public class ActionManagerScript : MonoBehaviour
 
 
      // Function for action point usage
-    public bool UseAction(string actionID = "0000") 
+    public void UseAction(string actionID = "0000") 
     {
 
         if (actionList.ContainsKey(actionID)) {
@@ -82,17 +82,14 @@ public class ActionManagerScript : MonoBehaviour
                 playerManager.accumScore.Push(actionList[actionID][1]);
                 // return a message that says action allowed
                 Debug.Log("Action Allowed and Successful.");
-                return true;
             } else {
                 Debug.Log("Action not Successful");
                 // return a message that says action NOT allowed
-                return false;
             }
         } else {
 
             Debug.Log("Action not Successful");
             // return a message that says action NOT allowed
-            return false;
         }
     }
 
