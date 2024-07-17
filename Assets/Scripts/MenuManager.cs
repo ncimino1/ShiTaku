@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    // finalDay holds the day number when Game Over is reached
     public int finalDay = 4;
+
+    // References to all the menus to manipulate
+
     public NPCMenu npcMenu;
     public PauseMenu pauseMenu;
 
@@ -14,11 +18,13 @@ public class MenuManager : MonoBehaviour
 
     public DaysDisplayer daysDisplayer;
 
+    // References to the managers needed
+
     public ActionManagerScript actionManager;
 
     public PlayerManager playerManager;
+    
 
-    public DecisionMenu decisionMenu;
 
     // We will need a way to get a string ID from the NPC in question.
     // For now I'll have a default function.
@@ -50,10 +56,15 @@ public class MenuManager : MonoBehaviour
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
         // add && playerManager.InteractionNotification.activeSelf to the first if statement when ready
+            
+            
             if (Input.GetKeyDown(KeyCode.Q)) {
                 npcMenu.gameObject.SetActive(true);
-                npcMenu.SetAPText();
-                npcMenu.SetCurrentAction(GetNewAction());
+                npcMenu.SetAPandCostText();
+
+                // GetNewAction will have to give an ID based on what object is nearby when interacting
+                npcMenu.LoadAction(GetNewAction());
+                // Maybe have npcMenu.LoadAction() also load the apCost here and have apCost be permanent
             } else if (Input.GetKeyDown(KeyCode.Z)) {
                 pauseMenu.gameObject.SetActive(true);
                 pauseMenu.SetAPText();
@@ -64,4 +75,5 @@ public class MenuManager : MonoBehaviour
             }
         }     
     }
+
 }

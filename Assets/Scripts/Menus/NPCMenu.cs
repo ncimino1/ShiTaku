@@ -8,24 +8,41 @@ using TMPro;
 
 public class NPCMenu : MonoBehaviour
 {
+    // References to this, the MenuManager, and ActionManager
 
     public NPCMenu thisNpcMenu;
 
+    public MenuManager menuManager;
+
     public ActionManagerScript actionManager;
 
-    // public MenuManager menuManager;
+    // References to the textbox components on the top of npc menu
 
     public TextMeshProUGUI apText;
+
+    public TextMeshProUGUI costText;
+
+
+    /* 
+        activeOption and numOptions are used to keep track of which menu option is ready
+        to be selected.
+    */
     public int activeOption = 0;
     public int numOptions = 4;
 
     /* 
-       currentAction stores the string ID of the action that gets loaded into it
-       when interacting with an npc or object. With the ID, we can get the action
+       currentAction stores the string ID of the action type that gets loaded into it
+       when interacting with an npc or object. With the ID, we can get the action details
        from ActionManager's actionList.
     */
     public string currentAction;
 
+    /* 
+        actionBenefit holds the reward of points we get if we do perform the action
+        via the Decide button
+    */
+
+    public int actionBenefit;
 
     public Image[] optionPanels;
 
@@ -50,6 +67,7 @@ public class NPCMenu : MonoBehaviour
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
+
                 break;
             case 1:
                 // For NPC, Interact
@@ -57,10 +75,14 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 2:
                 // For NPC, Decide
-                actionManager.DecrementAP();
+                actionManager.UseAction(currentAction);
+                currentAction = "";
+                actionBenefit = 0;
+                ExitMenu();
                 break;
             case 3: 
                 currentAction = "";
+                actionBenefit = 0;
                 ExitMenu();
                 break;
             default:
@@ -83,8 +105,9 @@ public class NPCMenu : MonoBehaviour
         }
     }
 
-    public void SetAPText() {
+    public void SetAPandCostText() {
         apText = GameObject.FindWithTag("ActionPoints").GetComponent<TextMeshProUGUI>();
+        costText = GameObject.FindWithTag("Cost").GetComponent<TextMeshProUGUI>();
     }
 
     public void SetCurrentAction(string newAction) {
@@ -94,6 +117,7 @@ public class NPCMenu : MonoBehaviour
     void Start() {  
         GenerateOptions();
         currentAction = "";
+        actionBenefit = 0;
     }
 
     void Update() {
@@ -113,11 +137,22 @@ public class NPCMenu : MonoBehaviour
         for (int i = 0; i < numOptions; i++) {
             optionPanels[i].enabled = (i == activeOption);
         }
-
-
         int actionPoints = actionManager.ReturnActionPoints();
         
         apText.text = "Action Points: " + actionPoints.ToString();
+
+        int apCost = 0;
+
+        if (actionManager.actionList.ContainsKey(currentAction)) {
+            apCost = actionManager.actionList[currentAction][0];
+        }
+
+        costText.text = "Cost: " + apCost.ToString();
         
+    }
+
+    public void LoadAction(string actionId) {
+        currentAction = actionId; // Makes sure NPC/Interactable holds the current action Type
+        actionBenefit = actionManager.actionList[currentAction][1]; // Makes sure NPC/Interactable holds reward
     }
 }
