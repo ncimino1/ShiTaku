@@ -19,6 +19,9 @@ public class InteractController : MonoBehaviour
     public GameObject NPCMenu;
     private NPCMenu NPCManagerScript;
 
+    public GameObject RoomNPC;
+    public bool NPCGone;
+
     public virtual void Interact()
     {
         Debug.Log("Interacting with the object right now");
@@ -41,15 +44,11 @@ public class InteractController : MonoBehaviour
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("Tavern");
 
                 //If the door is interacted with, have the npc not be displayed
-                if(!isInteracted){
-                    //If this specific room is not interacted with, display the NPC
-
+                if(!NPCGone){
                     NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("shrineWorker");
                 }
                 break;
             //Default to a white image
-            case "uf":
-
             default:
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
                 NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
@@ -68,6 +67,11 @@ public class InteractController : MonoBehaviour
     //Fade in the room
     public IEnumerator FadeIn()
     {
+        //If the NPC is not gone, set it as active then fade it in
+        if(!NPCGone){
+            RoomNPC.SetActive(true);
+        }
+
         Debug.Log("Fading In");
 
         isInteracted = true;
@@ -82,7 +86,10 @@ public class InteractController : MonoBehaviour
         while (RoomCanvasGroup.alpha < 1)
         {
             RoomCanvasGroup.alpha += Time.deltaTime;
-            NPCCanvasGroup.alpha += Time.deltaTime;
+
+            if(!NPCGone){
+                NPCCanvasGroup.alpha += Time.deltaTime;
+            }
             yield return null;
         }
     }
@@ -103,8 +110,15 @@ public class InteractController : MonoBehaviour
         while (RoomCanvasGroup.alpha > 0)
         {
             RoomCanvasGroup.alpha -= Time.deltaTime;
-            NPCCanvasGroup.alpha -= Time.deltaTime;
+
+            if(!NPCGone){
+                NPCCanvasGroup.alpha -= Time.deltaTime;
+            }
             yield return null;
+        }
+
+        if(!NPCGone){
+            RoomNPC.SetActive(false);
         }
     }
 
@@ -116,6 +130,8 @@ public class InteractController : MonoBehaviour
         NPCManagerScript = NPCMenu.GetComponent<NPCMenu>();
 
         spriteMovement = player.GetComponent<SpriteMovement>();
+
+        NPCGone = false;
     }
 
     void Update()

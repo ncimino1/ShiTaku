@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 
 public class NPCMenu : MonoBehaviour
@@ -15,11 +16,13 @@ public class NPCMenu : MonoBehaviour
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
-    public GameObject RoomNPC;
+    RoomSprite RoomNPC;
     public Image[] optionPanels;
-    public bool exit;
-    public bool hasDecided;
-    
+    public bool exit;  
+
+    public bool inMenu;  
+
+    public bool currNPCGone;
 
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
@@ -40,6 +43,17 @@ public class NPCMenu : MonoBehaviour
     }
 
     public void HandleSelection() {
+        //Try to see if the npc has already decided, if they have, then they can't interact again; If they arent there should be an error when trying
+        //to interact with them
+        try{
+            RoomNPC =  FindAnyObjectByType<RoomSprite>();
+            currNPCGone = false;
+        }
+        catch(NullReferenceException ex){
+            currNPCGone = true;
+        }
+
+
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
@@ -47,7 +61,7 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 1:
                 // For NPC, Interact
-                if(hasDecided){
+                if(currNPCGone){
                     EmptyInteract();
                 }
                 else{
@@ -56,7 +70,7 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 2:
                 // For NPC, Decide
-                if (hasDecided) {
+                if (RoomNPC.GetComponent<RoomSprite>().hasDecided) {
                     EmptyInteract();
                 }
                 else{
@@ -66,6 +80,7 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 3: 
                 ExitMenu();
+
                 break;
             default:
                 break;
@@ -115,7 +130,6 @@ public class NPCMenu : MonoBehaviour
 
     void Start() {  
         GenerateOptions();
-        hasDecided = false;
         hasInteracted = false;
     }
 
