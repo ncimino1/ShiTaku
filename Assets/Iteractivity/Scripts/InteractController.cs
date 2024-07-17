@@ -39,9 +39,17 @@ public class InteractController : MonoBehaviour
         switch(roomName){
             case "tavern":
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("Tavern");
-                NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("shrineWorker");
+
+                //If the door is interacted with, have the npc not be displayed
+                if(!isInteracted){
+                    //If this specific room is not interacted with, display the NPC
+
+                    NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("shrineWorker");
+                }
                 break;
             //Default to a white image
+            case "uf":
+
             default:
                 RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
                 NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("White");
