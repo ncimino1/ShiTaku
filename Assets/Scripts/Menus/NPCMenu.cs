@@ -49,7 +49,7 @@ public class NPCMenu : MonoBehaviour
             RoomNPC =  FindAnyObjectByType<RoomSprite>();
             currNPCGone = false;
         }
-        catch(NullReferenceException ex){
+        catch(Exception ex){
             currNPCGone = true;
         }
 

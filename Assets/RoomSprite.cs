@@ -15,6 +15,7 @@ public class RoomSprite : MonoBehaviour
     public Dialouge dialouge; // Reference to the Dialouge script
     FadeInOut fade; // Reference to the FadeInOut script
     NPCMenu npcMenu; //Reference to the NPCMenu script
+    public GameObject interact; 
     InteractController interactController; //Reference to the InteractController script
 
     public virtual void Interact()
@@ -104,6 +105,7 @@ public class RoomSprite : MonoBehaviour
         //Get the FadeInOut script
         fade = FindAnyObjectByType<FadeInOut>();
         npcMenu = FindAnyObjectByType<NPCMenu>();
+        interactController = interact.GetComponent<InteractController>();
         isImportant = true;
         hasDecided = false;
 

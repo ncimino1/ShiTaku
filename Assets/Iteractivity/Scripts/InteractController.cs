@@ -18,13 +18,16 @@ public class InteractController : MonoBehaviour
     private MenuManager MenuManagerScript;
     public GameObject NPCMenu;
     private NPCMenu NPCManagerScript;
-
     public GameObject RoomNPC;
+    public GameObject Room;
+
     public bool NPCGone;
 
     public virtual void Interact()
     {
         Debug.Log("Interacting with the object right now");
+
+        Room.SetActive(true);
 
         // if (exterior.activeSelf)
         // {
@@ -46,6 +49,15 @@ public class InteractController : MonoBehaviour
                 //If the door is interacted with, have the npc not be displayed
                 if(!NPCGone){
                     NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("shrineWorker");
+                }
+                break;
+
+            case "smile":
+                RoomCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("smiling_friends");
+
+                //If the door is interacted with, have the npc not be displayed
+                if(!NPCGone){
+                    NPCCanvasGroup.GetComponent<UnityEngine.UI.Image>().sprite = Resources.Load<Sprite>("fire_fighter");
                 }
                 break;
             //Default to a white image
@@ -116,6 +128,8 @@ public class InteractController : MonoBehaviour
             }
             yield return null;
         }
+
+        Room.SetActive(false);
 
         if(!NPCGone){
             RoomNPC.SetActive(false);
