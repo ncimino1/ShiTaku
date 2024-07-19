@@ -11,28 +11,131 @@ public class NPCMenu : MonoBehaviour
 {
     public Dialouge emptyDialouge; // Reference to the Dialouge script
     public bool hasInteracted;
-    public NPCMenu thisNpcMenu;
     public ActionManagerScript actionManager;
     public TextMeshProUGUI apText;
     public int activeOption = 0;
     public int numOptions = 4;
-    RoomSprite RoomNPC;
     public Image[] optionPanels;
-    public bool exit;  
 
     public bool inMenu;  
 
     public bool currNPCGone;
 
-    public void GoToScene(string sceneName) {
-        SceneManager.LoadScene(sceneName);
+    public GameObject CurrInteraction;
+
+    //setup
+    public RoomDetails Details;
+
+    //static
+    public GameObject Room;
+
+    //static
+    public GameObject NPC;
+
+    //static
+    public CanvasGroup RoomCanvas;
+
+    //static
+    public CanvasGroup _npcCanvas;
+
+    //static
+    public MenuManager MenuManagerScript;
+    
+    //static 
+    public RoomSprite _roomSprite;
+
+    //static
+    public GameObject Player;
+
+    //static
+    public SpriteMovement _spriteMovement;
+    
+    public virtual void Interact()
+    {
+        if (RoomCanvas.alpha == 0)
+        {
+            _roomSprite.Details = Details;
+            CurrInteraction.SetActive(false);
+            StartCoroutine(FadeIn());
+            inMenu = true;
+        }
     }
+    
+    public IEnumerator FadeIn()
+    {
+        //If the NPC is not gone, set it as active then fade it in
+
+        Debug.Log("Fading In");
+        
+        //Lock the movement of the player
+        _spriteMovement.lockMovement = true;
+        _spriteMovement.LockMovement();
+        Debug.Log("Player movement locked");
+        
+        Room.SetActive(true);
+        
+        if(!Details.NPCResolved){
+            NPC.SetActive(true);
+            _roomSprite.Interact();
+            currNPCGone = false;
+        }
+        else
+        {
+            currNPCGone = true;
+        }
+        
+        MenuManagerScript.setNPCMenu(true);
+        
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
+
+        while (RoomCanvas.alpha < 1)
+        {
+            RoomCanvas.alpha += Time.deltaTime;
+
+            if(!Details.NPCResolved){
+                _npcCanvas.alpha += Time.deltaTime;
+            }
+            yield return null;
+        }
+    }
+    
+    public IEnumerator FadeOut(MenuManager menuManager, CanvasGroup roomCanvasGroup, CanvasGroup npcCanvasGroup,
+        GameObject room, GameObject roomNPC)
+    {
+        Debug.Log("Fading out");
+
+        //Unlock the movement of the player
+        _spriteMovement.lockMovement = false;
+        Debug.Log("Player movement unlocked");
+        
+        _roomSprite.DeactivateDialogue();
+        
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        
+        while (roomCanvasGroup.alpha > 0)
+        {
+            roomCanvasGroup.alpha -= Time.deltaTime;
+            
+            if(!Details.NPCResolved){
+                npcCanvasGroup.alpha -= Time.deltaTime;
+            }
+            yield return null;
+        }
+        
+        room.SetActive(false);
+
+        if(!Details.NPCResolved){
+            roomNPC.SetActive(false);
+        }
+        
+        CurrInteraction.SetActive(true);
+        menuManager.setNPCMenu(false);
+    }
+
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
     public void ExitMenu() {
-        exit = true; 
         activeOption = 0;
-        Debug.Log("Menu is closed.");
-        thisNpcMenu.gameObject.SetActive(false);
+        StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
     }
 
     public void HandleScroll(bool IsDown) {
@@ -45,13 +148,13 @@ public class NPCMenu : MonoBehaviour
     public void HandleSelection() {
         //Try to see if the npc has already decided, if they have, then they can't interact again; If they arent there should be an error when trying
         //to interact with them
-        try{
-            RoomNPC =  FindAnyObjectByType<RoomSprite>();
-            currNPCGone = false;
-        }
-        catch(Exception ex){
-            currNPCGone = true;
-        }
+        // try{
+        //     RoomNPC =  FindAnyObjectByType<RoomSprite>();
+        //     currNPCGone = false;
+        // }
+        // catch(Exception ex){
+        //     currNPCGone = true;
+        // }
 
 
         switch (activeOption) {
@@ -65,16 +168,17 @@ public class NPCMenu : MonoBehaviour
                     EmptyInteract();
                 }
                 else{
-                    RoomNPC.GetComponent<RoomSprite>().Interact();
+                    _roomSprite.Interact();
                 }
                 break;
             case 2:
                 // For NPC, Decide
-                if (RoomNPC.GetComponent<RoomSprite>().hasDecided) {
+                // if (RoomNPC.GetComponent<RoomSprite>().hasDecided) {
+                if(currNPCGone) {
                     EmptyInteract();
                 }
                 else{
-                    RoomNPC.GetComponent<RoomSprite>().DecideInteract();
+                    _roomSprite.DecideInteract();
                     // actionManager.DecrementAP();
                 }
                 break;
@@ -138,9 +242,11 @@ public class NPCMenu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
             HandleScroll(true);
-        } else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+        } else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
             HandleScroll(false);
-        } else if (Input.GetKeyDown(KeyCode.E)) {
+        } else if (Input.GetKeyDown(KeyCode.E) && inMenu) {
+            Debug.Log("here");
             HandleSelection();
         }
 

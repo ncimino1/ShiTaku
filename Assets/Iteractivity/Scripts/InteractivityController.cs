@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+public class RoomDetails
+{
+    public Sprite RoomImage;
+    public Sprite NPCImage;
+    public Dialouge NPCDialouge;
+    public bool NPCResolved;
+}
+
 public class InteractivityController : MonoBehaviour
 {
     public bool  hasInteracted = false;
@@ -10,11 +18,21 @@ public class InteractivityController : MonoBehaviour
     public KeyCode interactKey;
     public UnityEvent interactAction;
 
+    public RoomDetails Details;
+
+    public NPCMenu Menu;
+
     void Update()
     {
         if (isInRange){
-            if (Input.GetKeyDown(interactKey)){
-                interactAction.Invoke();
+            if (Input.GetKeyDown(interactKey))
+            {
+                Menu.CurrInteraction = gameObject;
+                Debug.Log("calling");
+                Menu.Details = Details;
+                Menu.gameObject.SetActive(true);
+                // interactAction.Invoke();
+                Menu.Interact();
                 hasInteracted = true;
             }
         }

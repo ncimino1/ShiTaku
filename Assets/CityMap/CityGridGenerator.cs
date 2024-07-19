@@ -7,6 +7,7 @@ using System.Linq;
 using CityMap.WaveFunctionCollapse;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.U2D;
 using Grid = CityMap.WaveFunctionCollapse.Grid;
 using Random = UnityEngine.Random;
@@ -33,10 +34,12 @@ public class CityGridGenerator : MonoBehaviour
     
     [SerializeField] public GameObject GameMenuCanvas;
 
-    [SerializeField] public GameObject NPCMenu;
-    
-    [SerializeField] public CanvasGroup RoomCanvasGroup;
+    [SerializeField] public NPCMenu NPCMenu;
 
+    private Sprite Tavern;
+
+    private Sprite ShrineWorker;
+    
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
 
     private Sprite _grass;
@@ -91,6 +94,9 @@ public class CityGridGenerator : MonoBehaviour
         _needsGrass.Add(TileTypes.FireStation);
         _needsGrass.Add(TileTypes.PoliceStation);
         _needsGrass.Add(TileTypes.Park);
+
+        Tavern = Resources.Load<Sprite>("Tavern");
+        ShrineWorker = Resources.Load<Sprite>("shrineWorker");
     }
 
     void LoadTiles()
@@ -229,11 +235,67 @@ public class CityGridGenerator : MonoBehaviour
             
             door.transform.localPosition = new Vector3(0, -offset, 0);
 
-            var interactController = door.GetComponent<InteractController>();
-            interactController.player = Player;
-            interactController.RoomCanvasGroup = RoomCanvasGroup;
-            interactController.GameMenuCanvas = GameMenuCanvas;
-            interactController.NPCMenu = NPCMenu;
+            var interactivityController = door.transform.GetComponentInChildren<InteractivityController>();
+
+            if (NPCMenu is null)
+            {
+                Debug.Log("WHYYYYY");
+            }
+            interactivityController.Menu = NPCMenu;
+
+            var details = new RoomDetails();
+            details.RoomImage = Tavern;
+            details.NPCImage = ShrineWorker;
+
+            var dialogue = new Dialouge();
+            dialogue.name = "Worker";
+            dialogue.sentences = new[]
+            {
+                "Hello!", "Are you here to help us!",
+            };
+            dialogue.exitSentences = new[]
+            {
+                "Thank you for your initiative!", "We will evacuate now!", "Thank you!"
+            };
+            dialogue.emptySentences = new[]
+            {
+                "Hello!",
+            };
+
+            details.NPCDialouge = dialogue;
+            details.NPCResolved = false;
+
+            interactivityController.Details = details;
+
+            interactivityController.interactAction = new UnityEvent();
+            interactivityController.interactAction.AddListener(NPCMenu.Interact);
+
+            // var interactController = door.GetComponent<InteractController>();
+            // interactController.player = Player;
+            //
+            // //game menu canvas, npcmenubackground 
+            // interactController.GameMenuCanvas = GameMenuCanvas;
+            // interactController.NPCMenu = NPCMenu;
+            //
+            // //children
+            // //room canvas,
+            // //room image, room npc
+            //
+            // var RoomCanvasChild = door.transform.GetChild(0).gameObject;
+            // interactController.Room = RoomCanvasChild;
+            //
+            // var RoomImageChild = RoomCanvasChild.transform.GetChild(0).gameObject;
+            // var RoomNPCChild = RoomCanvasChild.transform.GetChild(1).gameObject;
+            //
+            // interactController.RoomCanvasGroup = RoomImageChild.GetComponent<CanvasGroup>();
+            // interactController.NPCCanvasGroup = RoomNPCChild.GetComponent<CanvasGroup>();
+            // interactController.RoomNPC = RoomNPCChild;
+            //
+            // var roomSprite = RoomNPCChild.GetComponent<RoomSprite>();
+            //
+            // roomSprite.interact = door;
+            //
+            // interactController.RoomSprite = roomSprite;
             //
             //
             // var interior = Instantiate(TavernInterior,

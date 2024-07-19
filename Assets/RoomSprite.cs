@@ -12,18 +12,19 @@ public class RoomSprite : MonoBehaviour
     public bool hasDecided;
 
     //Reference to the other scripts
-    public Dialouge dialouge; // Reference to the Dialouge script
     FadeInOut fade; // Reference to the FadeInOut script
     NPCMenu npcMenu; //Reference to the NPCMenu script
-    public GameObject interact; 
-    InteractController interactController; //Reference to the InteractController script
+    public GameObject interact;
+    public RoomDetails Details;
+
+    private DialougeManager _manager;
 
     public virtual void Interact()
     {
         Debug.Log("Interacting with NPC");
 
         if(!hasInteracted){
-            FindAnyObjectByType<DialougeManager>().StartDialouge(dialouge);
+            FindAnyObjectByType<DialougeManager>().StartDialouge(Details.NPCDialouge);
             hasInteracted = true;
         }
 
@@ -35,7 +36,8 @@ public class RoomSprite : MonoBehaviour
                 return;
             }
             else{
-                FindAnyObjectByType<DialougeManager>().DisplayNextSentence();
+                _manager.TurnOnBox();
+                _manager.DisplayNextSentence();
             }
         }
     }
@@ -66,7 +68,7 @@ public class RoomSprite : MonoBehaviour
         Debug.Log("Decide with NPC");
 
         if(!hasInteracted){
-            FindAnyObjectByType<DialougeManager>().StartEndDialouge(dialouge);
+            FindAnyObjectByType<DialougeManager>().StartEndDialouge(Details.NPCDialouge);
             hasInteracted = true;
         }
 
@@ -80,7 +82,7 @@ public class RoomSprite : MonoBehaviour
                 //If the NPC is important, despawn it after the dialouge is over
                 if(isImportant){
                     npcMenu.actionManager.DecrementAP();
-                    interactController.NPCGone = true;
+                    Details.NPCResolved = true;
                     StartCoroutine(LoadDespawn());
                 }
 
@@ -92,10 +94,16 @@ public class RoomSprite : MonoBehaviour
         }
     }
 
+    public void DeactivateDialogue()
+    {
+        _manager.TurnOffBox();
+    }
+
     IEnumerator LoadDespawn(){
         fade.Despawn();
         yield return new WaitForSeconds(1);
         gameObject.SetActive(false);
+        DeactivateDialogue();
     }
 
 
@@ -105,9 +113,8 @@ public class RoomSprite : MonoBehaviour
         //Get the FadeInOut script
         fade = FindAnyObjectByType<FadeInOut>();
         npcMenu = FindAnyObjectByType<NPCMenu>();
-        interactController = interact.GetComponent<InteractController>();
         isImportant = true;
         hasDecided = false;
-
+        _manager = FindAnyObjectByType<DialougeManager>();
     }
 }

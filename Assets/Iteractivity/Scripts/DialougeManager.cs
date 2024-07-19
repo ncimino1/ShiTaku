@@ -93,10 +93,20 @@ public class DialougeManager : MonoBehaviour
         Debug.Log(sentence);
     }
 
+    public void TurnOffBox()
+    {
+        dialougeBox.SetActive(false);
+    }
+
+    public void TurnOnBox()
+    {
+        dialougeBox.SetActive(true);
+    }
+
     public void EndDialouge()
     {
         Debug.Log("End of dialouge");
-        dialougeBox.SetActive(false);
+        TurnOffBox();
         sentences.Clear();
         exitSentences.Clear();
     }
