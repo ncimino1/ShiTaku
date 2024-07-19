@@ -361,7 +361,7 @@ PrefabInstance:
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: Door
       value: 
-      objectReference: {fileID: 832235720372057067, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
+      objectReference: {fileID: 7609281437220540122, guid: ad5e0be33e64f064fb03859035c702ea, type: 3}
     - target: {fileID: 731847722062172611, guid: cbd482e309fa25a2d85d16b93de28183, type: 3}
       propertyPath: Room
       value: 
@@ -1097,95 +1097,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 834446894}
   m_SourcePrefab: {fileID: 100100000, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
---- !u!1 &1234108207 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 266730614504062089, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
-  m_PrefabInstance: {fileID: 1188715804}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1234108208 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8423695358770168271, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
   m_PrefabInstance: {fileID: 1188715804}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234108207}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6e40578b19bc7d04facbce8282e46303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1298047733
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 832235720372057067, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_Name
-      value: DoorPrefab(Canvas)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.52
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4131929084248807038, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8996320318960379454, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: Room
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8996320318960379454, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 62032450}
-    - target: {fileID: 8996320318960379454, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: NPCMenu
-      value: 
-      objectReference: {fileID: 1234108207}
-    - target: {fileID: 8996320318960379454, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
-      propertyPath: GameMenuCanvas
-      value: 
-      objectReference: {fileID: 834446888}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c1f0b88f796e3044dbd59938996aa57c, type: 3}
 --- !u!1001 &1411132365
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1578,5 +1500,4 @@ SceneRoots:
   - {fileID: 915611348}
   - {fileID: 1188715804}
   - {fileID: 254051250}
-  - {fileID: 1298047733}
   - {fileID: 2097876810}

@@ -56,8 +56,8 @@ public class NPCMenu : MonoBehaviour
         {
             _roomSprite.Details = Details;
             CurrInteraction.SetActive(false);
-            StartCoroutine(FadeIn());
             inMenu = true;
+            StartCoroutine(FadeIn());
         }
     }
     
@@ -81,6 +81,7 @@ public class NPCMenu : MonoBehaviour
         }
         else
         {
+            Debug.Log("gone");
             currNPCGone = true;
         }
         
@@ -130,6 +131,7 @@ public class NPCMenu : MonoBehaviour
         
         CurrInteraction.SetActive(true);
         menuManager.setNPCMenu(false);
+        inMenu = false;
     }
 
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
@@ -155,7 +157,7 @@ public class NPCMenu : MonoBehaviour
         // catch(Exception ex){
         //     currNPCGone = true;
         // }
-
+        Debug.Log(currNPCGone);
 
         switch (activeOption) {
             case 0: 

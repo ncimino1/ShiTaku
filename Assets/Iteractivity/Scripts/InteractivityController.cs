@@ -9,6 +9,7 @@ public class RoomDetails
     public Sprite NPCImage;
     public Dialouge NPCDialouge;
     public bool NPCResolved;
+    public bool HasInteracted;
 }
 
 public class InteractivityController : MonoBehaviour

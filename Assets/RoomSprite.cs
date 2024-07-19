@@ -6,7 +6,6 @@ public class RoomSprite : MonoBehaviour
 {
 
     //Local variables
-    public bool hasInteracted;
     public bool isImportant = true;
 
     public bool hasDecided;
@@ -23,15 +22,15 @@ public class RoomSprite : MonoBehaviour
     {
         Debug.Log("Interacting with NPC");
 
-        if(!hasInteracted){
+        if(!Details.HasInteracted){
             FindAnyObjectByType<DialougeManager>().StartDialouge(Details.NPCDialouge);
-            hasInteracted = true;
+            Details.HasInteracted = true;
         }
 
         else{
             //Check to see if there is a next sentence, if there is display it. Else end the dialouge
             if(FindAnyObjectByType<DialougeManager>().sentences.Count <= 0){
-                hasInteracted = false;
+                Details.HasInteracted = false;
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
                 return;
             }
@@ -67,15 +66,15 @@ public class RoomSprite : MonoBehaviour
     public virtual void DecideInteract(){
         Debug.Log("Decide with NPC");
 
-        if(!hasInteracted){
+        if(!Details.HasInteracted){
             FindAnyObjectByType<DialougeManager>().StartEndDialouge(Details.NPCDialouge);
-            hasInteracted = true;
+            Details.HasInteracted = true;
         }
 
         else{
             //Check to see if there is a next sentence, if there is display it. Else end the dialouge
             if(FindAnyObjectByType<DialougeManager>().exitSentences.Count <= 0){
-                hasInteracted = false;
+                Details.HasInteracted = false;
                 hasDecided = true;
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
 
@@ -115,6 +114,7 @@ public class RoomSprite : MonoBehaviour
         npcMenu = FindAnyObjectByType<NPCMenu>();
         isImportant = true;
         hasDecided = false;
+        Details.HasInteracted = false;
         _manager = FindAnyObjectByType<DialougeManager>();
     }
 }

@@ -264,6 +264,7 @@ public class CityGridGenerator : MonoBehaviour
 
             details.NPCDialouge = dialogue;
             details.NPCResolved = false;
+            details.HasInteracted = false;
 
             interactivityController.Details = details;
 

@@ -46,10 +46,11 @@ public class MenuManager : MonoBehaviour
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
         // For Javi and Andrew, this is where you write your condition for the npcMenu to appear after interaction
-            if (Input.GetKeyDown(KeyCode.Q)) {
-                npcMenu.gameObject.SetActive(true);
-                npcMenu.SetAPText();
-            } else if (Input.GetKeyDown(KeyCode.Z)) {
+            // if (Input.GetKeyDown(KeyCode.Q)) {
+            //     npcMenu.gameObject.SetActive(true);
+            //     npcMenu.SetAPText();
+            // } else
+            if (Input.GetKeyDown(KeyCode.Z) && !npcMenu.inMenu) {
                 pauseMenu.gameObject.SetActive(true);
                 pauseMenu.SetAPText();
             } else if (actionManager.ReturnDays() == finalDay) {
