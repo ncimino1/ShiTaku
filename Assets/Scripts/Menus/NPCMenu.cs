@@ -19,8 +19,6 @@ public class NPCMenu : MonoBehaviour
 
     public bool inMenu;  
 
-    public bool currNPCGone;
-
     public GameObject CurrInteraction;
 
     //setup
@@ -77,12 +75,10 @@ public class NPCMenu : MonoBehaviour
         if(!Details.NPCResolved){
             NPC.SetActive(true);
             _roomSprite.Interact();
-            currNPCGone = false;
         }
         else
         {
             Debug.Log("gone");
-            currNPCGone = true;
         }
         
         MenuManagerScript.setNPCMenu(true);
@@ -157,8 +153,6 @@ public class NPCMenu : MonoBehaviour
         // catch(Exception ex){
         //     currNPCGone = true;
         // }
-        Debug.Log(currNPCGone);
-
         switch (activeOption) {
             case 0: 
                 // For NPC, Investigate
@@ -166,7 +160,7 @@ public class NPCMenu : MonoBehaviour
                 break;
             case 1:
                 // For NPC, Interact
-                if(currNPCGone){
+                if(Details.NPCResolved){
                     EmptyInteract();
                 }
                 else{
@@ -176,7 +170,7 @@ public class NPCMenu : MonoBehaviour
             case 2:
                 // For NPC, Decide
                 // if (RoomNPC.GetComponent<RoomSprite>().hasDecided) {
-                if(currNPCGone) {
+                if(Details.NPCResolved) {
                     EmptyInteract();
                 }
                 else{
