@@ -25,7 +25,15 @@ public class SpriteMovement : MonoBehaviour
     //Function that stops all movement
     public void LockMovement()
     {
+        _phys.constraints = RigidbodyConstraints2D.FreezePosition;
+        lockMovement = true;
         _phys.velocity = new Vector2(0, 0);
+    }
+
+    public void UnlockMovement()
+    {
+        _phys.constraints = RigidbodyConstraints2D.FreezeRotation;
+        lockMovement = false;
     }
 
     private float Interp(float time)

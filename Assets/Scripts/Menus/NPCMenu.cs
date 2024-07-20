@@ -68,7 +68,6 @@ public class NPCMenu : MonoBehaviour
         Debug.Log("Fading In");
         
         //Lock the movement of the player
-        _spriteMovement.lockMovement = true;
         _spriteMovement.LockMovement();
         Debug.Log("Player movement locked");
         
@@ -104,7 +103,7 @@ public class NPCMenu : MonoBehaviour
         Debug.Log("Fading out");
 
         //Unlock the movement of the player
-        _spriteMovement.lockMovement = false;
+        _spriteMovement.UnlockMovement();
         Debug.Log("Player movement unlocked");
         
         _roomSprite.DeactivateDialogue();

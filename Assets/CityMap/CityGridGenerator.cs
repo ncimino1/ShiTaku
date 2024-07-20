@@ -95,7 +95,7 @@ public class CityGridGenerator : MonoBehaviour
         _needsGrass.Add(TileTypes.PoliceStation);
         _needsGrass.Add(TileTypes.Park);
 
-        Tavern = Resources.Load<Sprite>("Tavern");
+        Tavern = Resources.Load<Sprite>("shrine");
         ShrineWorker = Resources.Load<Sprite>("shrineWorker");
     }
 
