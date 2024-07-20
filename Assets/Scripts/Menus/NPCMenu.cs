@@ -53,6 +53,8 @@ public class NPCMenu : MonoBehaviour
         if (RoomCanvas.alpha == 0)
         {
             _roomSprite.Details = Details;
+            RoomCanvas.GetComponent<Image>().sprite = Details.RoomImage;
+            _npcCanvas.GetComponent<Image>().sprite = Details.NPCImage;
             CurrInteraction.SetActive(false);
             inMenu = true;
             StartCoroutine(FadeIn());
