@@ -10,7 +10,7 @@ using System;
 public class NPCMenu : MonoBehaviour
 {
     public Dialouge emptyDialouge; // Reference to the Dialouge script
-    public bool hasInteracted;
+    // public bool hasInteracted;
     public ActionManagerScript actionManager;
     public TextMeshProUGUI apText;
     public int activeOption = 0;
@@ -210,15 +210,15 @@ public class NPCMenu : MonoBehaviour
     {
         Debug.Log("Empty Interacting with NPC");
 
-        if(!hasInteracted){
+        if(!Details.HasInteracted){
             FindAnyObjectByType<DialougeManager>().StartEmptyDialouge(emptyDialouge);
-            hasInteracted = true;
+            Details.HasInteracted = true;
         }
 
         else{
             //Check to see if there is a next sentence, if there is display it. Else end the dialouge
             if(FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0){
-                hasInteracted = false;
+                Details.HasInteracted = false;
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
                 return;
             }
@@ -230,7 +230,6 @@ public class NPCMenu : MonoBehaviour
 
     void Start() {  
         GenerateOptions();
-        hasInteracted = false;
     }
 
     void Update() {

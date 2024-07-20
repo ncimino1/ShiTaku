@@ -10,6 +10,7 @@ public class RoomDetails
     public Dialouge NPCDialouge;
     public bool NPCResolved;
     public bool HasInteracted;
+    public bool HasDecideInteracted;
 }
 
 public class InteractivityController : MonoBehaviour

@@ -248,7 +248,7 @@ public class CityGridGenerator : MonoBehaviour
             details.NPCImage = ShrineWorker;
 
             var dialogue = new Dialouge();
-            dialogue.name = "Worker";
+            dialogue.name = "Worker" + x + " " + y;
             dialogue.sentences = new[]
             {
                 "Hello!", "Are you here to help us!",
@@ -265,6 +265,7 @@ public class CityGridGenerator : MonoBehaviour
             details.NPCDialouge = dialogue;
             details.NPCResolved = false;
             details.HasInteracted = false;
+            details.HasDecideInteracted = false;
 
             interactivityController.Details = details;
 
