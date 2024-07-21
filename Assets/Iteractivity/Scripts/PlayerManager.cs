@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     SpriteMovement spriteMovement;
 
     public bool isInRoom = false;
+
+    public Stack<int> accumScore; // Holds score gained from previous actions performed 
     
     // Start is called before the first frame update to get the Animator component
     public void Start()
@@ -20,6 +22,7 @@ public class PlayerManager : MonoBehaviour
 
         spriteMovement = GetComponent<SpriteMovement>();
 
+        accumScore = new Stack<int>();
     }
 
     //Update is called once per frame to check for key presses and trigger animations
@@ -84,4 +87,6 @@ public class PlayerManager : MonoBehaviour
         InteractionNotification.SetActive(false);
         Debug.Log("Player denotified");
     }
+
+    
 }

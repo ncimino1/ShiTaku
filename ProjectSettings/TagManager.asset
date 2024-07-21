@@ -18,6 +18,8 @@ TagManager:
   - Days
   - Interactable Item
   - NPC
+  - TakeAction
+  - NotTakeAction
   layers:
   - Default
   - TransparentFX

@@ -8,11 +8,18 @@ using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
+    // References to this and ActionManager
     public PauseMenu thisPauseMenu;
+    public ActionManagerScript actionManager;
+
+    /* 
+        activeOption and numOptions are used to keep track of which menu option is ready
+        to be selected.
+    */
     public int activeOption = 0;
     public int numOptions = 2;
 
-    public ActionManagerScript actionManager;
+    // References to the textbox component on the top of pause menu
 
     public TextMeshProUGUI apText;
 
@@ -23,7 +30,7 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
+
     public void ExitMenu() {
         activeOption = 0;
         Debug.Log("Menu is closed.");
@@ -86,11 +93,7 @@ public class PauseMenu : MonoBehaviour
         // Write code to update the outlines for the options in the options panel
 
         for (int i = 0; i < numOptions; i++) {
-            byte aValue = 0;
-            if (i == activeOption) {
-                aValue = 255;
-            } 
-            optionPanels[i].color = new Color32(255, 255, 255, aValue);
+           optionPanels[i].enabled = (i == activeOption);
         }
 
         int actionPoints = actionManager.ReturnActionPoints();

@@ -89,14 +89,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e40578b19bc7d04facbce8282e46303, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisNpcMenu: {fileID: 9214006344835229486}
+  emptyDialouge:
+    name: You Whisper To Yourself
+    sentences: []
+    exitSentences: []
+    emptySentences:
+    - Nothing here but chickens...
+    - Maybe I should go somewhere else
   actionManager: {fileID: 0}
   apText: {fileID: 2068196531743106444}
+  costText: {fileID: 0}
   activeOption: 0
   numOptions: 4
-  RoomCanvasGroup: {fileID: 0}
   optionPanels: []
-  exit: 0
+  currentAction: 
+  actionBenefit: 0
+  inMenu: 0
+  CurrInteraction: {fileID: 0}
+  Room: {fileID: 0}
+  NPC: {fileID: 0}
+  RoomCanvas: {fileID: 0}
+  _npcCanvas: {fileID: 0}
+  MenuManagerScript: {fileID: 0}
+  _roomSprite: {fileID: 0}
+  Player: {fileID: 0}
+  _spriteMovement: {fileID: 0}
 --- !u!1 &2438909536881059752
 GameObject:
   m_ObjectHideFlags: 0

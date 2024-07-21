@@ -6,7 +6,11 @@ using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
+    // finalDay holds the day number when Game Over is reached
     public int finalDay = 4;
+
+    // References to all the menus to manipulate
+
     public NPCMenu npcMenu;
     public PauseMenu pauseMenu;
 
@@ -14,7 +18,25 @@ public class MenuManager : MonoBehaviour
 
     public DaysDisplayer daysDisplayer;
 
+    // References to the managers needed
+
     public ActionManagerScript actionManager;
+
+    public PlayerManager playerManager;
+    
+
+
+    // We will need a way to get a string ID from the NPC in question.
+    // For now I'll have a default function.
+    // May need to make use of the player manager.
+
+    public string GetNewAction() {
+        string newAction = "0000";
+        return newAction;
+    }
+
+
+    // Start is called before the first frame update
 
     public bool EnteredRoom = false;
 
@@ -60,4 +82,5 @@ public class MenuManager : MonoBehaviour
             }
         }     
     }
+
 }
