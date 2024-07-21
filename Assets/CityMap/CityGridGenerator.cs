@@ -397,4 +397,22 @@ public class CityGridGenerator : MonoBehaviour
             }
         }
     }
+
+    public int GetEvacNpcCount() {
+        // For returning the total number of evacuation npcs, change it as needed 
+
+        return 1;
+    }
+
+    public int GetWornBldCount() {
+        // For returning the total number of worn buildings, change it as needed 
+
+        return 1;
+    }
+
+    public int GetTalkNpcCount() {
+        // For returning the total number of talk npcs, change it as needed 
+
+        return 1;
+    }
 }

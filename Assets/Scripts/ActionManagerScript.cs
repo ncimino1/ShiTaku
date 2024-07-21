@@ -5,6 +5,7 @@ using TMPro;
 
 public class ActionManagerScript : MonoBehaviour
 {
+    public CityGridGenerator cityGen;
     public PlayerManager playerManager;
     /* 
         ActionCounter is the variable that holds the current number
@@ -37,8 +38,10 @@ public class ActionManagerScript : MonoBehaviour
     void Start()
     {
         actionCounter = 5;
+        // Initialize all types of actions
         GenerateActions();
-        // Add elements to ActionList
+        // Initialize Count for all types of Actions
+        LoadAllActions();
     }
 
     // Update is called once per frame
@@ -136,11 +139,14 @@ public class ActionManagerScript : MonoBehaviour
         actionCounter -= 1;
     }
 
-    public void LoadAllActions() {
+    public void LoadAllActions() { // All methods in cityGen should return an int
         // For all talk npcs, increment the 4th value for key "0000" in actionList
+        actionList["0000"][2] = cityGen.GetTalkNpcCount();
 
         // For all worn buildings, increment the 4th value for key "0001" in actionList
+        actionList["0001"][2] = cityGen.GetWornBldCount();
 
         // For all evac npcs, increment the 4th value for key "0002" in actionList
+        actionList["0002"][2] = cityGen.GetEvacNpcCount();
     }
 }
