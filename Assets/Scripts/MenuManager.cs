@@ -23,6 +23,8 @@ public class MenuManager : MonoBehaviour
     public ActionManagerScript actionManager;
 
     public PlayerManager playerManager;
+
+    private bool _calculatedScore;
     
 
 
@@ -57,6 +59,8 @@ public class MenuManager : MonoBehaviour
         pauseMenu.gameObject.SetActive(false);
         gameOverMenu.gameObject.SetActive(false);
         daysDisplayer.gameObject.SetActive(false);
+
+        _calculatedScore = false;
     }
 
     // Update is called once per frame
@@ -79,7 +83,11 @@ public class MenuManager : MonoBehaviour
                 npcMenu.gameObject.SetActive(false);
                 pauseMenu.gameObject.SetActive(false);
                 gameOverMenu.gameObject.SetActive(true);
-                gameOverMenu.FinishGame();
+                if (!_calculatedScore)
+                {
+                    gameOverMenu.FinishGame();
+                    _calculatedScore = true;
+                }
             }
         }     
     }
