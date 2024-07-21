@@ -74,10 +74,8 @@ public class ActionManagerScript : MonoBehaviour
     {
 
         if (actionList.ContainsKey(actionID)) {
-            if (actionList[actionID][0] <= actionCounter && actionList[actionID][2] != 0) {
-                actionCounter = actionCounter - actionList[actionID][0];
-
-                actionList[actionID][3] = actionList[actionID][3] - 1;
+            if (actionList[actionID][0] <= actionCounter) {
+                actionCounter -= actionList[actionID][0];
 
                 playerManager.accumScore.Push(actionList[actionID][1]);
                 // return a message that says action allowed

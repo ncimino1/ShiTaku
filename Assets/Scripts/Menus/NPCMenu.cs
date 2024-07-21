@@ -74,7 +74,6 @@ public class NPCMenu : MonoBehaviour
     {
         if (RoomCanvas.alpha == 0)
         {
-            LoadAction(MenuManagerScript.GetNewAction());
             _roomSprite.Details = Details;
             RoomCanvas.GetComponent<Image>().sprite = Details.RoomImage;
             _npcCanvas.GetComponent<Image>().sprite = Details.NPCImage;
@@ -198,6 +197,7 @@ public class NPCMenu : MonoBehaviour
                     EmptyInteract();
                 }
                 else{
+                    LoadAction("0002");
                     _roomSprite.DecideInteract();
                     // actionManager.DecrementAP();
                 }
@@ -293,7 +293,7 @@ public class NPCMenu : MonoBehaviour
         if (actionManager.actionList.ContainsKey(currentAction)) {
             apCost = actionManager.actionList[currentAction][0];
         }
-
+        
         costText.text = "Cost: " + apCost.ToString();
         
     }

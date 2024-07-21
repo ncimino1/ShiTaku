@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
 
         spriteMovement = GetComponent<SpriteMovement>();
 
+        accumScore = new Stack<int>();
     }
 
     //Update is called once per frame to check for key presses and trigger animations
