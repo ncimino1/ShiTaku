@@ -30,7 +30,13 @@ public class MainMenu : MonoBehaviour
         // Case 0 should go to Cityscape and Case 1 should quit the application 
         switch (activeOption) {
             case 0: 
-                GoToScene("Cityscape");
+                //If the current scene is the main menu, go to the instructional scene, else go to the cityscape
+                if(SceneManager.GetActiveScene().name == "MainMenuScene"){
+                    GoToScene("Instructional Scene");
+                }
+                else{
+                    GoToScene("Cityscape");
+                }
                 break;
             case 1:
                 // GoToScene("MainMenuScene");

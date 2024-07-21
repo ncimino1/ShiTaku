@@ -38,7 +38,19 @@ public class MenuManager : MonoBehaviour
 
     // Start is called before the first frame update
 
+    public bool EnteredRoom = false;
+
+    public void setNPCMenu(bool set) {
+        npcMenu.gameObject.SetActive(set);
+        if(set == true){
+            EnteredRoom = true;
+        }
+        else{
+            EnteredRoom = false;
+        }
+    }
     
+    //Start is called before the first frame update
     void Start()
     {
         npcMenu.gameObject.SetActive(false);
@@ -55,17 +67,12 @@ public class MenuManager : MonoBehaviour
             daysDisplayer.SetDayText();
 
         // Conditions for determining whether npcmenu is active can be determined after connection of parts
-        // add && playerManager.InteractionNotification.activeSelf to the first if statement when ready
-            
-            
-            if (Input.GetKeyDown(KeyCode.Q)) {
-                npcMenu.gameObject.SetActive(true);
-                npcMenu.SetAPandCostText();
-
-                // GetNewAction will have to give an ID based on what object is nearby when interacting
-                npcMenu.LoadAction(GetNewAction());
-                // Maybe have npcMenu.LoadAction() also load the apCost here and have apCost be permanent
-            } else if (Input.GetKeyDown(KeyCode.Z)) {
+        // For Javi and Andrew, this is where you write your condition for the npcMenu to appear after interaction
+            // if (Input.GetKeyDown(KeyCode.Q)) {
+            //     npcMenu.gameObject.SetActive(true);
+            //     npcMenu.SetAPText();
+            // } else
+            if (Input.GetKeyDown(KeyCode.Z) && !npcMenu.inMenu) {
                 pauseMenu.gameObject.SetActive(true);
                 pauseMenu.SetAPText();
             } else if (actionManager.ReturnDays() == finalDay) {

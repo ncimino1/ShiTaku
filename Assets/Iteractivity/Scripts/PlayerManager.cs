@@ -9,6 +9,8 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject InteractionNotification;
 
+    SpriteMovement spriteMovement;
+
     public bool isInRoom = false;
 
     public Stack<int> accumScore; // Holds score gained from previous actions performed 
@@ -17,12 +19,22 @@ public class PlayerManager : MonoBehaviour
     public void Start()
     {
         anim = GetComponent<Animator>();
+
+        spriteMovement = GetComponent<SpriteMovement>();
+
     }
 
     //Update is called once per frame to check for key presses and trigger animations
     public void Update()
     {
-        if (Input.GetKey(KeyCode.W)){
+        if (spriteMovement.lockMovement)
+        {
+            anim.SetBool("up", false);
+            anim.SetBool("down", false);
+            anim.SetBool("left", false);
+            anim.SetBool("right", false);
+        }
+        else if (Input.GetKey(KeyCode.W)){
             anim.SetBool("up", true);
             anim.SetBool("down", false);
             anim.SetBool("left", false);

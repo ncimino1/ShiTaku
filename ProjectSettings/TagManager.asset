@@ -69,3 +69,6 @@ TagManager:
   - name: Player
     uniqueID: 1365500047
     locked: 0
+  - name: Skyscraper
+    uniqueID: 665313311
+    locked: 0
