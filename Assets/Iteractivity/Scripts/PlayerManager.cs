@@ -88,5 +88,14 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("Player denotified");
     }
 
+    public int GetFinalScore() {
+        int finalScore = 0;
+        while(accumScore.Count != 0) {
+            finalScore = finalScore + accumScore.Pop();
+        }
+
+        return finalScore;
+    }
+
     
 }

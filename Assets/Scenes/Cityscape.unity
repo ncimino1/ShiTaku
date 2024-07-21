@@ -934,6 +934,10 @@ PrefabInstance:
       value: TakeAction
       objectReference: {fileID: 0}
     - target: {fileID: 4582764165994109173, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_text
+      value: Press X for Main Menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582764165994109173, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_fontSize
       value: 32
       objectReference: {fileID: 0}
@@ -1313,9 +1317,21 @@ PrefabInstance:
       propertyPath: emptyDialouge.emptySentences.Array.data[1]
       value: Maybe I should go somewhere else
       objectReference: {fileID: 0}
+    - target: {fileID: 8544686911960837227, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: playerManager
+      value: 
+      objectReference: {fileID: 1920705046}
     - target: {fileID: 8690133170946741733, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 9133698444055935734, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 9133698444055935734, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2537274159730730746, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
