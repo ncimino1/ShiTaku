@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public bool Destroyed;
+    public Sprite FixedAsset;
+    
+    public 
+    
     // Start is called before the first frame update
     void Start()
     {

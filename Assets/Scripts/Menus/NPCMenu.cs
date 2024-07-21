@@ -43,6 +43,8 @@ public class NPCMenu : MonoBehaviour
 
     public GameObject CurrInteraction;
 
+    public Tile CurrentTile;
+
     //setup
     public RoomDetails Details;
 
@@ -177,9 +179,12 @@ public class NPCMenu : MonoBehaviour
         //     currNPCGone = true;
         // }
         switch (activeOption) {
-            case 0: 
-                // For NPC, Investigate
-
+            case 0:
+                if (CurrentTile.Destroyed)
+                {
+                    LoadAction("0001");
+                    _roomSprite.RebuildInteract();
+                }
                 break;
             case 1:
                 // For NPC, Interact

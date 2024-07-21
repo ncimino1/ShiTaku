@@ -11,6 +11,7 @@ public class RoomDetails
     public bool NPCResolved;
     public bool HasInteracted;
     public bool HasDecideInteracted;
+    public bool HasRebuildInteracted;
 }
 
 public class InteractivityController : MonoBehaviour
@@ -24,6 +25,8 @@ public class InteractivityController : MonoBehaviour
 
     public NPCMenu Menu;
 
+    public Tile ParentTile;
+
     void Update()
     {
         if (isInRange){
@@ -33,7 +36,7 @@ public class InteractivityController : MonoBehaviour
                 Debug.Log("calling");
                 Menu.Details = Details;
                 Menu.gameObject.SetActive(true);
-                // interactAction.Invoke();
+                Menu.CurrentTile = ParentTile;
                 Menu.Interact();
                 hasInteracted = true;
             }

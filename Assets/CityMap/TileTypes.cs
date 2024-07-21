@@ -28,6 +28,7 @@ public enum TileTypes
     SkyscraperUpperBR,
     SkyscraperUpperTL,
     SkyscraperUpperTR,
+    HouseDestroyed,
 }
 
 public static class TileTypesMethods
