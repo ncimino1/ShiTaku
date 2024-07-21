@@ -19,11 +19,14 @@ public class DialougeManager : MonoBehaviour
 
     public Queue<string> emptySentences; //Queue to store the dialouge sentences for emptying
 
+    public Queue<string> rebuildSentences;
+
     void Start()
     {
         sentences = new Queue<string>();
         exitSentences = new Queue<string>();
         emptySentences = new Queue<string>();
+        rebuildSentences = new Queue<string>();
     }
 
     public void StartEndDialouge(Dialouge dialouge)
@@ -91,6 +94,35 @@ public class DialougeManager : MonoBehaviour
         string sentence = sentences.Dequeue();
         dialougeText.text = sentence;
         Debug.Log(sentence);
+    }
+
+    public void StartRebuildDialogue(Dialouge dialouge)
+    {
+        dialougeBox.SetActive(true);
+
+        nameText.text = dialouge.name;
+        
+        rebuildSentences.Clear();
+
+        foreach (var sentence in dialouge.rebuildSentences)
+        {
+            rebuildSentences.Enqueue(sentence);
+        }
+        
+        DisplayNextRebuildSentence();
+    }
+
+    public void DisplayNextRebuildSentence()
+    {
+        if (rebuildSentences.Count == 0)
+        {
+            EndDialouge();
+            dialougeBox.SetActive(false);
+            return;
+        }
+
+        string sentence = rebuildSentences.Dequeue();
+        dialougeText.text = sentence;
     }
 
     public void TurnOffBox()

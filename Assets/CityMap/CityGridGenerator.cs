@@ -55,6 +55,7 @@ public class CityGridGenerator : MonoBehaviour
         public String Interior;
         public String DialogueFile;
         public bool Grass = false;
+        public bool Destroyed = false;
     }
 
     // Start is called before the first frame update
@@ -243,6 +244,10 @@ public class CityGridGenerator : MonoBehaviour
             }
             interactivityController.Menu = NPCMenu;
 
+            interactivityController.ParentTile = t;
+            t.Destroyed = parameters.Destroyed;
+            t.FixedAsset = _spriteAtlas[TileTypes.House];
+
             var details = new RoomDetails();
             details.RoomImage = Tavern;
             details.NPCImage = ShrineWorker;
@@ -261,11 +266,16 @@ public class CityGridGenerator : MonoBehaviour
             {
                 "Hello!",
             };
+            dialogue.rebuildSentences = new[]
+            {
+                "You're helping us rebuild!", "Thank you!"
+            };
 
             details.NPCDialouge = dialogue;
             details.NPCResolved = false;
             details.HasInteracted = false;
             details.HasDecideInteracted = false;
+            details.HasRebuildInteracted = false;
 
             interactivityController.Details = details;
 
@@ -335,6 +345,7 @@ public class CityGridGenerator : MonoBehaviour
 
         grid.FixDuplicates();
         grid.FixRoads();
+        grid.DestroyBuildings();
 
         for (int x = 0; x < width; x++)
         {
@@ -357,9 +368,14 @@ public class CityGridGenerator : MonoBehaviour
                     parameters.Grass = true;
                 }
 
-                if (type == TileTypes.House)
+                if (type == TileTypes.House || type == TileTypes.HouseDestroyed)
                 {
                     parameters.Interior = "";
+                }
+
+                if (type == TileTypes.HouseDestroyed)
+                {
+                    parameters.Destroyed = true;
                 }
 
                 GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y, x].TileOptions[0].Type.ToString();

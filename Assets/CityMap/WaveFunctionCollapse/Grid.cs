@@ -315,5 +315,31 @@ namespace CityMap.WaveFunctionCollapse
                 }
             }
         }
+
+        public void DestroyBuildings()
+        {
+            var houses= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.House).ToArray();
+            var houseCount = houses.Length;
+            var destroyedCount = (houseCount / 2) - 1;
+            destroyedCount = destroyedCount < 0 ? 0 : destroyedCount;
+            
+            var randIndicies = new HashSet<int>();
+
+            while (randIndicies.Count != destroyedCount)
+            {
+                var randGen = Random.Range(0, houseCount);
+                randIndicies.Add(randGen);
+            }
+
+            var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed, Array.Empty<TileTypes[]>());
+            
+            for (int i = 0; i < houseCount; i++)
+            {
+                if (randIndicies.Contains(i))
+                {
+                    houses[i].TileOptions[0] = destroyedHouse;
+                }
+            }
+        }
     }
 }

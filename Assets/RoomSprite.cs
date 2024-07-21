@@ -20,6 +20,7 @@ public class RoomSprite : MonoBehaviour
     {
         Debug.Log("Interacting with NPC");
         Details.HasDecideInteracted = false;
+        Details.HasRebuildInteracted = false;
 
         if(!Details.HasInteracted){
             FindAnyObjectByType<DialougeManager>().StartDialouge(Details.NPCDialouge);
@@ -62,6 +63,38 @@ public class RoomSprite : MonoBehaviour
     //     }
     // }
 
+    public void RebuildInteract()
+    {
+        Details.HasInteracted = false;
+        Details.HasDecideInteracted = false;
+
+        if (!Details.HasRebuildInteracted)
+        {
+            FindAnyObjectByType<DialougeManager>().StartRebuildDialogue(Details.NPCDialouge);
+            Details.HasRebuildInteracted = true;
+        }
+        else
+        {
+            if (FindAnyObjectByType<DialougeManager>().rebuildSentences.Count <= 0)
+            {
+                Details.HasRebuildInteracted = false;
+                FindAnyObjectByType<DialougeManager>().EndDialouge();
+                
+                npcMenu.actionManager.UseAction(npcMenu.currentAction);
+                npcMenu.currentAction = "";
+                npcMenu.actionBenefit = 0;
+                npcMenu.CurrentTile.Destroyed = false;
+                npcMenu.CurrentTile.GetComponent<SpriteRenderer>().sprite = npcMenu.CurrentTile.FixedAsset;
+
+                return;
+            }
+            else
+            {
+                FindAnyObjectByType<DialougeManager>().DisplayNextRebuildSentence();
+            }
+        }
+    }
+
     public virtual void DecideInteract(){
         Debug.Log("Decide with NPC");
         Debug.Log(Details.HasDecideInteracted);
@@ -69,6 +102,7 @@ public class RoomSprite : MonoBehaviour
         Debug.Log(Details.NPCDialouge.name);
 
         Details.HasInteracted = false;
+        Details.HasRebuildInteracted = false;
 
         if(!Details.HasDecideInteracted){
             FindAnyObjectByType<DialougeManager>().StartEndDialouge(Details.NPCDialouge);
