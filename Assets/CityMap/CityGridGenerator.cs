@@ -268,7 +268,11 @@ public class CityGridGenerator : MonoBehaviour
             };
             dialogue.rebuildSentences = new[]
             {
-                "You're helping us rebuild!", "Thank you!"
+                "Do you want to repair this building?"
+            };
+            dialogue.rebuildDoneSetences = new[]
+            {
+                "This building is already in stable condition."
             };
 
             details.NPCDialouge = dialogue;

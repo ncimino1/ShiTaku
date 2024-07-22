@@ -185,6 +185,10 @@ public class NPCMenu : MonoBehaviour
                     LoadAction("0001");
                     _roomSprite.RebuildInteract();
                 }
+                else
+                {
+                    _roomSprite.StableInteract();
+                }
                 break;
             case 1:
                 // For NPC, Interact
