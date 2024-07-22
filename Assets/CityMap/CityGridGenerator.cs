@@ -387,7 +387,7 @@ public class CityGridGenerator : MonoBehaviour
                     parameters.Grass = true;
                 }
 
-                if (type == TileTypes.House || type == TileTypes.HouseDestroyed)
+                if (type >= TileTypes.Park && type <= TileTypes.CityHallDestroyed)
                 {
                     parameters.Interior = "";
                 }
