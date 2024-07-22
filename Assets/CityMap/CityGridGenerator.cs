@@ -345,7 +345,15 @@ public class CityGridGenerator : MonoBehaviour
 
         grid.FixDuplicates();
         grid.FixRoads();
+        grid.FixSkyscrapers();
         grid.DestroyBuildings();
+
+        var (startX, startY) = grid.GetRandomRoad();
+        
+        var posX = startX * size;
+        var posY = (height - startY - 1) * size;
+        
+        Player.transform.position = new Vector3(posX, posY);
 
         for (int x = 0; x < width; x++)
         {

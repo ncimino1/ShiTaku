@@ -18,8 +18,6 @@ public class SpriteMovement : MonoBehaviour
     private float _coeff;
     private readonly float _accelTime = 0.5f;
 
-    private static Dictionary<string, Vector3> _savedLocs = new Dictionary<string, Vector3>();
-
     public bool lockMovement;
 
     //Function that stops all movement
@@ -64,11 +62,6 @@ public class SpriteMovement : MonoBehaviour
         _keyHeld = false;
 
         _coeff = (velocity - 2) / (_accelTime);
-
-        if (_savedLocs.TryGetValue(SceneManager.GetActiveScene().name, out Vector3 pos))
-        {
-            transform.position = pos;
-        }
     }
 
     // Update is called once per frame
@@ -99,10 +92,5 @@ public class SpriteMovement : MonoBehaviour
         }
 
         _phys.velocity = _dir * interpVel;
-    }
-
-    private void OnDestroy()
-    {
-        _savedLocs[SceneManager.GetActiveScene().name] = transform.position;
     }
 }
