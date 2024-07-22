@@ -215,16 +215,22 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < cityHall.Length; i++)
             {
-                // if (i == cityHallRandom)
-                //     continue;
-                //
+                if (i == cityHallRandom)
+                {
+                    cityHall[i].TileOptions[0] = new TileConfiguration(TileTypes.CityHallDestroyed); 
+                    continue;
+                }
+                
                 cityHall[i].TileOptions[0] = house;
             }
 
             for (int i = 0; i < fireStation.Length; i++)
             {
                 if (i == fireStationRandom)
+                {
+                    fireStation[i].TileOptions[0] = new TileConfiguration(TileTypes.FireStationDestroyed);
                     continue;
+                }
 
                 fireStation[i].TileOptions[0] = house;
             }
@@ -232,7 +238,10 @@ namespace CityMap.WaveFunctionCollapse
             for (int i = 0; i < policeStation.Length; i++)
             {
                 if (i == policeStationRandom)
+                {
+                    policeStation[i].TileOptions[0] = new TileConfiguration(TileTypes.PoliceStationDestroyed);
                     continue;
+                }
 
                 policeStation[i].TileOptions[0] = house;
             }
@@ -346,13 +355,43 @@ namespace CityMap.WaveFunctionCollapse
                 randIndicies.Add(randGen);
             }
 
-            var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed, Array.Empty<TileTypes[]>());
+            var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed);
 
             for (int i = 0; i < houseCount; i++)
             {
                 if (randIndicies.Contains(i))
                 {
-                    houses[i].TileOptions[0] = destroyedHouse;
+                    if (randIndicies.Count == 1)
+                    {
+                        houses[i].TileOptions[0] = new TileConfiguration(TileTypes.HardwareStoreDestroyed);
+                        randIndicies.Remove(i);
+                    }
+                    else
+                    {
+                        houses[i].TileOptions[0] = destroyedHouse;
+                        randIndicies.Remove(i);
+                    }
+                }
+            }
+
+            var parks = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.Park).ToArray();
+            var parkCount = parks.Length;
+            destroyedCount = (parkCount / 2) - 1;
+            destroyedCount = destroyedCount < 0 ? 0 : destroyedCount;
+            
+            randIndicies.Clear();
+
+            while (randIndicies.Count != destroyedCount)
+            {
+                randIndicies.Add(Random.Range(0, parkCount));
+            }
+
+            var destroyedPark = new TileConfiguration(TileTypes.ParkDestroyed);
+            for (int i = 0; i < parkCount; i++)
+            {
+                if (randIndicies.Contains(i))
+                {
+                    parks[i].TileOptions[0] = destroyedPark;
                 }
             }
         }
