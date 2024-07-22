@@ -886,6 +886,10 @@ PrefabInstance:
       value: 0.21960786
       objectReference: {fileID: 0}
     - target: {fileID: 3017444304287430417, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: wave
+      value: 
+      objectReference: {fileID: 8300000, guid: e35ac19e054e2b84886e19f6eb816baa, type: 3}
+    - target: {fileID: 3017444304287430417, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: source
       value: 
       objectReference: {fileID: 834446901}
@@ -2100,14 +2104,26 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1920705058}
+    - target: {fileID: 6939896128325502562, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7741376348862014103, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
+      propertyPath: wave
+      value: 
+      objectReference: {fileID: 8300000, guid: e35ac19e054e2b84886e19f6eb816baa, type: 3}
+    - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
       propertyPath: GameMenuCanvas
       value: 
       objectReference: {fileID: 834446888}
+    - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
+      propertyPath: background_music
+      value: 
+      objectReference: {fileID: 8300000, guid: e5410e5d8066d1e469ee3cf2287e0228, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

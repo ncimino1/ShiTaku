@@ -10,6 +10,7 @@ public class AudioScript : MonoBehaviour
     public AudioClip clip_menu_move;
     public AudioClip clip_menu_select;
     public AudioClip background_music;
+    public AudioClip wave;
 
     //Game objects and references
     public GameObject GameMenuCanvas;
@@ -40,6 +41,12 @@ public class AudioScript : MonoBehaviour
         if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) && (NpcMenu.inMenu == true || menuManager.isPaused == true))
         {
             source.PlayOneShot(clip_menu_move);
+        }
+
+        if(menuManager.gameOver == true)
+        {
+            source.PlayOneShot(wave);
+            menuManager.gameOver = false;
         }
     }
 }

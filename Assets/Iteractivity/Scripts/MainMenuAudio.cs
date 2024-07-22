@@ -5,8 +5,17 @@ using UnityEngine;
 public class MainMenuAudio : MonoBehaviour
 {
     public AudioSource source;
+    public AudioClip ambient;
+    public AudioClip bamboo;
     public AudioClip clip_menu_move;
     public AudioClip clip_menu_select;
+
+    void Start()
+    {
+        source.clip = ambient;
+        source.loop = true;
+        source.Play();
+    }
 
     // Update is called once per frame
     void Update()
@@ -23,5 +32,12 @@ public class MainMenuAudio : MonoBehaviour
         {
             source.PlayOneShot(clip_menu_move);
         }
+
+        //Play the bamboo sound again after a certain amount of time, plays every 1 minute
+        if(Time.time % 60 == 0)
+        {
+            source.PlayOneShot(bamboo);
+        }
     }
+
 }

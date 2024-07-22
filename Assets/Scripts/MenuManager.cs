@@ -29,8 +29,9 @@ public class MenuManager : MonoBehaviour
     //Audio
     public AudioSource source;
     public AudioClip menu_appear_clip;
-
+    public AudioClip wave;
     public bool isPaused = false;
+    public bool gameOver = false;
     
     // We will need a way to get a string ID from the NPC in question.
     // For now I'll have a default function.
@@ -66,6 +67,7 @@ public class MenuManager : MonoBehaviour
 
         _calculatedScore = false;
         isPaused = false;
+        gameOver = false;
     }
 
     // Update is called once per frame
@@ -90,6 +92,7 @@ public class MenuManager : MonoBehaviour
                 npcMenu.gameObject.SetActive(false);
                 pauseMenu.gameObject.SetActive(false);
                 gameOverMenu.gameObject.SetActive(true);
+                gameOver = true;
                 if (!_calculatedScore)
                 {
                     gameOverMenu.FinishGame();

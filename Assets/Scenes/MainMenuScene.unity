@@ -680,6 +680,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 1035034158}
+  ambient: {fileID: 8300000, guid: fd5ef9d0cfbc805428f64eb84c948b9b, type: 3}
+  bamboo: {fileID: 8300000, guid: a8d0196f6f808da4ab3cfee66e04b35d, type: 3}
   clip_menu_move: {fileID: 8300000, guid: a9c017ef8b1789e41a014e27b4a13858, type: 3}
   clip_menu_select: {fileID: 8300000, guid: 67928f9c5df866649a904a2100cc59a7, type: 3}
 --- !u!82 &1035034158
@@ -696,7 +698,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
