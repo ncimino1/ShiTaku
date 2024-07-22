@@ -268,7 +268,11 @@ public class CityGridGenerator : MonoBehaviour
             };
             dialogue.rebuildSentences = new[]
             {
-                "You're helping us rebuild!", "Thank you!"
+                "Do you want to repair this building?"
+            };
+            dialogue.rebuildDoneSetences = new[]
+            {
+                "This building is already in stable condition."
             };
 
             details.NPCDialouge = dialogue;
@@ -345,7 +349,15 @@ public class CityGridGenerator : MonoBehaviour
 
         grid.FixDuplicates();
         grid.FixRoads();
+        grid.FixSkyscrapers();
         grid.DestroyBuildings();
+
+        var (startX, startY) = grid.GetRandomRoad();
+        
+        var posX = startX * size;
+        var posY = (height - startY - 1) * size;
+        
+        Player.transform.position = new Vector3(posX, posY);
 
         for (int x = 0; x < width; x++)
         {

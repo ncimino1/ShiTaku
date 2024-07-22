@@ -298,7 +298,7 @@ namespace CityMap.WaveFunctionCollapse
                         {
                             left.AddRange(TileGrid[y, x - 1].TileOptions[0].Type.GetPossibleAdjacentTiles()[1]);
                         }
-                        
+
                         above.IntersectWith(right);
                         above.IntersectWith(down);
                         above.IntersectWith(left);
@@ -310,19 +310,34 @@ namespace CityMap.WaveFunctionCollapse
                             Debug.Log("fixed");
                         }
                     }
-                    
-                    
+                }
+            }
+        }
+
+        public void FixSkyscrapers()
+        {
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    var tile = TileGrid[y, x];
+                    if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerBL)
+                    {
+                        TileGrid[y - 1, x].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerTL);
+                        TileGrid[y, x + 1].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerBR);
+                        TileGrid[y - 1, x + 1].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerTR);
+                    }
                 }
             }
         }
 
         public void DestroyBuildings()
         {
-            var houses= TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.House).ToArray();
+            var houses = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.House).ToArray();
             var houseCount = houses.Length;
             var destroyedCount = (houseCount / 2) - 1;
             destroyedCount = destroyedCount < 0 ? 0 : destroyedCount;
-            
+
             var randIndicies = new HashSet<int>();
 
             while (randIndicies.Count != destroyedCount)
@@ -332,7 +347,7 @@ namespace CityMap.WaveFunctionCollapse
             }
 
             var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed, Array.Empty<TileTypes[]>());
-            
+
             for (int i = 0; i < houseCount; i++)
             {
                 if (randIndicies.Contains(i))
@@ -340,6 +355,35 @@ namespace CityMap.WaveFunctionCollapse
                     houses[i].TileOptions[0] = destroyedHouse;
                 }
             }
+        }
+
+        public (int, int) GetRandomRoad()
+        {
+            var roads = TileGrid.Cast<Tile>().Where(t =>
+                    t.TileOptions[0].Type >= TileTypes.RoadVertical && t.TileOptions[0].Type <= TileTypes.Road3WayLTR)
+                .ToArray();
+
+            var count = roads.Length;
+            var randomRoad = Random.Range(0, count);
+            var i = -1;
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    var type = TileGrid[y, x].TileOptions[0].Type;
+                    if (type >= TileTypes.RoadVertical && type <= TileTypes.Road3WayLTR)
+                    {
+                        i++;
+                    }
+
+                    if (i == randomRoad)
+                    {
+                        return (x, y);
+                    }
+                }
+            }
+
+            return (0, 0);
         }
     }
 }

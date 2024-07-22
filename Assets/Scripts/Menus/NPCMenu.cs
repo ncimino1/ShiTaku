@@ -74,6 +74,9 @@ public class NPCMenu : MonoBehaviour
 
     //static
     public SpriteMovement _spriteMovement;
+
+    private Coroutine start;
+    private Coroutine stop;
     
     public virtual void Interact()
     {
@@ -84,7 +87,7 @@ public class NPCMenu : MonoBehaviour
             _npcCanvas.GetComponent<Image>().sprite = Details.NPCImage;
             CurrInteraction.SetActive(false);
             inMenu = true;
-            StartCoroutine(FadeIn());
+            start = StartCoroutine(FadeIn());
         }
     }
     
@@ -106,6 +109,7 @@ public class NPCMenu : MonoBehaviour
         if(!Details.NPCResolved){
             NPC.SetActive(true);
             _roomSprite.Interact();
+            _npcCanvas.alpha = 0;
         }
         else
         {
@@ -135,9 +139,7 @@ public class NPCMenu : MonoBehaviour
         //Play the sound
         source.PlayOneShot(clip);
 
-        //Unlock the movement of the player
-        _spriteMovement.UnlockMovement();
-        Debug.Log("Player movement unlocked");
+        inMenu = false;
         
         _roomSprite.DeactivateDialogue();
         
@@ -161,13 +163,20 @@ public class NPCMenu : MonoBehaviour
         
         CurrInteraction.SetActive(true);
         menuManager.setNPCMenu(false);
-        inMenu = false;
+        
+        //Unlock the movement of the player
+        _spriteMovement.UnlockMovement();
+        Debug.Log("Player movement unlocked");
     }
 
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
     public void ExitMenu() {
         activeOption = 0;
-        StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
+        if (start != null)
+        {
+            StopCoroutine(start);
+        }
+        stop = StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
     }
 
     public void HandleScroll(bool IsDown) {
@@ -193,6 +202,10 @@ public class NPCMenu : MonoBehaviour
                 {
                     LoadAction("0001");
                     _roomSprite.RebuildInteract();
+                }
+                else
+                {
+                    _roomSprite.StableInteract();
                 }
                 break;
             case 1:
