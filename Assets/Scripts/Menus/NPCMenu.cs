@@ -71,6 +71,9 @@ public class NPCMenu : MonoBehaviour
 
     //static
     public SpriteMovement _spriteMovement;
+
+    private Coroutine start;
+    private Coroutine stop;
     
     public virtual void Interact()
     {
@@ -81,7 +84,7 @@ public class NPCMenu : MonoBehaviour
             _npcCanvas.GetComponent<Image>().sprite = Details.NPCImage;
             CurrInteraction.SetActive(false);
             inMenu = true;
-            StartCoroutine(FadeIn());
+            start = StartCoroutine(FadeIn());
         }
     }
     
@@ -126,10 +129,7 @@ public class NPCMenu : MonoBehaviour
     {
         Debug.Log("Fading out");
 
-        //Unlock the movement of the player
-        _spriteMovement.UnlockMovement();
-        Debug.Log("Player movement unlocked");
-        
+        inMenu = false;
         _roomSprite.DeactivateDialogue();
         
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -152,13 +152,20 @@ public class NPCMenu : MonoBehaviour
         
         CurrInteraction.SetActive(true);
         menuManager.setNPCMenu(false);
-        inMenu = false;
+        
+        //Unlock the movement of the player
+        _spriteMovement.UnlockMovement();
+        Debug.Log("Player movement unlocked");
     }
 
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
     public void ExitMenu() {
         activeOption = 0;
-        StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
+        if (start != null)
+        {
+            StopCoroutine(start);
+        }
+        stop = StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
     }
 
     public void HandleScroll(bool IsDown) {
