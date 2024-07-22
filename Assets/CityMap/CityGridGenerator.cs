@@ -36,11 +36,11 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] public NPCMenu NPCMenu;
 
-    private Sprite Tavern;
-
     private Sprite ShrineWorker;
 
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
+
+    private Dictionary<TileTypes, Sprite> _interiorAtlas;
 
     private Sprite _grass;
 
@@ -52,7 +52,7 @@ public class CityGridGenerator : MonoBehaviour
     {
         public Color? Color;
         public TileTypes? Type;
-        public String Interior;
+        public bool Interior;
         public String DialogueFile;
         public bool Grass = false;
         public bool Destroyed = false;
@@ -99,7 +99,16 @@ public class CityGridGenerator : MonoBehaviour
         _needsGrass.Add(TileTypes.Park);
         _needsGrass.Add(TileTypes.ParkDestroyed);
 
-        Tavern = Resources.Load<Sprite>("shrine");
+        _interiorAtlas = new Dictionary<TileTypes, Sprite>();
+
+        var parkInterior = Resources.Load<Sprite>("shrine");
+        var houseInterior = Resources.Load<Sprite>("HouseInterior");
+        
+        _interiorAtlas.Add(TileTypes.Park, parkInterior);
+        _interiorAtlas.Add(TileTypes.ParkDestroyed, parkInterior);
+        _interiorAtlas.Add(TileTypes.House, houseInterior);
+        _interiorAtlas.Add(TileTypes.HouseDestroyed, houseInterior);
+
         ShrineWorker = Resources.Load<Sprite>("shrineWorker");
     }
 
@@ -121,7 +130,7 @@ public class CityGridGenerator : MonoBehaviour
             {
                 TileParameters parameters = new TileParameters();
                 parameters.Color = tiles.Types[x + y * tiles.Width].GetColor();
-                parameters.Interior = tiles.Doors[x + y * tiles.Width];
+                // parameters.Interior = tiles.Doors[x + y * tiles.Width];
                 parameters.DialogueFile = tiles.Dialogue[x + y * tiles.Width];
                 GenerateTile(x, y, parameters);
             }
@@ -223,7 +232,7 @@ public class CityGridGenerator : MonoBehaviour
         }
 
         //Make each tile have a interactable prefab as a child; For testing its a door
-        if (parameters.Interior != null)
+        if (parameters.Interior)
         {
             var door = Instantiate(Door, t.transform);
 
@@ -256,7 +265,18 @@ public class CityGridGenerator : MonoBehaviour
             }
 
             var details = new RoomDetails();
-            details.RoomImage = Tavern;
+
+            Sprite interior;
+            if (_interiorAtlas.ContainsKey(parameters.Type.Value))
+            {
+                interior = _interiorAtlas[parameters.Type.Value];
+            }
+            else
+            {
+                interior = _interiorAtlas[TileTypes.House];
+            }
+            
+            details.RoomImage = interior;
             details.NPCImage = ShrineWorker;
 
             var dialogue = new Dialouge();
@@ -389,7 +409,7 @@ public class CityGridGenerator : MonoBehaviour
 
                 if (type >= TileTypes.Park && type <= TileTypes.CityHallDestroyed)
                 {
-                    parameters.Interior = "";
+                    parameters.Interior = true;
                 }
 
                 if (type >= TileTypes.HouseDestroyed && type <= TileTypes.CityHallDestroyed)
