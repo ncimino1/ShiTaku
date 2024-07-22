@@ -103,6 +103,7 @@ public class NPCMenu : MonoBehaviour
         if(!Details.NPCResolved){
             NPC.SetActive(true);
             _roomSprite.Interact();
+            _npcCanvas.alpha = 0;
         }
         else
         {
