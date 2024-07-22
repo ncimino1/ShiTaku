@@ -31,7 +31,7 @@ public class CityGridGenerator : MonoBehaviour
     [SerializeField] public GameObject TavernInterior;
 
     [SerializeField] public GameObject Player;
-    
+
     [SerializeField] public GameObject GameMenuCanvas;
 
     [SerializeField] public NPCMenu NPCMenu;
@@ -39,7 +39,7 @@ public class CityGridGenerator : MonoBehaviour
     private Sprite Tavern;
 
     private Sprite ShrineWorker;
-    
+
     private Dictionary<TileTypes, Sprite> _spriteAtlas;
 
     private Sprite _grass;
@@ -78,13 +78,13 @@ public class CityGridGenerator : MonoBehaviour
     {
         var spritesArray = Resources.Load<SpriteAtlas>("Tiles/TileAtlas");
         _grass = Resources.LoadAll<Sprite>("Tiles/grass")[0];
-        
+
         _spriteAtlas = new Dictionary<TileTypes, Sprite>();
 
         foreach (var type in Enum.GetValues(typeof(TileTypes)).Cast<TileTypes>())
         {
             var sprite = spritesArray.GetSprite(type.ToString());
-            
+
             if (sprite)
             {
                 _spriteAtlas[type] = sprite;
@@ -93,8 +93,11 @@ public class CityGridGenerator : MonoBehaviour
 
         _needsGrass = new HashSet<TileTypes>();
         _needsGrass.Add(TileTypes.FireStation);
+        _needsGrass.Add(TileTypes.FireStationDestroyed);
         _needsGrass.Add(TileTypes.PoliceStation);
+        _needsGrass.Add(TileTypes.PoliceStationDestroyed);
         _needsGrass.Add(TileTypes.Park);
+        _needsGrass.Add(TileTypes.ParkDestroyed);
 
         Tavern = Resources.Load<Sprite>("shrine");
         ShrineWorker = Resources.Load<Sprite>("shrineWorker");
@@ -217,36 +220,40 @@ public class CityGridGenerator : MonoBehaviour
             var grass = Instantiate(tile, t.transform).GetComponent<SpriteRenderer>();
             grass.sortingLayerID = SortingLayer.NameToID("Background");
             grass.sprite = _grass;
-
         }
 
         //Make each tile have a interactable prefab as a child; For testing its a door
         if (parameters.Interior != null)
         {
             var door = Instantiate(Door, t.transform);
-            
+
 
             // var door = Instantiate(Door, t.transform);
             // door.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             var parentRenderer = t.GetComponent<SpriteRenderer>();
             var childRenderer = door.GetComponent<SpriteRenderer>();
-            
+
             var offset = (parentRenderer.bounds.size.y / 2) - (childRenderer.bounds.size.y / 2);
             offset /= parentRenderer.transform.localScale.y;
-            
+
             door.transform.localPosition = new Vector3(0, -offset, 0);
 
             var interactivityController = door.transform.GetComponentInChildren<InteractivityController>();
 
-            if (NPCMenu is null)
-            {
-                Debug.Log("WHYYYYY");
-            }
             interactivityController.Menu = NPCMenu;
 
             interactivityController.ParentTile = t;
             t.Destroyed = parameters.Destroyed;
-            t.FixedAsset = _spriteAtlas[TileTypes.House];
+            var fixedName = parameters.Type.Value.ToString().Replace("Destroyed", "");
+            Debug.Log(fixedName);
+            if (!TileTypes.TryParse(fixedName, out TileTypes result))
+            {
+                t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed];
+            }
+            else
+            {
+                t.FixedAsset = _spriteAtlas[result];
+            }
 
             var details = new RoomDetails();
             details.RoomImage = Tavern;
@@ -353,10 +360,10 @@ public class CityGridGenerator : MonoBehaviour
         grid.DestroyBuildings();
 
         var (startX, startY) = grid.GetRandomRoad();
-        
+
         var posX = startX * size;
         var posY = (height - startY - 1) * size;
-        
+
         Player.transform.position = new Vector3(posX, posY);
 
         for (int x = 0; x < width; x++)
@@ -385,7 +392,7 @@ public class CityGridGenerator : MonoBehaviour
                     parameters.Interior = "";
                 }
 
-                if (type == TileTypes.HouseDestroyed)
+                if (type >= TileTypes.HouseDestroyed && type <= TileTypes.CityHallDestroyed)
                 {
                     parameters.Destroyed = true;
                 }
@@ -402,20 +409,20 @@ public class CityGridGenerator : MonoBehaviour
                     parameters.Type = TileTypes.SkyscraperUpperBR;
                     var br = GenerateTile(x + 1, height - y, parameters);
                     br.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
-                    
+
                     parameters.Type = TileTypes.SkyscraperUpperTL;
                     var tl = GenerateTile(x, height - y + 1, parameters);
                     tl.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
-                    
+
                     parameters.Type = TileTypes.SkyscraperUpperTR;
                     var tr = GenerateTile(x + 1, height - y + 1, parameters);
                     tr.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
-                    
+
                     var collider = bl.AddComponent<BoxCollider2D>();
                     collider.isTrigger = true;
                     collider.offset = new Vector2(0.5f, 0.5f);
                     collider.size = new Vector2(2, 2);
-                    
+
                     var transparency = bl.AddComponent<TransparencyController>();
                     transparency.bl = bl.GetComponent<SpriteRenderer>();
                     transparency.br = br.GetComponent<SpriteRenderer>();
@@ -426,19 +433,22 @@ public class CityGridGenerator : MonoBehaviour
         }
     }
 
-    public int GetEvacNpcCount() {
+    public int GetEvacNpcCount()
+    {
         // For returning the total number of evacuation npcs, change it as needed 
 
         return 1;
     }
 
-    public int GetWornBldCount() {
+    public int GetWornBldCount()
+    {
         // For returning the total number of worn buildings, change it as needed 
 
         return 1;
     }
 
-    public int GetTalkNpcCount() {
+    public int GetTalkNpcCount()
+    {
         // For returning the total number of talk npcs, change it as needed 
 
         return 1;
