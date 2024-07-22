@@ -69,6 +69,9 @@ public class NPCMenu : MonoBehaviour
     //static
     public GameObject Player;
 
+    public AudioSource source;
+    public AudioClip clip;
+
     //static
     public SpriteMovement _spriteMovement;
     
@@ -89,6 +92,9 @@ public class NPCMenu : MonoBehaviour
     {
         //If the NPC is not gone, set it as active then fade it in
 
+        //Play the sound
+        source.PlayOneShot(clip);
+        
         Debug.Log("Fading In");
         
         //Lock the movement of the player
@@ -125,6 +131,9 @@ public class NPCMenu : MonoBehaviour
         GameObject room, GameObject roomNPC)
     {
         Debug.Log("Fading out");
+
+        //Play the sound
+        source.PlayOneShot(clip);
 
         //Unlock the movement of the player
         _spriteMovement.UnlockMovement();
