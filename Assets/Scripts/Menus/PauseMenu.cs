@@ -12,6 +12,8 @@ public class PauseMenu : MonoBehaviour
     public PauseMenu thisPauseMenu;
     public ActionManagerScript actionManager;
 
+    MenuManager menuManager;
+
     /* 
         activeOption and numOptions are used to keep track of which menu option is ready
         to be selected.
@@ -34,6 +36,7 @@ public class PauseMenu : MonoBehaviour
     public void ExitMenu() {
         activeOption = 0;
         Debug.Log("Menu is closed.");
+        menuManager.isPaused = false;
         thisPauseMenu.gameObject.SetActive(false);
     }
 
@@ -76,6 +79,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start() {  
         GenerateOptions();
+        menuManager = FindObjectOfType<MenuManager>();
     }
 
     void Update() {

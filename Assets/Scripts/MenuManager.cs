@@ -25,9 +25,13 @@ public class MenuManager : MonoBehaviour
     public PlayerManager playerManager;
 
     private bool _calculatedScore;
+
+    //Audio
+    public AudioSource source;
+    public AudioClip menu_appear_clip;
+
+    public bool isPaused = false;
     
-
-
     // We will need a way to get a string ID from the NPC in question.
     // For now I'll have a default function.
     // May need to make use of the player manager.
@@ -61,6 +65,7 @@ public class MenuManager : MonoBehaviour
         daysDisplayer.gameObject.SetActive(false);
 
         _calculatedScore = false;
+        isPaused = false;
     }
 
     // Update is called once per frame
@@ -78,6 +83,8 @@ public class MenuManager : MonoBehaviour
             // } else
             if (Input.GetKeyDown(KeyCode.Z) && !npcMenu.inMenu) {
                 pauseMenu.gameObject.SetActive(true);
+                source.PlayOneShot(menu_appear_clip);
+                isPaused = true;
                 pauseMenu.SetAPText();
             } else if (actionManager.ReturnDays() == finalDay) {
                 npcMenu.gameObject.SetActive(false);
