@@ -2017,8 +2017,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4848650145438868239, guid: fc7b2f96974d3ef14a6f5002e9fcbdb5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 4848650145438868239, guid: fc7b2f96974d3ef14a6f5002e9fcbdb5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 520
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 4848650145438868239, guid: fc7b2f96974d3ef14a6f5002e9fcbdb5, type: 3}
       propertyPath: m_ConstrainProportionsScale
