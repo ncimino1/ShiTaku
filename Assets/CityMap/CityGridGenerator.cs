@@ -56,6 +56,7 @@ public class CityGridGenerator : MonoBehaviour
         public String DialogueFile;
         public bool Grass = false;
         public bool Destroyed = false;
+        public int Index = -1;
     }
 
     // Start is called before the first frame update
@@ -93,9 +94,17 @@ public class CityGridGenerator : MonoBehaviour
                 {
                     _spriteAtlas[type] = new List<Sprite>();
                 }
+
                 _spriteAtlas[type].Add(sprite);
+                if (type >= TileTypes.SkyscraperCornerBL && type <= TileTypes.SkyscraperUpperTR)
+                {
+                    _spriteAtlas[type].Add(spritesArray.GetSprite("Reskinned" + type.ToString()));
+                }
             }
         }
+
+        _spriteAtlas[TileTypes.House].Add(spritesArray.GetSprite("HouseReskinned"));
+        _spriteAtlas[TileTypes.HouseDestroyed].Add(spritesArray.GetSprite("DestroyedHouseReskinned"));
 
         _needsGrass = new HashSet<TileTypes>();
         _needsGrass.Add(TileTypes.FireStation);
@@ -127,7 +136,7 @@ public class CityGridGenerator : MonoBehaviour
         _interiorAtlas.Add(TileTypes.CityHallDestroyed, cityHallInterior);
         _interiorAtlas.Add(TileTypes.HardwareStore, hardwareStoreInterior);
         _interiorAtlas.Add(TileTypes.HardwareStoreDestroyed, hardwareStoreInterior);
-        
+
         var shrineWorker = Resources.Load<Sprite>("shrineWorker");
         var fireFighter = Resources.Load<Sprite>("fire_fighter");
         var grandma = Resources.Load<Sprite>("grandma");
@@ -137,20 +146,20 @@ public class CityGridGenerator : MonoBehaviour
         var mayor = Resources.Load<Sprite>("mayor");
         var cop = Resources.Load<Sprite>("cop");
 
-        _npcAtlas.Add(TileTypes.Park, new List<Sprite>(){shrineWorker});
-        _npcAtlas.Add(TileTypes.ParkDestroyed, new List<Sprite>(){shrineWorker});
-        _npcAtlas.Add(TileTypes.FireStation, new List<Sprite>(){fireFighter});
-        _npcAtlas.Add(TileTypes.FireStationDestroyed, new List<Sprite>(){fireFighter});
-        _npcAtlas.Add(TileTypes.House, new List<Sprite>() {grandma, girl });
-        _npcAtlas.Add(TileTypes.HouseDestroyed, new List<Sprite>() {grandma, girl });
-        _npcAtlas.Add(TileTypes.HardwareStore, new List<Sprite>() {hardwareWorker});
-        _npcAtlas.Add(TileTypes.HardwareStoreDestroyed, new List<Sprite>() {hardwareWorker});
-        _npcAtlas.Add(TileTypes.SkyscraperCornerBL, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.CityHall, new List<Sprite>() {mayor});
-        _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() {mayor});
-        _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() {cop});
-        _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() {cop});
+        _npcAtlas.Add(TileTypes.Park, new List<Sprite>() { shrineWorker });
+        _npcAtlas.Add(TileTypes.ParkDestroyed, new List<Sprite>() { shrineWorker });
+        _npcAtlas.Add(TileTypes.FireStation, new List<Sprite>() { fireFighter });
+        _npcAtlas.Add(TileTypes.FireStationDestroyed, new List<Sprite>() { fireFighter });
+        _npcAtlas.Add(TileTypes.House, new List<Sprite>() { grandma, girl });
+        _npcAtlas.Add(TileTypes.HouseDestroyed, new List<Sprite>() { grandma, girl });
+        _npcAtlas.Add(TileTypes.HardwareStore, new List<Sprite>() { hardwareWorker });
+        _npcAtlas.Add(TileTypes.HardwareStoreDestroyed, new List<Sprite>() { hardwareWorker });
+        _npcAtlas.Add(TileTypes.SkyscraperCornerBL, new List<Sprite>() { receptionist });
+        _npcAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, new List<Sprite>() { receptionist });
+        _npcAtlas.Add(TileTypes.CityHall, new List<Sprite>() { mayor });
+        _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() { mayor });
+        _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() { cop });
+        _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() { cop });
     }
 
     void LoadTiles()
@@ -264,7 +273,7 @@ public class CityGridGenerator : MonoBehaviour
 
         if (parameters.Type.HasValue && _spriteAtlas.TryGetValue(parameters.Type.Value, out var value))
         {
-            buildingIndex = Random.Range(0, value.Count);
+            buildingIndex = parameters.Index != -1 ? parameters.Index : Random.Range(0, value.Count);
             sprite.sprite = value[buildingIndex];
         }
 
@@ -311,6 +320,7 @@ public class CityGridGenerator : MonoBehaviour
                 vec.x = parentRenderer.bounds.size.x / 2;
                 vec.x /= parentRenderer.transform.localScale.x;
             }
+
             door.transform.localPosition = vec;
 
             var interactivityController = door.transform.GetComponentInChildren<InteractivityController>();
@@ -336,7 +346,7 @@ public class CityGridGenerator : MonoBehaviour
             var npcArr = _npcAtlas[parameters.Type.Value];
 
             var charSelection = Random.Range(0, npcArr.Count);
-            
+
             details.NPCImage = npcArr[charSelection];
 
             var dialogue = new Dialouge();
@@ -487,6 +497,7 @@ public class CityGridGenerator : MonoBehaviour
 
                 if (type == TileTypes.SkyscraperCornerBL || type == TileTypes.SkyscraperCornerBLDestroyed)
                 {
+                    parameters.Index = Random.Range(0, 2);
                     var blc = GenerateTile(x, height - y - 1, parameters);
                     parameters.Interior = false;
                     parameters.Type = grid.TileGrid[y, x + 1].TileOptions[0].Type;
