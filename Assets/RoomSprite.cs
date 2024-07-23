@@ -108,7 +108,7 @@ public class RoomSprite : MonoBehaviour
                 npcMenu.currentAction = "";
                 npcMenu.actionBenefit = 0;
                 npcMenu.CurrentTile.Destroyed = false;
-                npcMenu.CurrentTile.GetComponent<SpriteRenderer>().sprite = npcMenu.CurrentTile.FixedAsset;
+                npcMenu.CurrentTile.FixTile();
 
                 return;
             }

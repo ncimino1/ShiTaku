@@ -98,16 +98,23 @@ public class CityGridGenerator : MonoBehaviour
         _needsGrass.Add(TileTypes.PoliceStationDestroyed);
         _needsGrass.Add(TileTypes.Park);
         _needsGrass.Add(TileTypes.ParkDestroyed);
+        _needsGrass.Add(TileTypes.HardwareStore);
+        _needsGrass.Add(TileTypes.HardwareStoreDestroyed);
+        _needsGrass.Add(TileTypes.CityHall);
+        _needsGrass.Add(TileTypes.CityHallDestroyed);
 
         _interiorAtlas = new Dictionary<TileTypes, Sprite>();
 
         var parkInterior = Resources.Load<Sprite>("shrine");
         var houseInterior = Resources.Load<Sprite>("HouseInterior");
-        
+        var skyscraperInterior = Resources.Load<Sprite>("SkyscraperInterior");
+
         _interiorAtlas.Add(TileTypes.Park, parkInterior);
         _interiorAtlas.Add(TileTypes.ParkDestroyed, parkInterior);
         _interiorAtlas.Add(TileTypes.House, houseInterior);
         _interiorAtlas.Add(TileTypes.HouseDestroyed, houseInterior);
+        _interiorAtlas.Add(TileTypes.SkyscraperCornerBL, skyscraperInterior);
+        _interiorAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, skyscraperInterior);
 
         ShrineWorker = Resources.Load<Sprite>("shrineWorker");
     }
@@ -231,6 +238,21 @@ public class CityGridGenerator : MonoBehaviour
             grass.sprite = _grass;
         }
 
+        if (parameters.Destroyed)
+        {
+            t.Destroyed = parameters.Destroyed;
+            var fixedName = parameters.Type.Value.ToString().Replace("Destroyed", "");
+            Debug.Log(fixedName);
+            if (!TileTypes.TryParse(fixedName, out TileTypes result))
+            {
+                t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed];
+            }
+            else
+            {
+                t.FixedAsset = _spriteAtlas[result];
+            }
+        }
+
         //Make each tile have a interactable prefab as a child; For testing its a door
         if (parameters.Interior)
         {
@@ -245,24 +267,20 @@ public class CityGridGenerator : MonoBehaviour
             var offset = (parentRenderer.bounds.size.y / 2) - (childRenderer.bounds.size.y / 2);
             offset /= parentRenderer.transform.localScale.y;
 
-            door.transform.localPosition = new Vector3(0, -offset, 0);
+            var vec = new Vector3(0, -offset, 0);
+            if (parameters.Type == TileTypes.SkyscraperCornerBL ||
+                parameters.Type == TileTypes.SkyscraperCornerBLDestroyed)
+            {
+                vec.x = parentRenderer.bounds.size.x / 2;
+                vec.x /= parentRenderer.transform.localScale.x;
+            }
+            door.transform.localPosition = vec;
 
             var interactivityController = door.transform.GetComponentInChildren<InteractivityController>();
 
             interactivityController.Menu = NPCMenu;
 
             interactivityController.ParentTile = t;
-            t.Destroyed = parameters.Destroyed;
-            var fixedName = parameters.Type.Value.ToString().Replace("Destroyed", "");
-            Debug.Log(fixedName);
-            if (!TileTypes.TryParse(fixedName, out TileTypes result))
-            {
-                t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed];
-            }
-            else
-            {
-                t.FixedAsset = _spriteAtlas[result];
-            }
 
             var details = new RoomDetails();
 
@@ -275,7 +293,7 @@ public class CityGridGenerator : MonoBehaviour
             {
                 interior = _interiorAtlas[TileTypes.House];
             }
-            
+
             details.RoomImage = interior;
             details.NPCImage = ShrineWorker;
 
@@ -407,35 +425,58 @@ public class CityGridGenerator : MonoBehaviour
                     parameters.Grass = true;
                 }
 
-                if (type >= TileTypes.Park && type <= TileTypes.CityHallDestroyed)
+                if ((type >= TileTypes.Park && type <= TileTypes.CityHallDestroyed) ||
+                    type == TileTypes.SkyscraperCornerBL || type == TileTypes.SkyscraperCornerBLDestroyed)
                 {
                     parameters.Interior = true;
                 }
 
-                if (type >= TileTypes.HouseDestroyed && type <= TileTypes.CityHallDestroyed)
+                if ((type >= TileTypes.HouseDestroyed && type <= TileTypes.CityHallDestroyed) ||
+                    (type >= TileTypes.SkyscraperCornerBLDestroyed && type <= TileTypes.SkyscraperCornerTRDestroyed))
                 {
                     parameters.Destroyed = true;
                 }
 
-                GenerateTile(x, height - y - 1, parameters).name = grid.TileGrid[y, x].TileOptions[0].Type.ToString();
-
-                if (type == TileTypes.SkyscraperCornerTL)
+                if (type < TileTypes.SkyscraperCornerBL || type > TileTypes.SkyscraperUpperTR)
                 {
+                    GenerateTile(x, height - y - 1, parameters).name =
+                        grid.TileGrid[y, x].TileOptions[0].Type.ToString();
+                }
+
+                if (type == TileTypes.SkyscraperCornerBL || type == TileTypes.SkyscraperCornerBLDestroyed)
+                {
+                    var blc = GenerateTile(x, height - y - 1, parameters);
+                    parameters.Interior = false;
+                    parameters.Type = grid.TileGrid[y, x + 1].TileOptions[0].Type;
+                    var brc = GenerateTile(x + 1, height - y - 1, parameters);
+                    parameters.Type = grid.TileGrid[y - 1, x].TileOptions[0].Type;
+                    var tlc = GenerateTile(x, height - y, parameters);
+                    parameters.Type = grid.TileGrid[y - 1, x + 1].TileOptions[0].Type;
+                    var trc = GenerateTile(x + 1, height - y, parameters);
+
                     parameters.Color = null;
-                    parameters.Type = TileTypes.SkyscraperUpperBL;
-                    var bl = GenerateTile(x, height - y, parameters);
+                    parameters.Type = parameters.Destroyed
+                        ? TileTypes.SkyscraperUpperBLDestroyed
+                        : TileTypes.SkyscraperUpperBL;
+                    var bl = GenerateTile(x, height - y + 1, parameters);
                     bl.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
 
-                    parameters.Type = TileTypes.SkyscraperUpperBR;
-                    var br = GenerateTile(x + 1, height - y, parameters);
+                    parameters.Type = parameters.Destroyed
+                        ? TileTypes.SkyscraperUpperBRDestroyed
+                        : TileTypes.SkyscraperUpperBR;
+                    var br = GenerateTile(x + 1, height - y + 1, parameters);
                     br.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
 
-                    parameters.Type = TileTypes.SkyscraperUpperTL;
-                    var tl = GenerateTile(x, height - y + 1, parameters);
+                    parameters.Type = parameters.Destroyed
+                        ? TileTypes.SkyscraperUpperTLDestroyed
+                        : TileTypes.SkyscraperUpperTL;
+                    var tl = GenerateTile(x, height - y + 2, parameters);
                     tl.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
 
-                    parameters.Type = TileTypes.SkyscraperUpperTR;
-                    var tr = GenerateTile(x + 1, height - y + 1, parameters);
+                    parameters.Type = parameters.Destroyed
+                        ? TileTypes.SkyscraperUpperTRDestroyed
+                        : TileTypes.SkyscraperUpperTR;
+                    var tr = GenerateTile(x + 1, height - y + 2, parameters);
                     tr.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("Skyscraper");
 
                     var collider = bl.AddComponent<BoxCollider2D>();
@@ -448,6 +489,13 @@ public class CityGridGenerator : MonoBehaviour
                     transparency.br = br.GetComponent<SpriteRenderer>();
                     transparency.tl = tl.GetComponent<SpriteRenderer>();
                     transparency.tr = tr.GetComponent<SpriteRenderer>();
+
+                    var otherTiles = new Tile[7]
+                    {
+                        brc, trc, tlc, bl, tl, br, tr,
+                    };
+
+                    blc.otherTiles = otherTiles;
                 }
             }
         }
