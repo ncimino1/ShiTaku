@@ -42,6 +42,20 @@ public class CityGridGenerator : MonoBehaviour
 
     private Dictionary<TileTypes, List<Sprite>> _npcAtlas;
 
+    private HashSet<Dialouge> _buildingLines;
+
+    private Dialouge _fireLines;
+
+    private Dialouge _policeLines;
+
+    private Dialouge _shrineLines;
+
+    private Dialouge _hardwareLines;
+
+    private Dialouge _cityLines;
+
+    private string[] _names;
+
     private Sprite _grass;
 
     private Thread _thread;
@@ -72,6 +86,106 @@ public class CityGridGenerator : MonoBehaviour
             //_thread = new Thread(GenerateTiles);
             //_thread.Start();
             GenerateTiles();
+        }
+    }
+
+    void parseDialogue()
+    {
+        var empty = new string[]
+        {
+            "Hello!",
+        };
+
+        var rebuildStart = new string[]
+        {
+            "Do you want to repair this building?",
+        };
+
+        var rebuildDone = new string[]
+        {
+            "This building is already in stable condition.",
+        };
+
+        var dialogueArray = Resources.Load<TextAsset>("Dialogue").text.Split('\n').SkipLast(1).ToArray();
+
+        Dialouge dialouge = new Dialouge();
+
+        List<string> interact = new List<string>();
+        List<string> exit = new List<string>();
+
+        TileTypes? state = null;
+        bool interactState = false;
+
+        _buildingLines = new HashSet<Dialouge>();
+
+        for (int i = 0; i < dialogueArray.Length + 1; i++)
+        {
+            var line = "";
+            if (i < dialogueArray.Length)
+                line = dialogueArray[i];
+            if (TileTypes.TryParse(line, out TileTypes result) || i == dialogueArray.Length)
+            {
+                if (state.HasValue)
+                {
+                    if (exit.Count != 0)
+                    {
+                        dialouge.exitSentences = exit.ToArray();
+                        exit.Clear();
+                    }
+
+                    if (state == TileTypes.House)
+                    {
+                        _buildingLines.Add(dialouge);
+                    }
+                    else if (state == TileTypes.Park)
+                    {
+                        _shrineLines = dialouge;
+                    }
+                    else if (state == TileTypes.CityHall)
+                    {
+                        _cityLines = dialouge;
+                    }
+                    else if (state == TileTypes.HardwareStore)
+                    {
+                        _hardwareLines = dialouge;
+                    }
+                    else if (state == TileTypes.FireStation)
+                    {
+                        _fireLines = dialouge;
+                    }
+                    else if (state == TileTypes.PoliceStation)
+                    {
+                        _policeLines = dialouge;
+                    }
+                }
+
+                dialouge = new Dialouge();
+                dialouge.emptySentences = empty;
+                dialouge.rebuildSentences = rebuildStart;
+                dialouge.rebuildDoneSetences = rebuildDone;
+                state = result;
+            }
+            else if (line == "Interact:")
+            {
+                interactState = true;
+            }
+            else if (line == "Exit:")
+            {
+                dialouge.sentences = interact.ToArray();
+                interact.Clear();
+                interactState = false;
+            }
+            else
+            {
+                if (interactState)
+                {
+                    interact.Add(line);
+                }
+                else
+                {
+                    exit.Add(line);
+                }
+            }
         }
     }
 
@@ -160,6 +274,11 @@ public class CityGridGenerator : MonoBehaviour
         _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() { mayor });
         _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() { cop });
         _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() { cop });
+
+        var file = Resources.Load<TextAsset>("Names");
+        _names = file.text.Split('\n').SkipLast(1).ToArray();
+
+        parseDialogue();
     }
 
     void LoadTiles()
@@ -349,28 +468,44 @@ public class CityGridGenerator : MonoBehaviour
 
             details.NPCImage = npcArr[charSelection];
 
-            var dialogue = new Dialouge();
-            dialogue.name = "Worker" + x + " " + y;
-            dialogue.sentences = new[]
+            Dialouge dialogue;
+
+            var type = parameters.Type.Value;
+            if (type == TileTypes.CityHall || type == TileTypes.CityHallDestroyed)
             {
-                "Hello!", "Are you here to help us!",
-            };
-            dialogue.exitSentences = new[]
+                dialogue = _cityLines;
+            }
+            else if (type == TileTypes.FireStation || type == TileTypes.FireStationDestroyed)
             {
-                "Thank you for your initiative!", "We will evacuate now!", "Thank you!"
-            };
-            dialogue.emptySentences = new[]
+                dialogue = _fireLines;
+            }
+            else if (type == TileTypes.Park || type == TileTypes.ParkDestroyed)
             {
-                "Hello!",
-            };
-            dialogue.rebuildSentences = new[]
+                dialogue = _shrineLines;
+            }
+            else if (type == TileTypes.PoliceStation || type == TileTypes.PoliceStationDestroyed)
             {
-                "Do you want to repair this building?"
-            };
-            dialogue.rebuildDoneSetences = new[]
+                dialogue = _policeLines;
+            }
+            else if (type == TileTypes.HardwareStore || type == TileTypes.HardwareStoreDestroyed)
             {
-                "This building is already in stable condition."
-            };
+                dialogue = _hardwareLines;
+            }
+            else
+            {
+                dialogue = new Dialouge();
+                var randDialogue = Random.Range(0, _buildingLines.Count);
+                var chosen = _buildingLines.Skip(randDialogue).Take(1).First();
+
+                dialogue.rebuildDoneSetences = chosen.rebuildDoneSetences;
+                dialogue.rebuildSentences = chosen.rebuildSentences;
+                dialogue.sentences = chosen.sentences;
+                dialogue.emptySentences = chosen.emptySentences;
+                dialogue.exitSentences = chosen.exitSentences;
+            }
+
+            var randNameIndex = Random.Range(0, _names.Length);
+            dialogue.name = _names[randNameIndex];
 
             details.NPCDialouge = dialogue;
             details.NPCResolved = false;

@@ -334,78 +334,108 @@ namespace CityMap.WaveFunctionCollapse
                     var tile = TileGrid[y, x];
                     if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerBL)
                     {
-                        var up = TileGrid[y - 1, x].TileOptions[0];
-                        var right = TileGrid[y, x + 1].TileOptions[0];
-                        var rightup = TileGrid[y - 1, x + 1].TileOptions[0];
-                        if (up.Type != TileTypes.SkyscraperCornerTL || right.Type != TileTypes.SkyscraperCornerBR ||
-                            rightup.Type != TileTypes.SkyscraperCornerTR)
+                        try
                         {
-                            var house = new TileConfiguration(TileTypes.House);
-                            tile.TileOptions[0] = house;
-                            up = house;
-                            right = house;
-                            rightup = house;
+                            var up = TileGrid[y - 1, x].TileOptions[0];
+                            var right = TileGrid[y, x + 1].TileOptions[0];
+                            var rightup = TileGrid[y - 1, x + 1].TileOptions[0];
+                            if (up.Type != TileTypes.SkyscraperCornerTL || right.Type != TileTypes.SkyscraperCornerBR ||
+                                rightup.Type != TileTypes.SkyscraperCornerTR)
+                            {
+                                var house = new TileConfiguration(TileTypes.House);
+                                tile.TileOptions[0] = house;
+                                up = house;
+                                right = house;
+                                rightup = house;
+                            }
+                            else
+                            {
+                                skyscraperCount++;
+                            }
                         }
-                        else
+                        catch (IndexOutOfRangeException)
                         {
-                            skyscraperCount++;
+                            tile.TileOptions[0] = new TileConfiguration(TileTypes.House);
                         }
                     }
                     else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerBR)
                     {
-                        var up = TileGrid[y - 1, x].TileOptions[0];
-                        var left = TileGrid[y, x - 1].TileOptions[0];
-                        var leftup = TileGrid[y - 1, x - 1].TileOptions[0];
-                        if (up.Type != TileTypes.SkyscraperCornerTR || left.Type != TileTypes.SkyscraperCornerBL ||
-                            leftup.Type != TileTypes.SkyscraperCornerTL)
+                        try
                         {
-                            var house = new TileConfiguration(TileTypes.House);
-                            tile.TileOptions[0] = house;
-                            up = house;
-                            left = house;
-                            leftup = house;
+                            var up = TileGrid[y - 1, x].TileOptions[0];
+                            var left = TileGrid[y, x - 1].TileOptions[0];
+                            var leftup = TileGrid[y - 1, x - 1].TileOptions[0];
+                            if (up.Type != TileTypes.SkyscraperCornerTR || left.Type != TileTypes.SkyscraperCornerBL ||
+                                leftup.Type != TileTypes.SkyscraperCornerTL)
+                            {
+                                var house = new TileConfiguration(TileTypes.House);
+                                tile.TileOptions[0] = house;
+                                up = house;
+                                left = house;
+                                leftup = house;
+                            }
+                            else
+                            {
+                                skyscraperCount++;
+                            }
                         }
-                        else
+                        catch (IndexOutOfRangeException)
                         {
-                            skyscraperCount++;
+                            tile.TileOptions[0] = new TileConfiguration(TileTypes.House);
                         }
                     }
                     else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerTL)
                     {
-                        var down = TileGrid[y + 1, x].TileOptions[0];
-                        var right = TileGrid[y, x + 1].TileOptions[0];
-                        var rightdown = TileGrid[y + 1, x + 1].TileOptions[0];
-                        if (down.Type != TileTypes.SkyscraperCornerBL || right.Type != TileTypes.SkyscraperCornerTR ||
-                            rightdown.Type != TileTypes.SkyscraperCornerBR)
+                        try
                         {
-                            var house = new TileConfiguration(TileTypes.House);
-                            tile.TileOptions[0] = house;
-                            down = house;
-                            right = house;
-                            rightdown = house;
+                            var down = TileGrid[y + 1, x].TileOptions[0];
+                            var right = TileGrid[y, x + 1].TileOptions[0];
+                            var rightdown = TileGrid[y + 1, x + 1].TileOptions[0];
+                            if (down.Type != TileTypes.SkyscraperCornerBL ||
+                                right.Type != TileTypes.SkyscraperCornerTR ||
+                                rightdown.Type != TileTypes.SkyscraperCornerBR)
+                            {
+                                var house = new TileConfiguration(TileTypes.House);
+                                tile.TileOptions[0] = house;
+                                down = house;
+                                right = house;
+                                rightdown = house;
+                            }
+                            else
+                            {
+                                skyscraperCount++;
+                            }
                         }
-                        else
+                        catch (IndexOutOfRangeException)
                         {
-                            skyscraperCount++;
+                            tile.TileOptions[0] = new TileConfiguration(TileTypes.House);
                         }
                     }
                     else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerTR)
                     {
-                        var down = TileGrid[y + 1, x].TileOptions[0];
-                        var left = TileGrid[y, x - 1].TileOptions[0];
-                        var leftdown = TileGrid[y + 1, x - 1].TileOptions[0];
-                        if (down.Type != TileTypes.SkyscraperCornerBR || left.Type != TileTypes.SkyscraperCornerTL ||
-                            leftdown.Type != TileTypes.SkyscraperCornerBL)
+                        try
                         {
-                            var house = new TileConfiguration(TileTypes.House);
-                            tile.TileOptions[0] = house;
-                            down = house;
-                            left = house;
-                            leftdown = house;
+                            var down = TileGrid[y + 1, x].TileOptions[0];
+                            var left = TileGrid[y, x - 1].TileOptions[0];
+                            var leftdown = TileGrid[y + 1, x - 1].TileOptions[0];
+                            if (down.Type != TileTypes.SkyscraperCornerBR ||
+                                left.Type != TileTypes.SkyscraperCornerTL ||
+                                leftdown.Type != TileTypes.SkyscraperCornerBL)
+                            {
+                                var house = new TileConfiguration(TileTypes.House);
+                                tile.TileOptions[0] = house;
+                                down = house;
+                                left = house;
+                                leftdown = house;
+                            }
+                            else
+                            {
+                                skyscraperCount++;
+                            }
                         }
-                        else
+                        catch (IndexOutOfRangeException)
                         {
-                            skyscraperCount++;
+                            tile.TileOptions[0] = new TileConfiguration(TileTypes.House);
                         }
                     }
                 }

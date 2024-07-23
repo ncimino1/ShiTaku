@@ -1,0 +1,124 @@
+House
+Interact:
+Welcome to my home, anything I can help you with 
+I heard there are some disaster warnings?!
+Is everything going to be okay?
+Exit:
+Oh, you need me to leave?
+Alright, thank you for the advice.
+I’ll be out immediately.
+House
+Interact:
+Hiya!
+What can I do you for?
+Exit:
+There is a disaster coming?!
+Guess I really should watch the news….
+I’ll be out as soon as I can!
+House
+Interact:
+¿Hola cómo estás?
+El otro día, me di cuenta de lo que viene y me veo mal pipo.
+¿Que debo hacer chamo?
+Exit:
+Oh there actually is a problem coming?!
+I’ll stop it with the Spanish now, Duolingo hasn’t been at that lately.
+Catch ya later.
+House
+Interact:
+I like shorts.
+They’re comfy and easy to wear.
+Exit:
+Let’s make like a banana and split!
+House
+Interact:
+I once saw a small man walk past me.
+He inspired me to continue my work in quantum physics.
+Exit:
+Wow, this is just like that one anime.
+Guess I’ll go set out on a whimsical journey
+House
+Interact:
+What’s been up with commotion around town?
+The combini has been packed.
+I can’t even buy my condensed milk bread.
+Exit:
+Disaster huh?
+That’ll do it.
+Guess I should brace myself too.
+House
+Interact:
+I love CC Lemon!
+Such a good drink.
+Wanna chat about soda?
+Exit:
+Guess we shouldn’t talk about soda then, with this disaster stuff and all.
+I’ll be on my way now.
+Gonna pick up a Boss Coffee first though.
+For the road.
+House
+Interact:
+It sure is boring around here.
+I wonder what’s for dinner?
+Exit:
+It really is dangerous to go alone.
+We’re off!
+House
+Interact:
+Did you see the news?
+Whatever you think, me too!
+Exit:
+Wow, that’s such a good option you made there.
+Guess I’ll follow what you say!
+House
+Interact:
+I saw a man the other day.
+He was running a cross cultural program.
+Went by the title Grand Admiral.
+Or Leader…Shogunate...Doctor?
+I don’t know, some kid kept calling him different things each time.
+Exit:
+Well I best go find this fabled man.
+I’m sure he’ll know what to do.
+I’ll bring him my gator plushie as a peace offering.
+FireStation
+Interact:
+Welcome sir!
+What can I help you with? 
+Anything we can do at the department to make the preparation process smoother?
+Exit:
+We’ll be out as soon as we can!
+I’ll help out around the city in the meantime.
+Thank you!
+Park
+Interact:
+Douzo! 
+Welcome to our lovely temple.
+Feel free to look around and find yourself in prayer.
+Exit:
+Nani? Sore wa hidoi
+Arigatō,-ka ni kaette hitsuyōniōjite junbi shimasu.
+HardwareStore
+Interact:
+Howdy stranger!
+Looking for some tools from Dome Hepot?
+Exit:
+Zoinks!
+That is a mighty strong problem heading our way.
+I’ll head out and help with the efforts.
+CityHall
+Interact:
+Why hello there lad!
+Intrigued in learning about our fair city.
+Exit:
+Oh that’s right, that disaster might affect our tour of city hall.
+My husband and I will leave immediately 
+PoliceStation
+Interact:
+Hello, yes. I am the police man from the police place.
+I do the things that keep the peace and stuff.
+How can I be off service?
+Exit:
+Woah that disaster stuff really is…disastrous…
+Get it?
+Okay I’ll go help out around town too.
