@@ -114,6 +114,8 @@ public class CityGridGenerator : MonoBehaviour
         var parkInterior = Resources.Load<Sprite>("shrine");
         var houseInterior = Resources.Load<Sprite>("HouseInterior");
         var skyscraperInterior = Resources.Load<Sprite>("SkyscraperInterior");
+        var cityHallInterior = Resources.Load<Sprite>("CityHallInterior");
+        var hardwareStoreInterior = Resources.Load<Sprite>("HardwareStoreInterior");
 
         _interiorAtlas.Add(TileTypes.Park, parkInterior);
         _interiorAtlas.Add(TileTypes.ParkDestroyed, parkInterior);
@@ -121,6 +123,10 @@ public class CityGridGenerator : MonoBehaviour
         _interiorAtlas.Add(TileTypes.HouseDestroyed, houseInterior);
         _interiorAtlas.Add(TileTypes.SkyscraperCornerBL, skyscraperInterior);
         _interiorAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, skyscraperInterior);
+        _interiorAtlas.Add(TileTypes.CityHall, cityHallInterior);
+        _interiorAtlas.Add(TileTypes.CityHallDestroyed, cityHallInterior);
+        _interiorAtlas.Add(TileTypes.HardwareStore, hardwareStoreInterior);
+        _interiorAtlas.Add(TileTypes.HardwareStoreDestroyed, hardwareStoreInterior);
         
         var shrineWorker = Resources.Load<Sprite>("shrineWorker");
         var fireFighter = Resources.Load<Sprite>("fire_fighter");
@@ -128,6 +134,8 @@ public class CityGridGenerator : MonoBehaviour
         var girl = Resources.Load<Sprite>("little_girl");
         var hardwareWorker = Resources.Load<Sprite>("hardware_store_worker");
         var receptionist = Resources.Load<Sprite>("receptionist");
+        var mayor = Resources.Load<Sprite>("mayor");
+        var cop = Resources.Load<Sprite>("cop");
 
         _npcAtlas.Add(TileTypes.Park, new List<Sprite>(){shrineWorker});
         _npcAtlas.Add(TileTypes.ParkDestroyed, new List<Sprite>(){shrineWorker});
@@ -139,10 +147,10 @@ public class CityGridGenerator : MonoBehaviour
         _npcAtlas.Add(TileTypes.HardwareStoreDestroyed, new List<Sprite>() {hardwareWorker});
         _npcAtlas.Add(TileTypes.SkyscraperCornerBL, new List<Sprite>() {receptionist});
         _npcAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.CityHall, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() {receptionist});
-        _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.CityHall, new List<Sprite>() {mayor});
+        _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() {mayor});
+        _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() {cop});
+        _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() {cop});
     }
 
     void LoadTiles()
