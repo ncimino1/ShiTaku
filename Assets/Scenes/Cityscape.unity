@@ -813,6 +813,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GoToMainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 2462095782478593070, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 6ff5e7d806e03014f998714d6a94434b, type: 3}
     - target: {fileID: 2537274159730730746, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: actionManager
       value: 
@@ -1157,6 +1161,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5646758083186138854, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 6ff5e7d806e03014f998714d6a94434b, type: 3}
     - target: {fileID: 5730556125481135569, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_Color.b
       value: 0
@@ -1325,6 +1333,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7232411921823212860, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 6ff5e7d806e03014f998714d6a94434b, type: 3}
     - target: {fileID: 7291053387817787952, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_TagString
       value: NotTakeAction
@@ -1679,7 +1691,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: af58945a3a9e0dc40b545dd89eada8ad, type: 3}
     - target: {fileID: 439042966390228156, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_Color.a
-      value: 0.80784315
+      value: 0.9372549
       objectReference: {fileID: 0}
     - target: {fileID: 439042966390228156, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_Color.b
@@ -1713,9 +1725,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialougeBoxCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1118222903270192223, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}
+    - target: {fileID: 1118222903270192223, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4875783563537029657, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5201489216809703446, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1725,6 +1745,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -290
       objectReference: {fileID: 0}
+    - target: {fileID: 8017449657418204225, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}
     - target: {fileID: 8017449657418204225, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_fontColor.b
       value: 1
@@ -1748,6 +1772,10 @@ PrefabInstance:
     - target: {fileID: 8017449657418204225, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_TextStyleHashCode
       value: -1183493901
+      objectReference: {fileID: 0}
+    - target: {fileID: 8017449657418204225, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8109086939884215943, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_AnchoredPosition.x
