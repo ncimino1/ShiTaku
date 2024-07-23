@@ -16,6 +16,9 @@ public class Dialouge
     [TextArea(3, 10)] 
     public string[] rebuildSentences;
 
+    [TextArea(3, 10)] 
+    public string[] rebuildDoneSetences;
+
     [TextArea(3, 10)]
     public string[] emptySentences;
 }

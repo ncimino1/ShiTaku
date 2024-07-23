@@ -63,6 +63,30 @@ public class RoomSprite : MonoBehaviour
     //     }
     // }
 
+    public void StableInteract()
+    {
+        Details.HasInteracted = false;
+        Details.HasDecideInteracted = false;
+
+        if (!Details.HasRebuildInteracted)
+        {
+            FindAnyObjectByType<DialougeManager>().StartBuildDoneDialogue(Details.NPCDialouge);
+            Details.HasRebuildInteracted = true;
+        }
+        else
+        {
+            if (FindAnyObjectByType<DialougeManager>().rebuildDoneSentences.Count <= 0)
+            {
+                Details.HasRebuildInteracted = false;
+                FindAnyObjectByType<DialougeManager>().EndDialouge();
+            }
+            else
+            {
+                FindAnyObjectByType<DialougeManager>().DisplayNextDoneSentence();
+            }
+        }
+    }
+
     public void RebuildInteract()
     {
         Details.HasInteracted = false;
@@ -84,7 +108,7 @@ public class RoomSprite : MonoBehaviour
                 npcMenu.currentAction = "";
                 npcMenu.actionBenefit = 0;
                 npcMenu.CurrentTile.Destroyed = false;
-                npcMenu.CurrentTile.GetComponent<SpriteRenderer>().sprite = npcMenu.CurrentTile.FixedAsset;
+                npcMenu.CurrentTile.FixTile();
 
                 return;
             }

@@ -6,8 +6,21 @@ public class Tile : MonoBehaviour
 {
     public bool Destroyed;
     public Sprite FixedAsset;
-    
-    public 
+
+    public Tile[] otherTiles;
+
+    public void FixTile()
+    {
+        if (otherTiles.Length != 0)
+        {
+            foreach (var tile in otherTiles)
+            {
+                tile.FixTile();
+            }
+        }
+
+        gameObject.GetComponent<SpriteRenderer>().sprite = FixedAsset;
+    }
     
     // Start is called before the first frame update
     void Start()

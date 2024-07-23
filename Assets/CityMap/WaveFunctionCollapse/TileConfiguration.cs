@@ -1,3 +1,5 @@
+using System;
+
 namespace CityMap.WaveFunctionCollapse
 {
     public class TileConfiguration
@@ -62,6 +64,12 @@ namespace CityMap.WaveFunctionCollapse
         {
             Type = type;
             _edges = edges;
+        }
+
+        public TileConfiguration(TileTypes type)
+        {
+            Type = type;
+            _edges = Array.Empty<TileTypes[]>();
         }
 
         public TileTypes[] GetUp()

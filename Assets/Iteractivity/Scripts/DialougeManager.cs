@@ -21,12 +21,15 @@ public class DialougeManager : MonoBehaviour
 
     public Queue<string> rebuildSentences;
 
+    public Queue<string> rebuildDoneSentences;
+
     void Start()
     {
         sentences = new Queue<string>();
         exitSentences = new Queue<string>();
         emptySentences = new Queue<string>();
         rebuildSentences = new Queue<string>();
+        rebuildDoneSentences = new Queue<string>();
     }
 
     public void StartEndDialouge(Dialouge dialouge)
@@ -122,6 +125,35 @@ public class DialougeManager : MonoBehaviour
         }
 
         string sentence = rebuildSentences.Dequeue();
+        dialougeText.text = sentence;
+    }
+
+    public void StartBuildDoneDialogue(Dialouge dialouge)
+    {
+        dialougeBox.SetActive(true);
+
+        nameText.text = "You Whisper To Yourself";
+        
+        rebuildDoneSentences.Clear();
+
+        foreach (var sentence in dialouge.rebuildDoneSetences)
+        {
+            rebuildDoneSentences.Enqueue(sentence);
+        }
+        
+        DisplayNextDoneSentence();
+    }
+
+    public void DisplayNextDoneSentence()
+    {
+        if (rebuildDoneSentences.Count == 0)
+        {
+            EndDialouge();
+            dialougeBox.SetActive(false);
+            return;
+        }
+
+        string sentence = rebuildDoneSentences.Dequeue();
         dialougeText.text = sentence;
     }
 
