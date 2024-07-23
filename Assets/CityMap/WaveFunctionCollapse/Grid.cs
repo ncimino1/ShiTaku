@@ -17,6 +17,8 @@ namespace CityMap.WaveFunctionCollapse
 
         private TileConfiguration[] _options;
 
+        private int skyscraperCount = 0;
+
         private static HashSet<TileTypes> _rightEdgeForbidden = new HashSet<TileTypes>()
         {
             TileTypes.RoadHorizontal, TileTypes.Road4WayIntersection, TileTypes.RoadCornerBR,
@@ -215,16 +217,22 @@ namespace CityMap.WaveFunctionCollapse
 
             for (int i = 0; i < cityHall.Length; i++)
             {
-                // if (i == cityHallRandom)
-                //     continue;
-                //
+                if (i == cityHallRandom)
+                {
+                    cityHall[i].TileOptions[0] = new TileConfiguration(TileTypes.CityHallDestroyed);
+                    continue;
+                }
+
                 cityHall[i].TileOptions[0] = house;
             }
 
             for (int i = 0; i < fireStation.Length; i++)
             {
                 if (i == fireStationRandom)
+                {
+                    fireStation[i].TileOptions[0] = new TileConfiguration(TileTypes.FireStationDestroyed);
                     continue;
+                }
 
                 fireStation[i].TileOptions[0] = house;
             }
@@ -232,7 +240,10 @@ namespace CityMap.WaveFunctionCollapse
             for (int i = 0; i < policeStation.Length; i++)
             {
                 if (i == policeStationRandom)
+                {
+                    policeStation[i].TileOptions[0] = new TileConfiguration(TileTypes.PoliceStationDestroyed);
                     continue;
+                }
 
                 policeStation[i].TileOptions[0] = house;
             }
@@ -323,9 +334,79 @@ namespace CityMap.WaveFunctionCollapse
                     var tile = TileGrid[y, x];
                     if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerBL)
                     {
-                        TileGrid[y - 1, x].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerTL);
-                        TileGrid[y, x + 1].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerBR);
-                        TileGrid[y - 1, x + 1].TileOptions[0] = new TileConfiguration(TileTypes.SkyscraperCornerTR);
+                        var up = TileGrid[y - 1, x].TileOptions[0];
+                        var right = TileGrid[y, x + 1].TileOptions[0];
+                        var rightup = TileGrid[y - 1, x + 1].TileOptions[0];
+                        if (up.Type != TileTypes.SkyscraperCornerTL || right.Type != TileTypes.SkyscraperCornerBR ||
+                            rightup.Type != TileTypes.SkyscraperCornerTR)
+                        {
+                            var house = new TileConfiguration(TileTypes.House);
+                            tile.TileOptions[0] = house;
+                            up = house;
+                            right = house;
+                            rightup = house;
+                        }
+                        else
+                        {
+                            skyscraperCount++;
+                        }
+                    }
+                    else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerBR)
+                    {
+                        var up = TileGrid[y - 1, x].TileOptions[0];
+                        var left = TileGrid[y, x - 1].TileOptions[0];
+                        var leftup = TileGrid[y - 1, x - 1].TileOptions[0];
+                        if (up.Type != TileTypes.SkyscraperCornerTR || left.Type != TileTypes.SkyscraperCornerBL ||
+                            leftup.Type != TileTypes.SkyscraperCornerTL)
+                        {
+                            var house = new TileConfiguration(TileTypes.House);
+                            tile.TileOptions[0] = house;
+                            up = house;
+                            left = house;
+                            leftup = house;
+                        }
+                        else
+                        {
+                            skyscraperCount++;
+                        }
+                    }
+                    else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerTL)
+                    {
+                        var down = TileGrid[y + 1, x].TileOptions[0];
+                        var right = TileGrid[y, x + 1].TileOptions[0];
+                        var rightdown = TileGrid[y + 1, x + 1].TileOptions[0];
+                        if (down.Type != TileTypes.SkyscraperCornerBL || right.Type != TileTypes.SkyscraperCornerTR ||
+                            rightdown.Type != TileTypes.SkyscraperCornerBR)
+                        {
+                            var house = new TileConfiguration(TileTypes.House);
+                            tile.TileOptions[0] = house;
+                            down = house;
+                            right = house;
+                            rightdown = house;
+                        }
+                        else
+                        {
+                            skyscraperCount++;
+                        }
+                    }
+                    else if (tile.TileOptions[0].Type == TileTypes.SkyscraperCornerTR)
+                    {
+                        var down = TileGrid[y + 1, x].TileOptions[0];
+                        var left = TileGrid[y, x - 1].TileOptions[0];
+                        var leftdown = TileGrid[y + 1, x - 1].TileOptions[0];
+                        if (down.Type != TileTypes.SkyscraperCornerBR || left.Type != TileTypes.SkyscraperCornerTL ||
+                            leftdown.Type != TileTypes.SkyscraperCornerBL)
+                        {
+                            var house = new TileConfiguration(TileTypes.House);
+                            tile.TileOptions[0] = house;
+                            down = house;
+                            left = house;
+                            leftdown = house;
+                        }
+                        else
+                        {
+                            skyscraperCount++;
+                        }
                     }
                 }
             }
@@ -346,13 +427,88 @@ namespace CityMap.WaveFunctionCollapse
                 randIndicies.Add(randGen);
             }
 
-            var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed, Array.Empty<TileTypes[]>());
+            var destroyedHouse = new TileConfiguration(TileTypes.HouseDestroyed);
 
             for (int i = 0; i < houseCount; i++)
             {
                 if (randIndicies.Contains(i))
                 {
-                    houses[i].TileOptions[0] = destroyedHouse;
+                    if (randIndicies.Count == 1)
+                    {
+                        houses[i].TileOptions[0] = new TileConfiguration(TileTypes.HardwareStoreDestroyed);
+                        randIndicies.Remove(i);
+                    }
+                    else
+                    {
+                        houses[i].TileOptions[0] = destroyedHouse;
+                        randIndicies.Remove(i);
+                    }
+                }
+            }
+
+            var parks = TileGrid.Cast<Tile>().Where(t => t.TileOptions[0].Type == TileTypes.Park).ToArray();
+            var parkCount = parks.Length;
+            destroyedCount = (parkCount / 2) - 1;
+            destroyedCount = destroyedCount < 0 ? 0 : destroyedCount;
+
+            randIndicies.Clear();
+
+            while (randIndicies.Count != destroyedCount)
+            {
+                randIndicies.Add(Random.Range(0, parkCount));
+            }
+
+            var destroyedPark = new TileConfiguration(TileTypes.ParkDestroyed);
+            for (int i = 0; i < parkCount; i++)
+            {
+                if (randIndicies.Contains(i))
+                {
+                    parks[i].TileOptions[0] = destroyedPark;
+                }
+            }
+
+            if (skyscraperCount == 0)
+                return;
+
+            var destroyedSkyscraperCount = 0;
+
+            if (skyscraperCount / 4 == 1)
+            {
+                destroyedSkyscraperCount = 1;
+            }
+            else
+            {
+                destroyedSkyscraperCount = Random.Range(1, skyscraperCount / 4);
+            }
+
+            randIndicies.Clear();
+
+            while (randIndicies.Count != destroyedSkyscraperCount)
+            {
+                randIndicies.Add(Random.Range(0, skyscraperCount / 4));
+            }
+
+            var index = 0;
+            for (int x = 0; x < _width; x++)
+            {
+                for (int y = 0; y < _height; y++)
+                {
+                    if (TileGrid[y, x].TileOptions[0].Type == TileTypes.SkyscraperCornerBL)
+                    {
+                        if (randIndicies.Contains(index))
+                        {
+                            TileGrid[y, x].TileOptions[0] =
+                                new TileConfiguration(TileTypes.SkyscraperCornerBLDestroyed);
+                            TileGrid[y - 1, x].TileOptions[0] =
+                                new TileConfiguration(TileTypes.SkyscraperCornerTLDestroyed);
+                            TileGrid[y, x + 1].TileOptions[0] =
+                                new TileConfiguration(TileTypes.SkyscraperCornerBRDestroyed);
+                            TileGrid[y - 1, x + 1].TileOptions[0] =
+                                new TileConfiguration(TileTypes.SkyscraperCornerTRDestroyed);
+                        }
+
+                        index++;
+                    }
                 }
             }
         }

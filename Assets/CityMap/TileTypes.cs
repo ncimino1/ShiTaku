@@ -15,20 +15,34 @@ public enum TileTypes
     Road3WayBLT,
     Road3WayLBR,
     Road3WayLTR,
-    Park,
     SkyscraperCornerBL,
     SkyscraperCornerBR,
     SkyscraperCornerTL,
     SkyscraperCornerTR,
-    PoliceStation,
-    FireStation,
-    CityHall,
-    House,
+    SkyscraperCornerBLDestroyed,
+    SkyscraperCornerBRDestroyed,
+    SkyscraperCornerTLDestroyed,
+    SkyscraperCornerTRDestroyed,
+    SkyscraperUpperBLDestroyed,
+    SkyscraperUpperBRDestroyed,
+    SkyscraperUpperTLDestroyed,
+    SkyscraperUpperTRDestroyed,
     SkyscraperUpperBL,
     SkyscraperUpperBR,
     SkyscraperUpperTL,
     SkyscraperUpperTR,
+    Park,
+    PoliceStation,
+    FireStation,
+    CityHall,
+    House,
+    HardwareStore,
     HouseDestroyed,
+    ParkDestroyed,
+    PoliceStationDestroyed,
+    FireStationDestroyed,
+    HardwareStoreDestroyed,
+    CityHallDestroyed,
 }
 
 public static class TileTypesMethods
@@ -342,6 +356,7 @@ public static class TileTypesMethods
 
                 break;
             case TileTypes.Park:
+            case TileTypes.ParkDestroyed:
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
@@ -371,6 +386,7 @@ public static class TileTypesMethods
                 };
 
                 break;
+            case TileTypes.SkyscraperCornerBLDestroyed:
             case TileTypes.SkyscraperCornerBL:
                 adjacent[0] = new[]
                 {
@@ -397,6 +413,7 @@ public static class TileTypesMethods
                 };
 
                 break;
+            case TileTypes.SkyscraperCornerBRDestroyed:
             case TileTypes.SkyscraperCornerBR:
                 adjacent[0] = new[]
                 {
@@ -423,6 +440,7 @@ public static class TileTypesMethods
                 };
 
                 break;
+            case TileTypes.SkyscraperCornerTLDestroyed:
             case TileTypes.SkyscraperCornerTL:
                 adjacent[0] = new[]
                 {
@@ -449,6 +467,7 @@ public static class TileTypesMethods
                 };
 
                 break;
+            case TileTypes.SkyscraperCornerTRDestroyed:
             case TileTypes.SkyscraperCornerTR:
                 adjacent[0] = new[]
                 {
@@ -476,6 +495,7 @@ public static class TileTypesMethods
 
                 break;
             case TileTypes.PoliceStation:
+            case TileTypes.PoliceStationDestroyed:
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
@@ -506,6 +526,7 @@ public static class TileTypesMethods
 
                 break;
             case TileTypes.FireStation:
+            case TileTypes.FireStationDestroyed:
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
@@ -536,6 +557,7 @@ public static class TileTypesMethods
 
                 break;
             case TileTypes.CityHall:
+            case TileTypes.CityHallDestroyed:
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
@@ -566,6 +588,7 @@ public static class TileTypesMethods
 
                 break;
             case TileTypes.House:
+            case TileTypes.HouseDestroyed:
                 adjacent[0] = new[]
                 {
                     TileTypes.RoadHorizontal, TileTypes.RoadCornerTR, TileTypes.RoadCornerTL, TileTypes.Road3WayLTR,
