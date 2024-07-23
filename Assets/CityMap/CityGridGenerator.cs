@@ -36,11 +36,11 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] public NPCMenu NPCMenu;
 
-    private Sprite ShrineWorker;
-
-    private Dictionary<TileTypes, Sprite> _spriteAtlas;
+    private Dictionary<TileTypes, List<Sprite>> _spriteAtlas;
 
     private Dictionary<TileTypes, Sprite> _interiorAtlas;
+
+    private Dictionary<TileTypes, List<Sprite>> _npcAtlas;
 
     private Sprite _grass;
 
@@ -79,7 +79,9 @@ public class CityGridGenerator : MonoBehaviour
         var spritesArray = Resources.Load<SpriteAtlas>("Tiles/TileAtlas");
         _grass = Resources.LoadAll<Sprite>("Tiles/grass")[0];
 
-        _spriteAtlas = new Dictionary<TileTypes, Sprite>();
+        _spriteAtlas = new Dictionary<TileTypes, List<Sprite>>();
+
+        _npcAtlas = new Dictionary<TileTypes, List<Sprite>>();
 
         foreach (var type in Enum.GetValues(typeof(TileTypes)).Cast<TileTypes>())
         {
@@ -87,7 +89,11 @@ public class CityGridGenerator : MonoBehaviour
 
             if (sprite)
             {
-                _spriteAtlas[type] = sprite;
+                if (!_spriteAtlas.ContainsKey(type))
+                {
+                    _spriteAtlas[type] = new List<Sprite>();
+                }
+                _spriteAtlas[type].Add(sprite);
             }
         }
 
@@ -115,8 +121,28 @@ public class CityGridGenerator : MonoBehaviour
         _interiorAtlas.Add(TileTypes.HouseDestroyed, houseInterior);
         _interiorAtlas.Add(TileTypes.SkyscraperCornerBL, skyscraperInterior);
         _interiorAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, skyscraperInterior);
+        
+        var shrineWorker = Resources.Load<Sprite>("shrineWorker");
+        var fireFighter = Resources.Load<Sprite>("fire_fighter");
+        var grandma = Resources.Load<Sprite>("grandma");
+        var girl = Resources.Load<Sprite>("little_girl");
+        var hardwareWorker = Resources.Load<Sprite>("hardware_store_worker");
+        var receptionist = Resources.Load<Sprite>("receptionist");
 
-        ShrineWorker = Resources.Load<Sprite>("shrineWorker");
+        _npcAtlas.Add(TileTypes.Park, new List<Sprite>(){shrineWorker});
+        _npcAtlas.Add(TileTypes.ParkDestroyed, new List<Sprite>(){shrineWorker});
+        _npcAtlas.Add(TileTypes.FireStation, new List<Sprite>(){fireFighter});
+        _npcAtlas.Add(TileTypes.FireStationDestroyed, new List<Sprite>(){fireFighter});
+        _npcAtlas.Add(TileTypes.House, new List<Sprite>() {grandma, girl });
+        _npcAtlas.Add(TileTypes.HouseDestroyed, new List<Sprite>() {grandma, girl });
+        _npcAtlas.Add(TileTypes.HardwareStore, new List<Sprite>() {hardwareWorker});
+        _npcAtlas.Add(TileTypes.HardwareStoreDestroyed, new List<Sprite>() {hardwareWorker});
+        _npcAtlas.Add(TileTypes.SkyscraperCornerBL, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.SkyscraperCornerBLDestroyed, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.CityHall, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.CityHallDestroyed, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.PoliceStation, new List<Sprite>() {receptionist});
+        _npcAtlas.Add(TileTypes.PoliceStationDestroyed, new List<Sprite>() {receptionist});
     }
 
     void LoadTiles()
@@ -226,9 +252,12 @@ public class CityGridGenerator : MonoBehaviour
             sprite.color = parameters.Color.Value;
         }
 
+        var buildingIndex = 0;
+
         if (parameters.Type.HasValue && _spriteAtlas.TryGetValue(parameters.Type.Value, out var value))
         {
-            sprite.sprite = value;
+            buildingIndex = Random.Range(0, value.Count);
+            sprite.sprite = value[buildingIndex];
         }
 
         if (parameters.Grass)
@@ -245,11 +274,11 @@ public class CityGridGenerator : MonoBehaviour
             Debug.Log(fixedName);
             if (!TileTypes.TryParse(fixedName, out TileTypes result))
             {
-                t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed];
+                t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed][0];
             }
             else
             {
-                t.FixedAsset = _spriteAtlas[result];
+                t.FixedAsset = _spriteAtlas[result][buildingIndex];
             }
         }
 
@@ -295,7 +324,12 @@ public class CityGridGenerator : MonoBehaviour
             }
 
             details.RoomImage = interior;
-            details.NPCImage = ShrineWorker;
+
+            var npcArr = _npcAtlas[parameters.Type.Value];
+
+            var charSelection = Random.Range(0, npcArr.Count);
+            
+            details.NPCImage = npcArr[charSelection];
 
             var dialogue = new Dialouge();
             dialogue.name = "Worker" + x + " " + y;

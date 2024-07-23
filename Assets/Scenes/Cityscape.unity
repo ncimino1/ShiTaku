@@ -1859,11 +1859,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201489216809703446, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_SizeDelta.y
-      value: -620
+      value: -810
       objectReference: {fileID: 0}
     - target: {fileID: 5201489216809703446, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -290
+      value: -385
       objectReference: {fileID: 0}
     - target: {fileID: 8017449657418204225, guid: 3008aeaccd9143f429fc5e0a849293dd, type: 3}
       propertyPath: m_fontAsset
