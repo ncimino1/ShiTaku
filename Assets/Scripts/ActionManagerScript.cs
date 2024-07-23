@@ -119,9 +119,10 @@ public class ActionManagerScript : MonoBehaviour
         // Flush out all the remaining actions from ActionList
         actionList.Clear();
 
-        actionList.Add("0000", new int[] {2, 4, 0}); // Talk 
-        actionList.Add("0001", new int[] {1, 2, 0}); // Rebuild
-        actionList.Add("0002", new int[] {1, 2, 0}); // Evacuate
+        actionList.Add("0000", new int[] {1, 2, 0}); // Talk 
+        actionList.Add("0001", new int[] {3, 2, 0}); // Rebuild
+        actionList.Add("0002", new int[] {2, 2, 0}); // Evacuate
+        actionList.Add("0003", new int[] {4, 5, 0}); // Skyscraper
         Debug.Log("New Actions Generated.");
     }
 
