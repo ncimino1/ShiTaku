@@ -239,6 +239,8 @@ public class CityGridGenerator : MonoBehaviour
         var skyscraperInterior = Resources.Load<Sprite>("SkyscraperInterior");
         var cityHallInterior = Resources.Load<Sprite>("CityHallInterior");
         var hardwareStoreInterior = Resources.Load<Sprite>("HardwareStoreInterior");
+        var firehouseInterior = Resources.Load<Sprite>("firehouseinterior");
+        var policeInterior = Resources.Load<Sprite>("policestationinterior");
 
         _interiorAtlas.Add(TileTypes.Park, parkInterior);
         _interiorAtlas.Add(TileTypes.ParkDestroyed, parkInterior);
@@ -250,6 +252,10 @@ public class CityGridGenerator : MonoBehaviour
         _interiorAtlas.Add(TileTypes.CityHallDestroyed, cityHallInterior);
         _interiorAtlas.Add(TileTypes.HardwareStore, hardwareStoreInterior);
         _interiorAtlas.Add(TileTypes.HardwareStoreDestroyed, hardwareStoreInterior);
+        _interiorAtlas.Add(TileTypes.FireStation, firehouseInterior);
+        _interiorAtlas.Add(TileTypes.FireStationDestroyed, firehouseInterior);
+        _interiorAtlas.Add(TileTypes.PoliceStation, policeInterior);
+        _interiorAtlas.Add(TileTypes.PoliceStationDestroyed, policeInterior);
 
         var shrineWorker = Resources.Load<Sprite>("shrineWorker");
         var fireFighter = Resources.Load<Sprite>("fire_fighter");
