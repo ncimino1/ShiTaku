@@ -228,9 +228,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 621382767}
   - {fileID: 1276864300}
-  - {fileID: 1458787116}
+  - {fileID: 119957504}
   m_Father: {fileID: 290380252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -258,7 +257,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 51b5de5a40669b6478deaf58b7ff2f2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4fbc77f6da65320419d011acc28ba9f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -275,6 +274,83 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 47854666}
+  m_CullTransparentMesh: 1
+--- !u!1 &119957503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119957504}
+  - component: {fileID: 119957506}
+  - component: {fileID: 119957505}
+  m_Layer: 5
+  m_Name: InstructionsPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &119957504
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119957503}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 621382767}
+  - {fileID: 1458787116}
+  m_Father: {fileID: 47854667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -510, y: 30}
+  m_SizeDelta: {x: 880, y: 920}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &119957505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119957503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.6867925, g: 0.6867925, b: 0.6867925, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 85ff708992383b84b8a80b4f5b6f8e0b, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &119957506
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119957503}
   m_CullTransparentMesh: 1
 --- !u!1 &290380247
 GameObject:
@@ -497,14 +573,14 @@ RectTransform:
   m_GameObject: {fileID: 621382766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.1100004, y: 2.1100004, z: 2.1100004}
+  m_LocalScale: {x: 2.1100006, y: 2.1100006, z: 2.1100006}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 47854667}
+  m_Father: {fileID: 119957504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -242.93, y: -301.6}
+  m_AnchoredPosition: {x: 240, y: -319.7}
   m_SizeDelta: {x: 600, y: 105}
   m_Pivot: {x: 0.5, y: 0.8}
 --- !u!114 &621382768
@@ -529,9 +605,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "How To Play:\n\nQUICK! The city is only a few days from \ndisaster and
     it's up to YOU to stop it.\nGo building to building and help repair or \nevacuate
-    civilians with your limited actions before \nthe tsunami hits in 4 days!\n\nControls:\nMove:
-    WASD Keys\nInteract: E\nMove in Menus: Arrow Keys\nPause Menu: Z\n\nAre you ready?
-    Press [E] to contunue"
+    civilians with your limited actions!\n\nControls:\nMove: WASD Keys\nInteract:
+    E\nPause Menu: Z\nMove in Menus: Arrow Keys\n\nAre you ready? Press [E] to contunue"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}
   m_sharedMaterial: {fileID: -2043644967896245437, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}
@@ -540,8 +615,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278212863
-  m_fontColor: {r: 1, g: 0.34391534, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -558,8 +633,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19
-  m_fontSizeBase: 19
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -570,7 +645,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 10
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -854,7 +929,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 441.3, y: -195.7}
+  m_AnchoredPosition: {x: 441.3, y: 30}
   m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276864301
@@ -1175,16 +1250,16 @@ RectTransform:
   m_GameObject: {fileID: 1458787115}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.000011, y: 1.000011, z: 1.000011}
+  m_LocalScale: {x: 1.0000111, y: 1.0000111, z: 1.0000111}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1685322699}
   - {fileID: 415588090}
-  m_Father: {fileID: 47854667}
+  m_Father: {fileID: 119957504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -581.4, y: -347.9}
+  m_AnchoredPosition: {x: -71.400024, y: -350}
   m_SizeDelta: {x: 400, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1458787117
