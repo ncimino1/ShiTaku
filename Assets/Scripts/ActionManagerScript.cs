@@ -19,6 +19,8 @@ public class ActionManagerScript : MonoBehaviour
         transition in time.
     */
     public int dayCounter = 1;
+
+    private bool _actionsLoaded = false;
     
     /* 
         ActionList is a list of String IDs of actions that are 
@@ -41,7 +43,6 @@ public class ActionManagerScript : MonoBehaviour
         // Initialize all types of actions
         GenerateActions();
         // Initialize Count for all types of Actions
-        LoadAllActions();
     }
 
     // Update is called once per frame
@@ -55,6 +56,11 @@ public class ActionManagerScript : MonoBehaviour
             Debug.Log("New Transition.");
         }
 
+        if (!_actionsLoaded && cityGen.genDone)
+        {
+            LoadAllActions();
+            _actionsLoaded = true;
+        }
     }
 
     // Two Test Functions to test the functionality of UseAction
@@ -155,46 +161,32 @@ public class ActionManagerScript : MonoBehaviour
         
         actionList["0000"][2] = cityGen.GetTalkNpcCount();
 
-        int numHouse = cityGen.GetHouseCount();
+        actionList["0001"][2] = cityGen.GetHouseRebuildCount();
 
-        actionList["0001"][2] = numHouse;
+        actionList["0002"][2] = cityGen.GetHouseCount();
 
-        actionList["0002"][2] = numHouse;
+        actionList["0003"][2] = cityGen.GetSkyscraperRebuildCount();
 
-        int numSky = cityGen.GetSkyscraperCount();
+        actionList["0004"][2] = cityGen.GetSkyscraperCount();
 
-        actionList["0003"][2] = numSky;
+        actionList["0005"][2] = cityGen.GetShrineRebuildCount();
 
-        actionList["0004"][2] = numSky;
+        actionList["0006"][2] = cityGen.GetShrineCount();
 
-        int numShrine = cityGen.GetShrineCount();
+        actionList["0007"][2] = cityGen.GetHardwareRebuildCount();
 
-        actionList["0005"][2] = numShrine;
+        actionList["0008"][2] = cityGen.GetHardwareCount();
 
-        actionList["0006"][2] = numShrine;
+        actionList["0009"][2] = cityGen.GetCityHallRebuildCount();
 
-        int numHard = cityGen.GetHardwareCount();
+        actionList["0010"][2] = cityGen.GetCityHallCount();
 
-        actionList["0007"][2] = numHard;
+        actionList["0011"][2] = cityGen.GetFireStationRebuildCount();
 
-        actionList["0008"][2] = numHard;
+        actionList["0012"][2] = cityGen.GetFireStationCount();
 
-        int numCity = cityGen.GetCityHallCount();
+        actionList["0013"][2] = cityGen.GetPoliceStationRebuildCount();
 
-        actionList["0009"][2] = numCity;
-
-        actionList["0010"][2] = numCity;
-
-        int numFire = cityGen.GetFireStationCount();
-
-        actionList["0011"][2] = numFire;
-
-        actionList["0012"][2] = numFire;
-
-        int numPolice = cityGen.GetPoliceStationCount();
-
-        actionList["0013"][2] = numPolice;
-
-        actionList["0014"][2] = numPolice;
+        actionList["0014"][2] = cityGen.GetPoliceStationCount();
     }
 }
