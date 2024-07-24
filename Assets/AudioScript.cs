@@ -16,8 +16,8 @@ public class AudioScript : MonoBehaviour
 
     //Game objects and references
     public GameObject GameMenuCanvas;
-    NPCMenu NpcMenu;
-    MenuManager menuManager;
+    public NPCMenu NpcMenu;
+    public MenuManager menuManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +25,8 @@ public class AudioScript : MonoBehaviour
         source.clip = background_music;
         source.Play();
         source.loop = true;
-        NpcMenu = FindObjectOfType<NPCMenu>();
-        menuManager = FindObjectOfType<MenuManager>();
+        // NpcMenu = FindObjectOfType<NPCMenu>();
+        // menuManager = FindObjectOfType<MenuManager>();
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class AudioScript : MonoBehaviour
 
         //See if any of the chidren canvas of the GameMenuCanvas are active
         //If they are, play the sound
-        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) && (NpcMenu.inMenu == true || menuManager.isPaused == true))
+        if((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow)) && (NpcMenu.inMenu || menuManager.isPaused))
         {
             source.PlayOneShot(clip_menu_move);
         }

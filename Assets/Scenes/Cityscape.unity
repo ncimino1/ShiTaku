@@ -2522,6 +2522,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: e35ac19e054e2b84886e19f6eb816baa, type: 3}
     - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
+      propertyPath: NpcMenu
+      value: 
+      objectReference: {fileID: 1234108208}
+    - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
+      propertyPath: menuManager
+      value: 
+      objectReference: {fileID: 834446896}
+    - target: {fileID: 8903443232295821359, guid: 931b5c8ffa66e02449a4807ba507e364, type: 3}
       propertyPath: GameMenuCanvas
       value: 
       objectReference: {fileID: 834446888}
