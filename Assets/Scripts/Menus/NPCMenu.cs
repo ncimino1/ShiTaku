@@ -10,15 +10,16 @@ using System;
 public class NPCMenu : MonoBehaviour
 {
     public Dialouge emptyDialouge; // Reference to the Dialouge script
+
     // public bool hasInteracted;
     public ActionManagerScript actionManager;
-    
+
     public TextMeshProUGUI apText;
 
     public TextMeshProUGUI costText;
 
 
-    /* 
+    /*
         activeOption and numOptions are used to keep track of which menu option is ready
         to be selected.
     */
@@ -26,20 +27,20 @@ public class NPCMenu : MonoBehaviour
     public int numOptions = 4;
     public Image[] optionPanels;
 
-    /* 
+    /*
        currentAction stores the string ID of the action type that gets loaded into it
        when interacting with an npc or object. With the ID, we can get the action details
        from ActionManager's actionList.
     */
     public string currentAction;
 
-    /* 
+    /*
         actionBenefit holds the reward of points we get if we do perform the action
         via the Decide button
     */
 
     public int actionBenefit;
-    public bool inMenu;  
+    public bool inMenu;
 
     public GameObject CurrInteraction;
 
@@ -62,7 +63,7 @@ public class NPCMenu : MonoBehaviour
 
     //static
     public MenuManager MenuManagerScript;
-    
+
     //static 
     public RoomSprite _roomSprite;
 
@@ -76,9 +77,12 @@ public class NPCMenu : MonoBehaviour
     //static
     public SpriteMovement _spriteMovement;
 
+    private Dictionary<TileTypes, string> _rebuildAction;
+    private Dictionary<TileTypes, string> _evacAction;
+
     private Coroutine start;
     private Coroutine stop;
-    
+
     public virtual void Interact()
     {
         if (RoomCanvas.alpha == 0)
@@ -91,23 +95,24 @@ public class NPCMenu : MonoBehaviour
             start = StartCoroutine(FadeIn());
         }
     }
-    
+
     public IEnumerator FadeIn()
     {
         //If the NPC is not gone, set it as active then fade it in
 
         //Play the sound
         source.PlayOneShot(door_clip);
-        
+
         Debug.Log("Fading In");
-        
+
         //Lock the movement of the player
         _spriteMovement.LockMovement();
         Debug.Log("Player movement locked");
-        
+
         Room.SetActive(true);
-        
-        if(!Details.NPCResolved){
+
+        if (!Details.NPCResolved)
+        {
             NPC.SetActive(true);
             _roomSprite.Interact();
             _npcCanvas.alpha = 0;
@@ -116,22 +121,24 @@ public class NPCMenu : MonoBehaviour
         {
             Debug.Log("gone");
         }
-        
+
         MenuManagerScript.setNPCMenu(true);
-        
+
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
 
         while (RoomCanvas.alpha < 1)
         {
             RoomCanvas.alpha += Time.deltaTime;
 
-            if(!Details.NPCResolved){
+            if (!Details.NPCResolved)
+            {
                 _npcCanvas.alpha += Time.deltaTime;
             }
+
             yield return null;
         }
     }
-    
+
     public IEnumerator FadeOut(MenuManager menuManager, CanvasGroup roomCanvasGroup, CanvasGroup npcCanvasGroup,
         GameObject room, GameObject roomNPC)
     {
@@ -141,53 +148,61 @@ public class NPCMenu : MonoBehaviour
         source.PlayOneShot(door_clip);
 
         inMenu = false;
-        
+
         _roomSprite.DeactivateDialogue();
-        
+
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        
+
         while (roomCanvasGroup.alpha > 0)
         {
             roomCanvasGroup.alpha -= Time.deltaTime;
-            
-            if(!Details.NPCResolved){
+
+            if (!Details.NPCResolved)
+            {
                 npcCanvasGroup.alpha -= Time.deltaTime;
             }
+
             yield return null;
         }
-        
+
         room.SetActive(false);
 
-        if(!Details.NPCResolved){
+        if (!Details.NPCResolved)
+        {
             roomNPC.SetActive(false);
         }
-        
+
         CurrInteraction.SetActive(true);
         menuManager.setNPCMenu(false);
-        
+
         //Unlock the movement of the player
         _spriteMovement.UnlockMovement();
         Debug.Log("Player movement unlocked");
     }
 
     // For NPCmenu, vanish menu, for pause menu, this will be replaced by GoToScene
-    public void ExitMenu() {
+    public void ExitMenu()
+    {
         activeOption = 0;
         if (start != null)
         {
             StopCoroutine(start);
         }
+
         stop = StartCoroutine(FadeOut(MenuManagerScript, RoomCanvas, _npcCanvas, Room, NPC));
     }
 
-    public void HandleScroll(bool IsDown) {
+    public void HandleScroll(bool IsDown)
+    {
         int nextOption = activeOption + (IsDown ? 1 : -1);
-        if (nextOption >= 0 && nextOption < numOptions) {
+        if (nextOption >= 0 && nextOption < numOptions)
+        {
             activeOption = nextOption;
         }
     }
 
-    public void HandleSelection() {
+    public void HandleSelection()
+    {
         //Try to see if the npc has already decided, if they have, then they can't interact again; If they arent there should be an error when trying
         //to interact with them
         // try{
@@ -197,40 +212,51 @@ public class NPCMenu : MonoBehaviour
         // catch(Exception ex){
         //     currNPCGone = true;
         // }
-        switch (activeOption) {
+        switch (activeOption)
+        {
             case 0:
-                if (CurrentTile.Destroyed)
+                if (!Details.NPCResolved)
                 {
-                    LoadAction("0001");
-                    _roomSprite.RebuildInteract();
+                    if (CurrentTile.Destroyed)
+                    {
+                        LoadAction(_rebuildAction[Details.type]);
+                        _roomSprite.RebuildInteract();
+                    }
+                    else
+                    {
+                        _roomSprite.StableInteract();
+                    }
                 }
-                else
-                {
-                    _roomSprite.StableInteract();
-                }
+
                 break;
             case 1:
                 // For NPC, Interact
-                if(Details.NPCResolved){
+                if (Details.NPCResolved)
+                {
                     EmptyInteract();
                 }
-                else{
+                else
+                {
                     _roomSprite.Interact();
                 }
+
                 break;
             case 2:
                 // For NPC, Decide
                 // if (RoomNPC.GetComponent<RoomSprite>().hasDecided) {
-                if(Details.NPCResolved) {
+                if (Details.NPCResolved || Details.RebuildResolved)
+                {
                     EmptyInteract();
                 }
-                else{
-                    LoadAction("0002");
+                else
+                {
+                    LoadAction(_evacAction[Details.type]);
                     _roomSprite.DecideInteract();
                     // actionManager.DecrementAP();
                 }
+
                 break;
-            case 3: 
+            case 3:
                 currentAction = "";
                 actionBenefit = 0;
                 ExitMenu();
@@ -241,7 +267,8 @@ public class NPCMenu : MonoBehaviour
         }
     }
 
-    public void GenerateOptions() {
+    public void GenerateOptions()
+    {
         optionPanels = new Image[numOptions];
         List<string> availableOptions = new List<string>();
         // Put in available option strings here
@@ -250,18 +277,21 @@ public class NPCMenu : MonoBehaviour
         availableOptions.Add("Decide");
         availableOptions.Add("Leave");
 
-        for (int i = 0; i < numOptions; i++) {
+        for (int i = 0; i < numOptions; i++)
+        {
             GameObject currentObject = GameObject.FindWithTag(availableOptions[i]);
             optionPanels[i] = currentObject.GetComponent<Image>();
         }
     }
 
-    public void SetAPandCostText() {
+    public void SetAPandCostText()
+    {
         apText = GameObject.FindWithTag("ActionPoints").GetComponent<TextMeshProUGUI>();
         costText = GameObject.FindWithTag("Cost").GetComponent<TextMeshProUGUI>();
     }
 
-    public void SetCurrentAction(string newAction) {
+    public void SetCurrentAction(string newAction)
+    {
         currentAction = newAction;
     }
 
@@ -269,39 +299,85 @@ public class NPCMenu : MonoBehaviour
     {
         Debug.Log("Empty Interacting with NPC");
 
-        if(!Details.HasInteracted){
+        if (!Details.HasInteracted)
+        {
             FindAnyObjectByType<DialougeManager>().StartEmptyDialouge(emptyDialouge);
             Details.HasInteracted = true;
         }
 
-        else{
+        else
+        {
             //Check to see if there is a next sentence, if there is display it. Else end the dialouge
-            if(FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0){
+            if (FindAnyObjectByType<DialougeManager>().emptySentences.Count <= 0)
+            {
                 Details.HasInteracted = false;
                 FindAnyObjectByType<DialougeManager>().EndDialouge();
                 return;
             }
-            else{
+            else
+            {
                 FindAnyObjectByType<DialougeManager>().DisplayNextEmptySentence();
             }
         }
     }
 
-    void Start() {  
+    void Start()
+    {
         GenerateOptions();
         currentAction = "";
         actionBenefit = 0;
+
+        _rebuildAction = new Dictionary<TileTypes, string>()
+        {
+            { TileTypes.House , "0001"},
+            { TileTypes.HouseDestroyed , "0001"},
+            { TileTypes.SkyscraperCornerBL , "0003"},
+            { TileTypes.SkyscraperCornerBLDestroyed , "0003"},
+            { TileTypes.Park , "0005"},
+            { TileTypes.ParkDestroyed , "0005"},
+            { TileTypes.HardwareStore , "0007"},
+            { TileTypes.HardwareStoreDestroyed , "0007"},
+            { TileTypes.CityHall , "0009"},
+            { TileTypes.CityHallDestroyed , "0009"},
+            { TileTypes.FireStation , "0011"},
+            { TileTypes.FireStationDestroyed , "0011"},
+            { TileTypes.PoliceStation , "0013"},
+            { TileTypes.PoliceStationDestroyed , "0013"},
+        };
+
+        _evacAction = new Dictionary<TileTypes, string>()
+        {
+            { TileTypes.House , "0002"},
+            { TileTypes.HouseDestroyed , "0002"},
+            { TileTypes.SkyscraperCornerBL , "0004"},
+            { TileTypes.SkyscraperCornerBLDestroyed , "0004"},
+            { TileTypes.Park , "0006"},
+            { TileTypes.ParkDestroyed , "0006"},
+            { TileTypes.HardwareStore , "0008"},
+            { TileTypes.HardwareStoreDestroyed , "0008"},
+            { TileTypes.CityHall , "0010"},
+            { TileTypes.CityHallDestroyed , "0010"},
+            { TileTypes.FireStation , "0012"},
+            { TileTypes.FireStationDestroyed , "0012"},
+            { TileTypes.PoliceStation , "0014"},
+            { TileTypes.PoliceStationDestroyed , "0014"},
+        };
     }
 
-    void Update() {
+    void Update()
+    {
         // Updates Main Menu based on the current Key Input, use switch statement to determine.
 
-        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
             HandleScroll(true);
-        } else if (Input.GetKeyDown(KeyCode.UpArrow))
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             HandleScroll(false);
-        } else if (Input.GetKeyDown(KeyCode.E) && inMenu) {
+        }
+        else if (Input.GetKeyDown(KeyCode.E) && inMenu)
+        {
             Debug.Log("here");
             HandleSelection();
         }
@@ -309,24 +385,27 @@ public class NPCMenu : MonoBehaviour
 
         // Write code to update the outlines for the options in the options panel
 
-        for (int i = 0; i < numOptions; i++) {
+        for (int i = 0; i < numOptions; i++)
+        {
             optionPanels[i].enabled = (i == activeOption);
         }
+
         int actionPoints = actionManager.ReturnActionPoints();
-        
+
         apText.text = "Action Points: " + actionPoints.ToString();
 
         int apCost = 0;
 
-        if (actionManager.actionList.ContainsKey(currentAction)) {
+        if (actionManager.actionList.ContainsKey(currentAction))
+        {
             apCost = actionManager.actionList[currentAction][0];
         }
-        
+
         costText.text = "Cost: " + apCost.ToString();
-        
     }
 
-    public void LoadAction(string actionId) {
+    public void LoadAction(string actionId)
+    {
         currentAction = actionId; // Makes sure NPC/Interactable holds the current action Type
         actionBenefit = actionManager.actionList[currentAction][1]; // Makes sure NPC/Interactable holds reward
     }

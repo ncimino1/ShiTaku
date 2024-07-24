@@ -73,3 +73,6 @@ TagManager:
   - name: Skyscraper
     uniqueID: 665313311
     locked: 0
+  - name: Wave
+    uniqueID: 3867393295
+    locked: 0
