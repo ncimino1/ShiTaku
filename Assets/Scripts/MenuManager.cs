@@ -113,6 +113,10 @@ public class MenuManager : MonoBehaviour
             } else if (actionManager.ReturnDays() >= finalDay) {
                 moveWave = true;
                 waveObject.SetActive(true);
+                if (npcMenu.inMenu)
+                {
+                    npcMenu.ExitMenu();
+                }
                 Player.SetActive(false);
                 cameraFollow.zoomOut();
             }
