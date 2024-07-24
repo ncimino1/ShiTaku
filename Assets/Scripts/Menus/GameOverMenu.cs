@@ -32,8 +32,21 @@ public class GameOverMenu : MonoBehaviour
 
     public void FinishGame() {
         int finalScore = playerManager.GetFinalScore();
+        int possible = playerManager.highestScore;
 
-        scoreText.text = "Score: " + finalScore.ToString();
+        float percent = finalScore / (float)possible;
+        string result;
+
+        if (percent > .70)
+        {
+            result = "Pass ";
+        }
+        else
+        {
+            result = "Fail ";
+        }
+
+        scoreText.text = result + "Score: " + finalScore.ToString();
 
     }
 }

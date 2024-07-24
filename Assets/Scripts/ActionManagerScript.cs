@@ -6,89 +6,107 @@ using TMPro;
 public class ActionManagerScript : MonoBehaviour
 {
     public CityGridGenerator cityGen;
+
     public PlayerManager playerManager;
-    /* 
+
+    /*
         ActionCounter is the variable that holds the current number
         of action points available.
     */
-    public int actionCounter;
+    public int actionCounter = 0;
 
 
-    /* 
-        DayCounter keeps track of actual time. A new day signifies a 
+    /*
+        DayCounter keeps track of actual time. A new day signifies a
         transition in time.
     */
     public int dayCounter = 1;
-    
-    /* 
-        ActionList is a list of String IDs of actions that are 
-        currently available. 
+
+    private bool _actionsLoaded = false;
+
+    private int totalPoints = 5;
+
+    /*
+        ActionList is a list of String IDs of actions that are
+        currently available.
         May want to convert list into a hastable with String Keys for the IDs
-        and int values for their respective costs. 
+        and int values for their respective costs.
     */
 
     /* New actionList variable, has the ID as a string key. The value is an integer array
-       with 3 values: Cost, Benefit, and Detriment. Benefit is the points you get for 
+       with 3 values: Cost, Benefit, and Detriment. Benefit is the points you get for
        choosing to do the action. Deteriment is the points you lose for choosing to not
        do the action.
     */
     public SortedDictionary<string, int[]> actionList = new SortedDictionary<string, int[]>();
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        actionCounter = 5;
         // Initialize all types of actions
         GenerateActions();
         // Initialize Count for all types of Actions
-        LoadAllActions();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (actionCounter == 0 || actionCounter < GetMinActionPoints() || actionList.Count == 0) {
+        if (actionCounter <= 0 && _actionsLoaded)
+        {
             ResetActionPoints();
-
+            
+            Debug.Log(actionCounter);
+            
             // Do Time Transition
             dayCounter = dayCounter + 1;
             Debug.Log("New Transition.");
         }
 
+        if (!_actionsLoaded && cityGen.genDone)
+        {
+            LoadAllActions();
+            _actionsLoaded = true;
+        }
     }
 
     // Two Test Functions to test the functionality of UseAction
 
     [ContextMenu("UseActionSuccessTest")]
-    void UseActionSuccessTester() {
+    void UseActionSuccessTester()
+    {
         string topID = "0000";
         UseAction(topID);
     }
 
     [ContextMenu("UseActionFailureTest")]
-    void UseActionFailureTest() {
+    void UseActionFailureTest()
+    {
         string topID = "0005";
         UseAction(topID);
     }
 
 
-     // Function for action point usage
-    public void UseAction(string actionID = "0000") 
+    // Function for action point usage
+    public void UseAction(string actionID = "0000")
     {
-
-        if (actionList.ContainsKey(actionID)) {
-            if (actionList[actionID][0] <= actionCounter) {
+        if (actionList.ContainsKey(actionID))
+        {
+            if (actionList[actionID][0] <= actionCounter)
+            {
                 actionCounter -= actionList[actionID][0];
 
                 playerManager.accumScore.Push(actionList[actionID][1]);
                 // return a message that says action allowed
                 Debug.Log("Action Allowed and Successful.");
-            } else {
+            }
+            else
+            {
                 Debug.Log("Action not Successful");
                 // return a message that says action NOT allowed
             }
-        } else {
-
+        }
+        else
+        {
             Debug.Log("Action not Successful");
             // return a message that says action NOT allowed
         }
@@ -96,72 +114,111 @@ public class ActionManagerScript : MonoBehaviour
 
     // Function that resets action points when in time transistion
     [ContextMenu("ResetActionPoints")]
-    public void ResetActionPoints() {
+    public void ResetActionPoints()
+    {
         Debug.Log("Actions resetted.");
-        actionCounter = 5;
+        actionCounter = totalPoints + actionCounter;
     }
 
     // Function that finds the smallest cost among all actions available
     // For the demo, we will have it return 1.
-    int GetMinActionPoints() {
-        
+    int GetMinActionPoints()
+    {
         // Need to implement a min value search algorithm post demo 
         return 1;
     }
 
     // Function that Generates a new set of action IDs for actions during the next day
-    /* 
+    /*
         Just adds in two predefined actions for the demo sake, will be updated to generate
         a new random set.
     */
     [ContextMenu("GenerateActions")]
-    public void GenerateActions() {
+    public void GenerateActions()
+    {
         // Flush out all the remaining actions from ActionList
         actionList.Clear();
 
-        actionList.Add("0000", new int[] {1, 2, 0}); // Talk 
-        actionList.Add("0001", new int[] {3, 2, 0}); // House Rebuild
-        actionList.Add("0002", new int[] {2, 2, 0}); // House Evacuate
-        actionList.Add("0003", new int[] {4, 4, 0}); // Skyscraper Rebuild
-        actionList.Add("0004", new int[] {4, 2, 0}); // Skyscraper Evacuate
-        actionList.Add("0005", new int[] {2, 1, 0}); // Shrine Rebuild
-        actionList.Add("0006", new int[] {2, 2, 0}); // Shrine Evacuate
-        actionList.Add("0007", new int[] {3, 2, 0}); // Hardware Rebuild
-        actionList.Add("0008", new int[] {2, 2, 0}); // Hardware Evacuate
-        actionList.Add("0009", new int[] {3, 2, 0}); // City Hall Rebuild
-        actionList.Add("0010", new int[] {2, 2, 0}); // City Hall Evacuate
-        actionList.Add("0011", new int[] {3, 5, 0}); // Fire Station Rebuild
-        actionList.Add("0012", new int[] {2, 0, 0}); // Fire Station Evacuate
-        actionList.Add("0013", new int[] {3, 3, 0}); // Police Rebuild
-        actionList.Add("0014", new int[] {2, 0, 0}); // Police Evacutate
+        actionList.Add("0000", new int[] { 1, 2, 0 }); // Talk 
+        actionList.Add("0001", new int[] { 3, 2, 0 }); // House Rebuild
+        actionList.Add("0002", new int[] { 2, 2, 0 }); // House Evacuate
+        actionList.Add("0003", new int[] { 4, 4, 0 }); // Skyscraper Rebuild
+        actionList.Add("0004", new int[] { 4, 2, 0 }); // Skyscraper Evacuate
+        actionList.Add("0005", new int[] { 2, 1, 0 }); // Shrine Rebuild
+        actionList.Add("0006", new int[] { 2, 2, 0 }); // Shrine Evacuate
+        actionList.Add("0007", new int[] { 3, 2, 0 }); // Hardware Rebuild
+        actionList.Add("0008", new int[] { 2, 2, 0 }); // Hardware Evacuate
+        actionList.Add("0009", new int[] { 3, 2, 0 }); // City Hall Rebuild
+        actionList.Add("0010", new int[] { 2, 2, 0 }); // City Hall Evacuate
+        actionList.Add("0011", new int[] { 3, 5, 0 }); // Fire Station Rebuild
+        actionList.Add("0012", new int[] { 2, 0, 0 }); // Fire Station Evacuate
+        actionList.Add("0013", new int[] { 3, 3, 0 }); // Police Rebuild
+        actionList.Add("0014", new int[] { 2, 0, 0 }); // Police Evacutate
         Debug.Log("New Actions Generated.");
     }
 
-    
 
-    public int ReturnActionPoints() {
+    public int ReturnActionPoints()
+    {
         return actionCounter;
     }
 
-    public int ReturnDays() {
+    public int ReturnDays()
+    {
         return dayCounter;
     }
 
-    public void DecrementAP() {
+    public void DecrementAP()
+    {
         actionCounter -= 1;
     }
 
-    public void LoadAllActions() { // All methods in cityGen should return an int
-        // For all talk npcs, increment the 3rd value for key "0000" in actionList
+    public void LoadAllActions()
+    {
+        // All methods in cityGen should return an int
+
         actionList["0000"][2] = cityGen.GetTalkNpcCount();
 
-        // For all worn buildings, increment the 3rd value for key "0001" in actionList
-        actionList["0001"][2] = cityGen.GetWornBldCount();
+        actionList["0001"][2] = cityGen.GetHouseRebuildCount();
 
-        // For all evac npcs, increment the 3rd value for key "0002" in actionList
-        actionList["0002"][2] = cityGen.GetEvacNpcCount();
+        actionList["0002"][2] = cityGen.GetHouseCount();
 
-        // For all skysrapers, increment the 3rd value for key "0003" in actionList
-        actionList["0003"][2] = cityGen.GetSkyscraperCount();
+        actionList["0003"][2] = cityGen.GetSkyscraperRebuildCount();
+
+        actionList["0004"][2] = cityGen.GetSkyscraperCount();
+
+        actionList["0005"][2] = cityGen.GetShrineRebuildCount();
+
+        actionList["0006"][2] = cityGen.GetShrineCount();
+
+        actionList["0007"][2] = cityGen.GetHardwareRebuildCount();
+
+        actionList["0008"][2] = cityGen.GetHardwareCount();
+
+        actionList["0009"][2] = cityGen.GetCityHallRebuildCount();
+
+        actionList["0010"][2] = cityGen.GetCityHallCount();
+
+        actionList["0011"][2] = cityGen.GetFireStationRebuildCount();
+
+        actionList["0012"][2] = cityGen.GetFireStationCount();
+
+        actionList["0013"][2] = cityGen.GetPoliceStationRebuildCount();
+
+        actionList["0014"][2] = cityGen.GetPoliceStationCount();
+
+        totalPoints = actionList["0002"][2] + actionList["0004"][2] + actionList["0006"][2] + actionList["0008"][2] +
+                      actionList["0010"][2] + actionList["0012"][2] + actionList["0014"][2];
+
+        totalPoints /= 5;
+
+        ResetActionPoints();
+        
+        var highestPossible= actionList["0001"][2] + actionList["0003"][2] + actionList["0005"][2] + actionList["0007"][2] +
+                      actionList["0009"][2] + actionList["0011"][2] + actionList["0013"][2];
+
+        playerManager.highestScore = highestPossible;
+        
+        Debug.Log(totalPoints);
     }
 }

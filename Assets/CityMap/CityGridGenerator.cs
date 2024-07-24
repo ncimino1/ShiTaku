@@ -36,6 +36,8 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] public NPCMenu NPCMenu;
 
+    public bool genDone = false;
+
     private Dictionary<TileTypes, List<Sprite>> _spriteAtlas;
 
     private Dictionary<TileTypes, Sprite> _interiorAtlas;
@@ -61,6 +63,21 @@ public class CityGridGenerator : MonoBehaviour
     private Thread _thread;
 
     private HashSet<TileTypes> _needsGrass;
+
+    private int _houseRebuild = 0;
+    private int _houseEvac = 0;
+    private int _skyBuild = 0;
+    private int _skyEvac = 0;
+    private int _shrineRebuild = 0;
+    private int _shrineEvac = 0;
+    private int _hardwareRebuild = 0;
+    private int _hardwareEvac = 0;
+    private int _cityhallRebuild = 0;
+    private int _cityhallEvac = 0;
+    private int _fireRebuild = 0;
+    private int _fireEvac = 0;
+    private int _policeRebuild = 0;
+    private int _policeEvac = 0;
 
     private class TileParameters
     {
@@ -113,6 +130,7 @@ public class CityGridGenerator : MonoBehaviour
         {
             splitChar = "\r\n";
         }
+
         var dialogueArray = file.Split(splitChar).SkipLast(1).ToArray();
 
         Dialouge dialouge = new Dialouge();
@@ -613,6 +631,59 @@ public class CityGridGenerator : MonoBehaviour
                 TileParameters parameters = new TileParameters();
                 var type = grid.TileGrid[y, x].TileOptions[0].Type;
 
+                switch (type)
+                {
+                    case TileTypes.House:
+                        _houseEvac++;
+                        break;
+                    case TileTypes.HouseDestroyed:
+                        _houseRebuild++;
+                        _houseEvac++;
+                        break;
+                    case TileTypes.SkyscraperCornerBL:
+                        _skyEvac++;
+                        break;
+                    case TileTypes.SkyscraperCornerBLDestroyed:
+                        _skyEvac++;
+                        _skyBuild++;
+                        break;
+                    case TileTypes.Park:
+                        _shrineEvac++;
+                        break;
+                    case TileTypes.ParkDestroyed:
+                        _shrineEvac++;
+                        _shrineRebuild++;
+                        break;
+                    case TileTypes.HardwareStore:
+                        _hardwareEvac++;
+                        break;
+                    case TileTypes.HardwareStoreDestroyed:
+                        _hardwareEvac++;
+                        _hardwareRebuild++;
+                        break;
+                    case TileTypes.CityHall:
+                        _cityhallEvac++;
+                        break;
+                    case TileTypes.CityHallDestroyed:
+                        _cityhallEvac++;
+                        _cityhallRebuild++;
+                        break;
+                    case TileTypes.FireStation:
+                        _fireEvac++;
+                        break;
+                    case TileTypes.FireStationDestroyed:
+                        _fireEvac++;
+                        _fireRebuild++;
+                        break;
+                    case TileTypes.PoliceStation:
+                        _policeEvac++;
+                        break;
+                    case TileTypes.PoliceStationDestroyed:
+                        _policeEvac++;
+                        _policeRebuild++;
+                        break;
+                }
+
                 if (_spriteAtlas.TryGetValue(type, out var value))
                 {
                     parameters.Type = type;
@@ -702,20 +773,8 @@ public class CityGridGenerator : MonoBehaviour
                 }
             }
         }
-    }
 
-    public int GetEvacNpcCount()
-    {
-        // For returning the total number of evacuation npcs, change it as needed 
-
-        return 1;
-    }
-
-    public int GetWornBldCount()
-    {
-        // For returning the total number of worn buildings, change it as needed 
-
-        return 1;
+        genDone = true;
     }
 
     public int GetTalkNpcCount()
@@ -725,9 +784,99 @@ public class CityGridGenerator : MonoBehaviour
         return 1;
     }
 
-    public int GetSkyscraperCount() {
+    public int GetHouseCount()
+    {
+        // For returning the total number of houses, change it as needed 
+
+        return _houseEvac;
+    }
+
+    public int GetHouseRebuildCount()
+    {
+        return _houseRebuild;
+    }
+
+    public int GetSkyscraperCount()
+    {
         // For returning the total number of skyscrapers, change it as needed
 
-        return 1;
+        return _skyEvac;
+    }
+
+    public int GetSkyscraperRebuildCount()
+    {
+        // For returning the total number of skyscrapers, change it as needed
+
+        return _skyBuild;
+    }
+
+    public int GetShrineCount()
+    {
+        // For returning the total number of shrines, change it as needed 
+
+        return _shrineEvac;
+    }
+
+    public int GetShrineRebuildCount()
+    {
+        // For returning the total number of shrines, change it as needed 
+
+        return _shrineRebuild;
+    }
+
+    public int GetHardwareCount()
+    {
+        // For returning the total number of hardware stores, change it as needed
+
+        return _hardwareEvac;
+    }
+
+    public int GetHardwareRebuildCount()
+    {
+        // For returning the total number of hardware stores, change it as needed
+
+        return _hardwareRebuild;
+    }
+
+    public int GetCityHallCount()
+    {
+        // For returning the total number of city halls, change it as needed
+
+        return _cityhallEvac;
+    }
+
+    public int GetCityHallRebuildCount()
+    {
+        // For returning the total number of city halls, change it as needed
+
+        return _cityhallRebuild;
+    }
+
+    public int GetFireStationCount()
+    {
+        // For returning the total number of fire stations, change it as needed
+
+        return _fireEvac;
+    }
+
+    public int GetFireStationRebuildCount()
+    {
+        // For returning the total number of fire stations, change it as needed
+
+        return _fireRebuild;
+    }
+
+    public int GetPoliceStationCount()
+    {
+        // For returning the total number of police stations, change it as needed
+
+        return _policeEvac;
+    }
+
+    public int GetPoliceStationRebuildCount()
+    {
+        // For returning the total number of police stations, change it as needed
+
+        return _policeRebuild;
     }
 }

@@ -1057,6 +1057,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 834446901}
     - target: {fileID: 3017444304287430417, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: finalDay
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017444304287430417, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: waveObject
       value: 
       objectReference: {fileID: 311822261}
