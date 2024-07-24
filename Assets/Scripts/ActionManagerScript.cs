@@ -152,16 +152,49 @@ public class ActionManagerScript : MonoBehaviour
     }
 
     public void LoadAllActions() { // All methods in cityGen should return an int
-        // For all talk npcs, increment the 3rd value for key "0000" in actionList
+        
         actionList["0000"][2] = cityGen.GetTalkNpcCount();
 
-        // For all worn buildings, increment the 3rd value for key "0001" in actionList
-        actionList["0001"][2] = cityGen.GetWornBldCount();
+        int numHouse = cityGen.GetHouseCount();
 
-        // For all evac npcs, increment the 3rd value for key "0002" in actionList
-        actionList["0002"][2] = cityGen.GetEvacNpcCount();
+        actionList["0001"][2] = numHouse;
 
-        // For all skysrapers, increment the 3rd value for key "0003" in actionList
-        actionList["0003"][2] = cityGen.GetSkyscraperCount();
+        actionList["0002"][2] = numHouse;
+
+        int numSky = cityGen.GetSkyscraperCount();
+
+        actionList["0003"][2] = numSky;
+
+        actionList["0004"][2] = numSky;
+
+        int numShrine = cityGen.GetShrineCount();
+
+        actionList["0005"][2] = numShrine;
+
+        actionList["0006"][2] = numShrine;
+
+        int numHard = cityGen.GetHardwareCount();
+
+        actionList["0007"][2] = numHard;
+
+        actionList["0008"][2] = numHard;
+
+        int numCity = cityGen.GetCityHallCount();
+
+        actionList["0009"][2] = numCity;
+
+        actionList["0010"][2] = numCity;
+
+        int numFire = cityGen.GetFireStationCount();
+
+        actionList["0011"][2] = numFire;
+
+        actionList["0012"][2] = numFire;
+
+        int numPolice = cityGen.GetPoliceStationCount();
+
+        actionList["0013"][2] = numPolice;
+
+        actionList["0014"][2] = numPolice;
     }
 }

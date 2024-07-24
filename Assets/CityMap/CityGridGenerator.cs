@@ -702,20 +702,6 @@ public class CityGridGenerator : MonoBehaviour
         }
     }
 
-    public int GetEvacNpcCount()
-    {
-        // For returning the total number of evacuation npcs, change it as needed 
-
-        return 1;
-    }
-
-    public int GetWornBldCount()
-    {
-        // For returning the total number of worn buildings, change it as needed 
-
-        return 1;
-    }
-
     public int GetTalkNpcCount()
     {
         // For returning the total number of talk npcs, change it as needed 
@@ -723,9 +709,49 @@ public class CityGridGenerator : MonoBehaviour
         return 1;
     }
 
-    public int GetSkyscraperCount() {
+    public int GetHouseCount()
+    {
+        // For returning the total number of houses, change it as needed 
+
+        return 1;
+    }
+
+     public int GetSkyscraperCount() {
         // For returning the total number of skyscrapers, change it as needed
 
         return 1;
     }
+
+    public int GetShrineCount()
+    {
+        // For returning the total number of shrines, change it as needed 
+
+        return 1;
+    }
+
+    public int GetHardwareCount() {
+        // For returning the total number of hardware stores, change it as needed
+
+        return 1;
+    }
+
+    public int GetCityHallCount() {
+        // For returning the total number of city halls, change it as needed
+
+        return 1;
+    }
+
+    public int GetFireStationCount() {
+        // For returning the total number of fire stations, change it as needed
+
+        return 1;
+    }
+
+    public int GetPoliceStationCount() {
+        // For returning the total number of police stations, change it as needed
+
+        return 1;
+    }
+
+   
 }
