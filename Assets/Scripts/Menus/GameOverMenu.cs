@@ -8,6 +8,7 @@ public class GameOverMenu : MonoBehaviour
 {
     public PlayerManager playerManager;
 
+
     public TextMeshProUGUI scoreText;
     public void GoToScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
@@ -19,7 +20,8 @@ public class GameOverMenu : MonoBehaviour
 
     void Start() {
         SetScoreText();
-    } 
+    }
+    
     // Update is called once per frame
     void Update()
     {

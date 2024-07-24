@@ -18,6 +18,8 @@ public class MenuManager : MonoBehaviour
 
     public DaysDisplayer daysDisplayer;
 
+    public CameraFollow camera;
+
     // References to the managers needed
 
     public ActionManagerScript actionManager;
@@ -25,6 +27,13 @@ public class MenuManager : MonoBehaviour
     public PlayerManager playerManager;
 
     private bool _calculatedScore;
+    
+    public Transform waveSprite;
+
+    public GameObject waveObject;
+
+    public bool moveWave = false;
+    public bool waveDone = false;
 
     //Audio
     public AudioSource source;
@@ -69,6 +78,17 @@ public class MenuManager : MonoBehaviour
         isPaused = false;
         gameOver = false;
     }
+    
+
+    void updateWave()
+    {
+        waveSprite.position = new Vector2(Time.deltaTime * 10.0f + waveSprite.position.x, waveSprite.position.y);
+        if (waveSprite.position.x > 200)
+        {
+            moveWave = false;
+            waveDone = true;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -89,6 +109,19 @@ public class MenuManager : MonoBehaviour
                 isPaused = true;
                 pauseMenu.SetAPText();
             } else if (actionManager.ReturnDays() == finalDay) {
+                moveWave = true;
+                camera.followCamera = false;
+                waveObject.SetActive(true);
+                camera.zoomOut();
+            }
+
+            if (moveWave)
+            {
+                updateWave();
+            }
+
+            if (waveDone)
+            {
                 npcMenu.gameObject.SetActive(false);
                 pauseMenu.gameObject.SetActive(false);
                 gameOverMenu.gameObject.SetActive(true);
