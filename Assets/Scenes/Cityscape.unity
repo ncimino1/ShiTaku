@@ -2212,7 +2212,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
       propertyPath: dialouge.sentences.Array.data[1]
-      value: It seems that a tsunami is bound to strike the city in about 4 days.
+      value: It seems that a tsunami is bound to strike the city in about 5 days.
       objectReference: {fileID: 0}
     - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
       propertyPath: dialouge.sentences.Array.data[2]
