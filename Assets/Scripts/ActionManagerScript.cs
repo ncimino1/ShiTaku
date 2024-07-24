@@ -120,9 +120,20 @@ public class ActionManagerScript : MonoBehaviour
         actionList.Clear();
 
         actionList.Add("0000", new int[] {1, 2, 0}); // Talk 
-        actionList.Add("0001", new int[] {3, 2, 0}); // Rebuild
-        actionList.Add("0002", new int[] {2, 2, 0}); // Evacuate
-        actionList.Add("0003", new int[] {4, 5, 0}); // Skyscraper
+        actionList.Add("0001", new int[] {3, 2, 0}); // House Rebuild
+        actionList.Add("0002", new int[] {2, 2, 0}); // House Evacuate
+        actionList.Add("0003", new int[] {4, 4, 0}); // Skyscraper Rebuild
+        actionList.Add("0004", new int[] {4, 2, 0}); // Skyscraper Evacuate
+        actionList.Add("0005", new int[] {2, 1, 0}); // Shrine Rebuild
+        actionList.Add("0006", new int[] {2, 2, 0}); // Shrine Evacuate
+        actionList.Add("0007", new int[] {3, 2, 0}); // Hardware Rebuild
+        actionList.Add("0008", new int[] {2, 2, 0}); // Hardware Evacuate
+        actionList.Add("0009", new int[] {3, 2, 0}); // City Hall Rebuild
+        actionList.Add("0010", new int[] {2, 2, 0}); // City Hall Evacuate
+        actionList.Add("0011", new int[] {3, 5, 0}); // Fire Station Rebuild
+        actionList.Add("0012", new int[] {2, 0, 0}); // Fire Station Evacuate
+        actionList.Add("0013", new int[] {3, 3, 0}); // Police Rebuild
+        actionList.Add("0014", new int[] {2, 0, 0}); // Police Evacutate
         Debug.Log("New Actions Generated.");
     }
 
@@ -141,13 +152,16 @@ public class ActionManagerScript : MonoBehaviour
     }
 
     public void LoadAllActions() { // All methods in cityGen should return an int
-        // For all talk npcs, increment the 4th value for key "0000" in actionList
+        // For all talk npcs, increment the 3rd value for key "0000" in actionList
         actionList["0000"][2] = cityGen.GetTalkNpcCount();
 
-        // For all worn buildings, increment the 4th value for key "0001" in actionList
+        // For all worn buildings, increment the 3rd value for key "0001" in actionList
         actionList["0001"][2] = cityGen.GetWornBldCount();
 
-        // For all evac npcs, increment the 4th value for key "0002" in actionList
+        // For all evac npcs, increment the 3rd value for key "0002" in actionList
         actionList["0002"][2] = cityGen.GetEvacNpcCount();
+
+        // For all skysrapers, increment the 3rd value for key "0003" in actionList
+        actionList["0003"][2] = cityGen.GetSkyscraperCount();
     }
 }

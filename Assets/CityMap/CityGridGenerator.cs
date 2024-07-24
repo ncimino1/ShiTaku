@@ -722,4 +722,10 @@ public class CityGridGenerator : MonoBehaviour
 
         return 1;
     }
+
+    public int GetSkyscraperCount() {
+        // For returning the total number of skyscrapers, change it as needed
+
+        return 1;
+    }
 }
