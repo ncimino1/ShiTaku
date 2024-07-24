@@ -84,7 +84,7 @@ public class MenuManager : MonoBehaviour
 
     void updateWave()
     {
-        waveSprite.position = new Vector2(Time.deltaTime * 30.0f + waveSprite.position.x, waveSprite.position.y);
+        waveSprite.position = new Vector2(Time.deltaTime * 40.0f + waveSprite.position.x, waveSprite.position.y);
         if (waveSprite.position.x > 200)
         {
             moveWave = false;
