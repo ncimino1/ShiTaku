@@ -138,7 +138,7 @@ public class MenuManager : MonoBehaviour
             {
                 npcMenu.gameObject.SetActive(false);
                 pauseMenu.gameObject.SetActive(false);
-                gameOverMenu.gameObject.SetActive(true);
+                gameOverMenu.gameObject.SetActive(false);
                 gameOver = true;
                 if (!_calculatedScore)
                 {

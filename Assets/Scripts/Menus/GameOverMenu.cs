@@ -8,6 +8,7 @@ public class GameOverMenu : MonoBehaviour
 {
     public PlayerManager playerManager;
 
+    private static int finalScore;
 
     public TextMeshProUGUI scoreText;
     public void GoToScene(string sceneName) {
@@ -16,22 +17,15 @@ public class GameOverMenu : MonoBehaviour
 
     public void SetScoreText() {
         scoreText = GameObject.FindWithTag("FinalScore").GetComponent<TextMeshProUGUI>();
+        scoreText.text = "Score: " + finalScore.ToString();
     }
 
     void Start() {
         SetScoreText();
     }
-    
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.X)) {
-            GoToScene("MainMenuScene");
-        }
-    }
 
     public void FinishGame() {
-        int finalScore = playerManager.GetFinalScore();
+        finalScore = playerManager.GetFinalScore();
         int possible = playerManager.highestScore;
         
         float percent = 1.0f;
@@ -51,7 +45,6 @@ public class GameOverMenu : MonoBehaviour
             // result = "Fail ";
         }
 
-        // scoreText.text = result + "Score: " + finalScore.ToString();
-
+        scoreText.text = "Score: " + finalScore.ToString();
     }
 }
