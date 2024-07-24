@@ -20,6 +20,9 @@ public class PlayerManager : MonoBehaviour
 
     public Stack<int> accumScore; // Holds score gained from previous actions performed 
 
+    public bool failOverride = false;
+    public bool passOverride = false;
+
     public int highestScore;
     
     // Start is called before the first frame update to get the Animator component

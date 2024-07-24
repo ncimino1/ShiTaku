@@ -208,9 +208,13 @@ public class ActionManagerScript : MonoBehaviour
 
         ResetActionPoints();
 
-        var highestPossible = actionList["0001"][2] + actionList["0003"][2] + actionList["0005"][2] +
-                              actionList["0007"][2] +
-                              actionList["0009"][2] + actionList["0011"][2] + actionList["0013"][2];
+        var highestPossible = actionList["0001"][2] * actionList["0001"][1] +
+                              actionList["0003"][2] * actionList["0003"][1] +
+                              actionList["0005"][2] * actionList["0005"][1] +
+                              actionList["0007"][2] * actionList["0007"][1] +
+                              actionList["0009"][2] * actionList["0009"][1] +
+                              actionList["0011"][2] * actionList["0011"][1] +
+                              actionList["0013"][2] * actionList["0013"][1];
 
         playerManager.highestScore = highestPossible;
 

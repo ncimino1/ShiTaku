@@ -28,13 +28,25 @@ public class GameOverMenu : MonoBehaviour
         finalScore = playerManager.GetFinalScore();
         int possible = playerManager.highestScore;
         
+        Debug.Log(possible);
+        
         float percent = 1.0f;
         if (possible != 0)
         {
             percent = finalScore / (float)possible;
         }
 
-        if (percent > .70)
+        if (playerManager.passOverride)
+        {
+            SceneManager.LoadScene("Pass Scene");
+        }
+
+        if (playerManager.failOverride)
+        {
+            SceneManager.LoadScene("Fail Scene");
+        }
+
+        if (percent > .80)
         {
             SceneManager.LoadScene("Pass Scene");
             // result = "Pass ";

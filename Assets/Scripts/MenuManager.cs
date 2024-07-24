@@ -124,13 +124,13 @@ public class MenuManager : MonoBehaviour
             if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift) && !moveWave)
             {
                 actionManager.dayCounter = finalDay;
-                playerManager.highestScore = 0;
+                playerManager.passOverride = true;
             }
 
             if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftShift) && !moveWave)
             {
                 actionManager.dayCounter = finalDay;
-                playerManager.highestScore = 1000;
+                playerManager.failOverride = true;
             }
 
             if (moveWave)
