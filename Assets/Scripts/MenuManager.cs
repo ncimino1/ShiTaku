@@ -18,7 +18,7 @@ public class MenuManager : MonoBehaviour
 
     public DaysDisplayer daysDisplayer;
 
-    public CameraFollow camera;
+    public CameraFollow cameraFollow;
 
     // References to the managers needed
 
@@ -114,7 +114,7 @@ public class MenuManager : MonoBehaviour
                 moveWave = true;
                 waveObject.SetActive(true);
                 Player.SetActive(false);
-                camera.zoomOut();
+                cameraFollow.zoomOut();
             }
 
             if (moveWave)

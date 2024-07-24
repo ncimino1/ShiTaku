@@ -606,7 +606,8 @@ MonoBehaviour:
   m_text: "How To Play:\n\nQUICK! The city is only a few days from \ndisaster and
     it's up to YOU to stop it.\nGo building to building and help repair or \nevacuate
     civilians with your limited actions!\n\nControls:\nMove: WASD Keys\nInteract:
-    E\nPause Menu: Z\nMove in Menus: Arrow Keys\n\nAre you ready? Press [E] to contunue"
+    E\nPause Menu: Z\nMove in Menus: Arrow Keys\nZoom Out: G\nZoom In: H\n\nAre you
+    ready? Press [E] to contunue"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}
   m_sharedMaterial: {fileID: -2043644967896245437, guid: e4567a951b7af1d4bb933650fcfc0fb1, type: 2}

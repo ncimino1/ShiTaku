@@ -54,9 +54,9 @@ public class ActionManagerScript : MonoBehaviour
         if (actionCounter <= 0 && _actionsLoaded)
         {
             ResetActionPoints();
-            
+
             Debug.Log(actionCounter);
-            
+
             // Do Time Transition
             dayCounter = dayCounter + 1;
             Debug.Log("New Transition.");
@@ -91,19 +91,13 @@ public class ActionManagerScript : MonoBehaviour
     {
         if (actionList.ContainsKey(actionID))
         {
-            if (actionList[actionID][0] <= actionCounter)
-            {
-                actionCounter -= actionList[actionID][0];
+            actionCounter -= actionList[actionID][0];
 
-                playerManager.accumScore.Push(actionList[actionID][1]);
-                // return a message that says action allowed
-                Debug.Log("Action Allowed and Successful.");
-            }
-            else
-            {
-                Debug.Log("Action not Successful");
-                // return a message that says action NOT allowed
-            }
+            Debug.Log("decrement");
+
+            playerManager.accumScore.Push(actionList[actionID][1]);
+            // return a message that says action allowed
+            Debug.Log("Action Allowed and Successful.");
         }
         else
         {
@@ -213,12 +207,13 @@ public class ActionManagerScript : MonoBehaviour
         totalPoints /= 5;
 
         ResetActionPoints();
-        
-        var highestPossible= actionList["0001"][2] + actionList["0003"][2] + actionList["0005"][2] + actionList["0007"][2] +
-                      actionList["0009"][2] + actionList["0011"][2] + actionList["0013"][2];
+
+        var highestPossible = actionList["0001"][2] + actionList["0003"][2] + actionList["0005"][2] +
+                              actionList["0007"][2] +
+                              actionList["0009"][2] + actionList["0011"][2] + actionList["0013"][2];
 
         playerManager.highestScore = highestPossible;
-        
+
         Debug.Log(totalPoints);
     }
 }

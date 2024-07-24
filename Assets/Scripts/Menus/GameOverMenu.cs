@@ -39,14 +39,16 @@ public class GameOverMenu : MonoBehaviour
 
         if (percent > .70)
         {
-            result = "Pass ";
+            SceneManager.LoadScene("Pass Scene");
+            // result = "Pass ";
         }
         else
         {
-            result = "Fail ";
+            SceneManager.LoadScene("Fail Scene");
+            // result = "Fail ";
         }
 
-        scoreText.text = result + "Score: " + finalScore.ToString();
+        // scoreText.text = result + "Score: " + finalScore.ToString();
 
     }
 }

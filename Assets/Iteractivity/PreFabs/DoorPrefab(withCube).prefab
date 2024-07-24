@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5385006778042575264}
   - component: {fileID: 5597436661497026972}
   - component: {fileID: 2662927440365543986}
-  - component: {fileID: 5477523992321468585}
   m_Layer: 0
   m_Name: DoorPrefab(withCube)
   m_TagString: Untagged
@@ -119,7 +118,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 393607723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1723017232, guid: fbb075c63d53d2d40b6c3e4172078f91, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -132,22 +131,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5477523992321468585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963428325737977618}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10f5f05e6021ab74bab3b7823423e7e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isInteracted: 0
-  interior: {fileID: 0}
-  exterior: {fileID: 0}
-  player: {fileID: 4291896189302112390, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
 --- !u!1 &4829971074940688954
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +227,7 @@ MonoBehaviour:
   interactAction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5477523992321468585}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: InteractController, Assembly-CSharp
         m_MethodName: Interact
         m_Mode: 1
@@ -256,3 +239,5 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  Menu: {fileID: 0}
+  ParentTile: {fileID: 0}

@@ -26,4 +26,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Instructional Scene.unity
     guid: f5dcd648d19d8f642a839eeeff602db7
+  - enabled: 1
+    path: Assets/Scenes/Pass Scene.unity
+    guid: c4be0ccbfd1c752d4ba14a306578c48f
+  - enabled: 1
+    path: Assets/Scenes/Fail Scene.unity
+    guid: 47df70abcf4f16270b28f0da83e62d33
   m_configObjects: {}
