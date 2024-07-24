@@ -965,6 +965,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2462095782478593070, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_Text
+      value: Evacuate
+      objectReference: {fileID: 0}
+    - target: {fileID: 2462095782478593070, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
       objectReference: {fileID: 12800000, guid: 6ff5e7d806e03014f998714d6a94434b, type: 3}
@@ -1547,6 +1551,10 @@ PrefabInstance:
     - target: {fileID: 7159205622047634795, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_Color.r
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232411921823212860, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
+      propertyPath: m_Text
+      value: Rebuild
       objectReference: {fileID: 0}
     - target: {fileID: 7232411921823212860, guid: 20d48100b4fe9b59eb099ac31a3826f6, type: 3}
       propertyPath: m_FontData.m_Font
