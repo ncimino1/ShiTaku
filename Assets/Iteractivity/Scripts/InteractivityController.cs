@@ -13,6 +13,7 @@ public class RoomDetails
     public bool HasInteracted;
     public bool HasDecideInteracted;
     public bool HasRebuildInteracted;
+    public TileTypes type;
 }
 
 public class InteractivityController : MonoBehaviour

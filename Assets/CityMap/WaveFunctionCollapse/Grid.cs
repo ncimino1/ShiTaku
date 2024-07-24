@@ -88,13 +88,24 @@ namespace CityMap.WaveFunctionCollapse
             foreach (var config in configuration)
             {
                 if (x == 0 && _leftEdgeForbidden.Contains(config.Type))
+                {
                     continue;
+                }
+
                 if (x == _width - 1 && _rightEdgeForbidden.Contains(config.Type))
+                {
                     continue;
+                }
+
                 if (y == 0 && _topEdgeForbidden.Contains(config.Type))
+                {
                     continue;
+                }
+
                 if (y == _height - 1 && _bottomEdgeForbidden.Contains(config.Type))
+                {
                     continue;
+                }
 
                 newConfig.Add(config);
             }

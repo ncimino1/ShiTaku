@@ -77,6 +77,9 @@ public class NPCMenu : MonoBehaviour
     //static
     public SpriteMovement _spriteMovement;
 
+    private Dictionary<TileTypes, string> _rebuildAction;
+    private Dictionary<TileTypes, string> _evacAction;
+
     private Coroutine start;
     private Coroutine stop;
 
@@ -216,7 +219,7 @@ public class NPCMenu : MonoBehaviour
                 {
                     if (CurrentTile.Destroyed)
                     {
-                        LoadAction("0001");
+                        LoadAction(_rebuildAction[Details.type]);
                         _roomSprite.RebuildInteract();
                     }
                     else
@@ -247,7 +250,7 @@ public class NPCMenu : MonoBehaviour
                 }
                 else
                 {
-                    LoadAction("0002");
+                    LoadAction(_evacAction[Details.type]);
                     _roomSprite.DecideInteract();
                     // actionManager.DecrementAP();
                 }
@@ -323,6 +326,42 @@ public class NPCMenu : MonoBehaviour
         GenerateOptions();
         currentAction = "";
         actionBenefit = 0;
+
+        _rebuildAction = new Dictionary<TileTypes, string>()
+        {
+            { TileTypes.House , "0001"},
+            { TileTypes.HouseDestroyed , "0001"},
+            { TileTypes.SkyscraperCornerBL , "0003"},
+            { TileTypes.SkyscraperCornerBLDestroyed , "0003"},
+            { TileTypes.Park , "0005"},
+            { TileTypes.ParkDestroyed , "0005"},
+            { TileTypes.HardwareStore , "0007"},
+            { TileTypes.HardwareStoreDestroyed , "0007"},
+            { TileTypes.CityHall , "0009"},
+            { TileTypes.CityHallDestroyed , "0009"},
+            { TileTypes.FireStation , "0011"},
+            { TileTypes.FireStationDestroyed , "0011"},
+            { TileTypes.PoliceStation , "0013"},
+            { TileTypes.PoliceStationDestroyed , "0013"},
+        };
+
+        _evacAction = new Dictionary<TileTypes, string>()
+        {
+            { TileTypes.House , "0002"},
+            { TileTypes.HouseDestroyed , "0002"},
+            { TileTypes.SkyscraperCornerBL , "0004"},
+            { TileTypes.SkyscraperCornerBLDestroyed , "0004"},
+            { TileTypes.Park , "0006"},
+            { TileTypes.ParkDestroyed , "0006"},
+            { TileTypes.HardwareStore , "0008"},
+            { TileTypes.HardwareStoreDestroyed , "0008"},
+            { TileTypes.CityHall , "0010"},
+            { TileTypes.CityHallDestroyed , "0010"},
+            { TileTypes.FireStation , "0012"},
+            { TileTypes.FireStationDestroyed , "0012"},
+            { TileTypes.PoliceStation , "0014"},
+            { TileTypes.PoliceStationDestroyed , "0014"},
+        };
     }
 
     void Update()

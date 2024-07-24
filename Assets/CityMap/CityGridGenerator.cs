@@ -526,6 +526,7 @@ public class CityGridGenerator : MonoBehaviour
             details.HasInteracted = false;
             details.HasDecideInteracted = false;
             details.HasRebuildInteracted = false;
+            details.type = type;
 
             interactivityController.Details = details;
 

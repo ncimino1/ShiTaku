@@ -32,6 +32,8 @@ public class MenuManager : MonoBehaviour
 
     public GameObject waveObject;
 
+    public GameObject Player;
+
     public bool moveWave = false;
     public bool waveDone = false;
 
@@ -110,8 +112,8 @@ public class MenuManager : MonoBehaviour
                 pauseMenu.SetAPText();
             } else if (actionManager.ReturnDays() == finalDay) {
                 moveWave = true;
-                camera.followCamera = false;
                 waveObject.SetActive(true);
+                Player.SetActive(false);
                 camera.zoomOut();
             }
 
