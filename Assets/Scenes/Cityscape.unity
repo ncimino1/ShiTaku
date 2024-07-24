@@ -2190,6 +2190,60 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.name
+      value: You Whisper To Yourself
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[0]
+      value: According to my totally legit watch I bought on Tanaka's shopping channel...
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[1]
+      value: It seems that a tsunami is bound to strike the city in about 4 days.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[2]
+      value: This is bad I think.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[3]
+      value: I should probably go around helping out as best I can.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[4]
+      value: If I remember correctly, I can either use my efforts to rebuild damaged
+        buildings or evacuate citizens in there.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[5]
+      value: Some buildings are more ideal to upkeep but evacuations always seems
+        like a good plan.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[6]
+      value: Each of these activities spend a variety of my actions per day. I can
+        do as much per day as my points allow because I'm an eepy boy.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[7]
+      value: I should start exploring the town and visiting buildings that I see
+        as vital.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[8]
+      value: I sure do hope the same few NP... erm I mean citizens... don't show
+        up in every building.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4151661371740149142, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
+      propertyPath: dialouge.sentences.Array.data[9]
+      value: I wonder what mom's been up to? I can never quite tell what house she's
+        in nowadays.
+      objectReference: {fileID: 0}
     - target: {fileID: 4291896189302112390, guid: 20c7d71bbaf4e7a44a85028dd524552c, type: 3}
       propertyPath: m_Name
       value: Player with Sprite
