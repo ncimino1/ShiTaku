@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+
 public class GameOverMenu : MonoBehaviour
 {
     public PlayerManager playerManager;
@@ -11,25 +12,30 @@ public class GameOverMenu : MonoBehaviour
     private static int finalScore;
 
     public TextMeshProUGUI scoreText;
-    public void GoToScene(string sceneName) {
+
+    public void GoToScene(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
 
-    public void SetScoreText() {
+    public void SetScoreText()
+    {
         scoreText = GameObject.FindWithTag("FinalScore").GetComponent<TextMeshProUGUI>();
         scoreText.text = "Score: " + finalScore.ToString();
     }
 
-    void Start() {
+    void Start()
+    {
         SetScoreText();
     }
 
-    public void FinishGame() {
+    public void FinishGame()
+    {
         finalScore = playerManager.GetFinalScore();
         int possible = playerManager.highestScore;
-        
+
         Debug.Log(possible);
-        
+
         float percent = 1.0f;
         if (possible != 0)
         {
@@ -40,13 +46,11 @@ public class GameOverMenu : MonoBehaviour
         {
             SceneManager.LoadScene("Pass Scene");
         }
-
-        if (playerManager.failOverride)
+        else if (playerManager.failOverride)
         {
             SceneManager.LoadScene("Fail Scene");
         }
-
-        if (percent > .80)
+        else if (percent > .80)
         {
             SceneManager.LoadScene("Pass Scene");
             // result = "Pass ";
