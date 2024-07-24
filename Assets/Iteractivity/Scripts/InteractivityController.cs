@@ -9,6 +9,7 @@ public class RoomDetails
     public Sprite NPCImage;
     public Dialouge NPCDialouge;
     public bool NPCResolved;
+    public bool RebuildResolved;
     public bool HasInteracted;
     public bool HasDecideInteracted;
     public bool HasRebuildInteracted;

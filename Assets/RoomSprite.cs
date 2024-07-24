@@ -109,6 +109,7 @@ public class RoomSprite : MonoBehaviour
                 npcMenu.actionBenefit = 0;
                 npcMenu.CurrentTile.Destroyed = false;
                 npcMenu.CurrentTile.FixTile();
+                npcMenu.Details.RebuildResolved = true;
 
                 return;
             }
