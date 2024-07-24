@@ -8,8 +8,11 @@ public class Builder
 
         var scenes = new string[]
         {
-            "Assets/MainMenuScene.unity",
+            "Assets/Scenes/MainMenuScene.unity",
             "Assets/Scenes/Cityscape.unity",
+            "Assets/Scenes/Instructional Scene.unity",
+            "Assets/Scenes/Pass Scene.unity",
+            "Assets/Scenes/Fail Scene.unity",
         };
 
         var options = new BuildPlayerOptions
