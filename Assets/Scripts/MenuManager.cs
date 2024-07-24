@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     // finalDay holds the day number when Game Over is reached
-    public int finalDay = 6;
+    public int finalDay;
 
     // References to all the menus to manipulate
 
@@ -88,7 +88,7 @@ public class MenuManager : MonoBehaviour
                 source.PlayOneShot(menu_appear_clip);
                 isPaused = true;
                 pauseMenu.SetAPText();
-            } else if (actionManager.ReturnDays() == finalDay) {
+            } else if (actionManager.ReturnDays() >= finalDay) {
                 npcMenu.gameObject.SetActive(false);
                 pauseMenu.gameObject.SetActive(false);
                 gameOverMenu.gameObject.SetActive(true);

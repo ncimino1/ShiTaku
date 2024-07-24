@@ -214,6 +214,11 @@ public class ActionManagerScript : MonoBehaviour
 
         ResetActionPoints();
         
+        var highestPossible= actionList["0001"][2] + actionList["0003"][2] + actionList["0005"][2] + actionList["0007"][2] +
+                      actionList["0009"][2] + actionList["0011"][2] + actionList["0013"][2];
+
+        playerManager.highestScore = highestPossible;
+        
         Debug.Log(totalPoints);
     }
 }
