@@ -11,6 +11,11 @@ public class PlayerManager : MonoBehaviour
 
     SpriteMovement spriteMovement;
 
+    public Dialouge dialouge;
+    
+    public bool startDialouge = true;
+    public bool startDialogueOver = false;
+
     public bool isInRoom = false;
 
     public Stack<int> accumScore; // Holds score gained from previous actions performed 
@@ -23,6 +28,9 @@ public class PlayerManager : MonoBehaviour
         spriteMovement = GetComponent<SpriteMovement>();
 
         accumScore = new Stack<int>();
+
+        //Tutorial dialouge
+        FindAnyObjectByType<DialougeManager>().StartDialouge(dialouge);
     }
 
     //Update is called once per frame to check for key presses and trigger animations
@@ -66,6 +74,30 @@ public class PlayerManager : MonoBehaviour
             anim.SetBool("right", false);
         }
 
+        if(Input.GetKeyDown(KeyCode.E) && !isInRoom && !startDialogueOver){
+            Interact();
+        }
+    }
+
+    public virtual void Interact(){
+        Debug.Log("Empty Interacting with NPC");
+
+        if(startDialouge){
+            FindAnyObjectByType<DialougeManager>().StartDialouge(dialouge);
+            startDialouge = false;
+        }
+
+        else{
+            //Check to see if there is a next sentence, if there is display it. Else end the dialouge
+            if(FindAnyObjectByType<DialougeManager>().sentences.Count <= 0){
+                FindAnyObjectByType<DialougeManager>().EndDialouge();
+                startDialogueOver = true;
+                return;
+            }
+            else{
+                FindAnyObjectByType<DialougeManager>().DisplayNextSentence();
+            }
+        }
     }
 
     public void EnterRoom(){
