@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using Random = System.Random;
 
 namespace CityMap.WaveFunctionCollapse
 {
@@ -9,6 +10,8 @@ namespace CityMap.WaveFunctionCollapse
         public TileConfiguration[] TileOptions { get; set; }
 
         public bool Collapsed { get; private set; }
+        
+        private static Random random = new Random();
 
         public Tile(TileConfiguration[] options)
         {
@@ -40,18 +43,17 @@ namespace CityMap.WaveFunctionCollapse
 
             if (nonRoads == 0)
             {
-                Debug.Log("only roads :(");
-                TileOptions = new[] { TileOptions[Random.Range(0, GetEntropy())] };
+                TileOptions = new[] { TileOptions[random.Next(0, GetEntropy())] };
             }
             else
             {
-                if (Random.Range(0, 4) == 3)
+                if (random.Next(0, 4) == 3)
                 {
-                    TileOptions = new[] { sorted[Random.Range(0, roads)] };
+                    TileOptions = new[] { sorted[random.Next(0, roads)] };
                 }
                 else
                 {
-                    TileOptions = new[] { sorted[Random.Range(roads, sorted.Length)] };
+                    TileOptions = new[] { sorted[random.Next(roads, sorted.Length)] };
                 }
             }
 

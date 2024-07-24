@@ -62,7 +62,7 @@ public class ActionManagerScript : MonoBehaviour
             Debug.Log("New Transition.");
         }
 
-        if (!_actionsLoaded && cityGen.genDone)
+        if (!_actionsLoaded && CityGridGenerator.genDone)
         {
             LoadAllActions();
             _actionsLoaded = true;

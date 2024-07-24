@@ -8,6 +8,7 @@ using CityMap.WaveFunctionCollapse;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.U2D;
 using Grid = CityMap.WaveFunctionCollapse.Grid;
 using Random = UnityEngine.Random;
@@ -36,7 +37,13 @@ public class CityGridGenerator : MonoBehaviour
 
     [SerializeField] public NPCMenu NPCMenu;
 
-    public bool genDone = false;
+    private static Grid grid;
+
+    private static Thread genThread;
+
+    public static bool genDone = false;
+
+    private static bool startGen = false;
 
     private Dictionary<TileTypes, List<Sprite>> _spriteAtlas;
 
@@ -90,19 +97,48 @@ public class CityGridGenerator : MonoBehaviour
         public int Index = -1;
     }
 
+    private void threadWorker()
+    {
+        startGen = true;
+        var config = TileConfiguration.Generate();
+        grid = new Grid(width, height, config);
+        while (!grid.Collapse())
+        {
+        }
+
+        grid.FixDuplicates();
+        grid.FixRoads();
+        grid.FixSkyscrapers();
+        grid.DestroyBuildings();
+
+        startGen = false;
+        genDone = true;
+        
+        Debug.Log("background thread done");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        LoadSprites();
-        if (readFile)
+        if (SceneManager.GetActiveScene().name == "MainMenuScene" && !startGen)
         {
-            LoadTiles();
+            Debug.Log("generating tiles");
+            genDone = false;
+            genThread = new Thread(threadWorker);
+            genThread.Start();
         }
-        else
+        
+        else if (SceneManager.GetActiveScene().name == "Cityscape")
         {
-            //_thread = new Thread(GenerateTiles);
-            //_thread.Start();
-            GenerateTiles();
+            LoadSprites();
+            if (readFile)
+            {
+                LoadTiles();
+            }
+            else
+            {
+                GenerateTiles();
+            }
         }
     }
 
@@ -438,7 +474,6 @@ public class CityGridGenerator : MonoBehaviour
         {
             t.Destroyed = parameters.Destroyed;
             var fixedName = parameters.Type.Value.ToString().Replace("Destroyed", "");
-            Debug.Log(fixedName);
             if (!TileTypes.TryParse(fixedName, out TileTypes result))
             {
                 t.FixedAsset = _spriteAtlas[TileTypes.HouseDestroyed][0];
@@ -604,18 +639,16 @@ public class CityGridGenerator : MonoBehaviour
 
     void GenerateTiles()
     {
-        var config = TileConfiguration.Generate();
-
-
-        Grid grid = new Grid(width, height, config);
-        while (!grid.Collapse())
+        if (genThread is null)
         {
+            threadWorker();
         }
-
-        grid.FixDuplicates();
-        grid.FixRoads();
-        grid.FixSkyscrapers();
-        grid.DestroyBuildings();
+        else
+        {
+            Debug.Log("waiting");
+            genThread.Join();
+            Debug.Log("gen done");
+        }
 
         var (startX, startY) = grid.GetRandomRoad();
 

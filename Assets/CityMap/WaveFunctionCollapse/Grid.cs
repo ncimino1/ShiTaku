@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using Random = System.Random;
 
 namespace CityMap.WaveFunctionCollapse
 {
@@ -18,6 +18,8 @@ namespace CityMap.WaveFunctionCollapse
         private TileConfiguration[] _options;
 
         private int skyscraperCount = 0;
+
+        private static Random random = new Random();
 
         private static HashSet<TileTypes> _rightEdgeForbidden = new HashSet<TileTypes>()
         {
@@ -79,7 +81,7 @@ namespace CityMap.WaveFunctionCollapse
             if (tileGridCopy.Length == 0)
                 return null;
 
-            return tileGridCopy[Random.Range(0, tileGridCopy.Length)];
+            return tileGridCopy[random.Next(0, tileGridCopy.Length)];
         }
 
         private TileConfiguration[] FixEdgeTile(Tile tile, int x, int y, TileConfiguration[] configuration)
@@ -222,9 +224,9 @@ namespace CityMap.WaveFunctionCollapse
 
             var house = _options.First(t => t.Type == TileTypes.House);
 
-            var cityHallRandom = Random.Range(0, cityHall.Length);
-            var fireStationRandom = Random.Range(0, fireStation.Length);
-            var policeStationRandom = Random.Range(0, policeStation.Length);
+            var cityHallRandom = random.Next(0, cityHall.Length);
+            var fireStationRandom = random.Next(0, fireStation.Length);
+            var policeStationRandom = random.Next(0, policeStation.Length);
 
             for (int i = 0; i < cityHall.Length; i++)
             {
@@ -275,7 +277,7 @@ namespace CityMap.WaveFunctionCollapse
 
             while (randIndicies.Count != newParks)
             {
-                var randGen = Random.Range(0, parkCount);
+                var randGen = random.Next(0, parkCount);
                 randIndicies.Add(randGen);
             }
 
@@ -464,7 +466,7 @@ namespace CityMap.WaveFunctionCollapse
 
             while (randIndicies.Count != destroyedCount)
             {
-                var randGen = Random.Range(0, houseCount);
+                var randGen = random.Next(0, houseCount);
                 randIndicies.Add(randGen);
             }
 
@@ -496,7 +498,7 @@ namespace CityMap.WaveFunctionCollapse
 
             while (randIndicies.Count != destroyedCount)
             {
-                randIndicies.Add(Random.Range(0, parkCount));
+                randIndicies.Add(random.Next(0, parkCount));
             }
 
             var destroyedPark = new TileConfiguration(TileTypes.ParkDestroyed);
@@ -519,14 +521,14 @@ namespace CityMap.WaveFunctionCollapse
             }
             else
             {
-                destroyedSkyscraperCount = Random.Range(1, skyscraperCount / 4);
+                destroyedSkyscraperCount = random.Next(1, skyscraperCount / 4);
             }
 
             randIndicies.Clear();
 
             while (randIndicies.Count != destroyedSkyscraperCount)
             {
-                randIndicies.Add(Random.Range(0, skyscraperCount / 4));
+                randIndicies.Add(random.Next(0, skyscraperCount / 4));
             }
 
             var index = 0;
@@ -561,7 +563,7 @@ namespace CityMap.WaveFunctionCollapse
                 .ToArray();
 
             var count = roads.Length;
-            var randomRoad = Random.Range(0, count);
+            var randomRoad = random.Next(0, count);
             var i = -1;
             for (int x = 0; x < _width; x++)
             {
