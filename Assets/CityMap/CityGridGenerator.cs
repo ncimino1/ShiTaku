@@ -106,7 +106,14 @@ public class CityGridGenerator : MonoBehaviour
             "This building is already in stable condition.",
         };
 
-        var dialogueArray = Resources.Load<TextAsset>("Dialogue").text.Split('\n').SkipLast(1).ToArray();
+        var file = Resources.Load<TextAsset>("Dialogue").text;
+        string splitChar = "\n";
+
+        if (file.Contains('\r'))
+        {
+            splitChar = "\r\n";
+        }
+        var dialogueArray = file.Split(splitChar).SkipLast(1).ToArray();
 
         Dialouge dialouge = new Dialouge();
 
