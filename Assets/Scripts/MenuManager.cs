@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     // finalDay holds the day number when Game Over is reached
-    public int finalDay = 4;
+    public int finalDay = 6;
 
     // References to all the menus to manipulate
 
