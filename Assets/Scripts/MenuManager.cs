@@ -84,7 +84,7 @@ public class MenuManager : MonoBehaviour
 
     void updateWave()
     {
-        waveSprite.position = new Vector2(Time.deltaTime * 10.0f + waveSprite.position.x, waveSprite.position.y);
+        waveSprite.position = new Vector2(Time.deltaTime * 30.0f + waveSprite.position.x, waveSprite.position.y);
         if (waveSprite.position.x > 200)
         {
             moveWave = false;
@@ -115,6 +115,18 @@ public class MenuManager : MonoBehaviour
                 waveObject.SetActive(true);
                 Player.SetActive(false);
                 cameraFollow.zoomOut();
+            }
+
+            if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.LeftShift) && !moveWave)
+            {
+                actionManager.dayCounter = finalDay;
+                playerManager.highestScore = 0;
+            }
+
+            if (Input.GetKey(KeyCode.Q) && Input.GetKey(KeyCode.LeftShift) && !moveWave)
+            {
+                actionManager.dayCounter = finalDay;
+                playerManager.highestScore = 1000;
             }
 
             if (moveWave)
